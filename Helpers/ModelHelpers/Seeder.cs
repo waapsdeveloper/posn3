@@ -56,7 +56,7 @@ namespace POSN3.Helpers.ModelHelpers
 
             // create a super admin user in database
 
-            var sql = ""
+            var sql = "";
 
         }
 
