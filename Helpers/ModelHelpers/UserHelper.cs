@@ -17,44 +17,45 @@ namespace POSN3.Helpers.ModelHelpers
             this.sqliteHelper = sqliteHelper;
         }
 
-        public DataTable all()
-        {
-            string sql = "Select * from Users";
+        //public DataTable all()
+        //{
+        //    string sql = "Select * from Users";
 
-            object[] values = { };
-            var r = sqliteHelper.executeDataTable(sql, values);
-            UtilityHelper.consoleLog("Users table created successful");
-            SQLiteDataAdapter da = new SQLiteDataAdapter(r);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            return dt;
-        }
+            //object[] values = { };
+            //var r = sqliteHelper.executeDataTable(sql, values);
+            //UtilityHelper.consoleLog("Users table created successful");
+            //SQLiteDataAdapter da = new SQLiteDataAdapter(r);
+            //DataTable dt = new DataTable();
+            //da.Fill(dt);
+            //return dt;
+        //}
 
-        public DataTable get(Object[] param)
-        {
-            string sql = "Select * from Users";
+        //public DataTable get(Object[] param)
+        //{
+        //    string sql = "Select * from Users";
 
-            object[] values = { };
-            var r = sqliteHelper.executeDataTable(sql, values);
-            UtilityHelper.consoleLog("Users table created successful");
-            SQLiteDataAdapter da = new SQLiteDataAdapter(r);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            return dt;
-        }
+            //object[] values = { };
+            //var r = sqliteHelper.executeDataTable(sql, values);
+            //UtilityHelper.consoleLog("Users table created successful");
+            //SQLiteDataAdapter da = new SQLiteDataAdapter(r);
+            //DataTable dt = new DataTable();
+            //da.Fill(dt);
+            //return dt;
+        //}
 
-        public bool insert(string name, string email, string password)
+        public bool insert(string name, string email, string password, int role_id)
         {
             string sqla = "INSERT INTO Users ";
             sqla += "(";
-            sqla += "`name`, ";
-            sqla += "`email`, ";
-            sqla += "`password` ";
+            sqla += "name, ";
+            sqla += "email, ";
+            sqla += "password, ";
+            sqla += "role_id ";
             sqla += ") ";
 
             
 
-            sqla += "VALUES ('"+name+"','"+email+"','"+password+"')";
+            sqla += "VALUES ('"+name+"','"+email+"','"+password+"', " + role_id + ")";
 
             object[] valuesa = { };
 

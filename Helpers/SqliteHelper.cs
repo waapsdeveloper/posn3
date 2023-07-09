@@ -14,11 +14,11 @@ namespace POSN3.Helpers
     internal class SqliteHelper
     {
 
-        private SQLiteConnection connection = new SQLiteConnection("Data Source=posn3.db");
+        private SqlConnection connection;
 
         public bool initialize()
         {
-            UtilityHelper.consoleLog("sqlite initialized");
+            UtilityHelper.consoleLog("sql initialized");
             return connect();
         }
 
@@ -27,7 +27,9 @@ namespace POSN3.Helpers
 
             try
             {
-                
+
+                connection = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\WAAPS-52\\Desktop\\Shoaib\\Jozo\\pos-n3\\POSN3\\posn3lc.mdf;Integrated Security=True");
+
                 Creater cr = new Creater(this);
                 cr.initialize();
                 
@@ -51,9 +53,13 @@ namespace POSN3.Helpers
 
             try
             {
-                connection.Open();
+                if (connection.State == ConnectionState.Closed)
+                {
+                    connection.Open();
+                }
+                
                 UtilityHelper.consoleLog(sql);
-                SQLiteCommand command = new SQLiteCommand(sql, connection);
+                SqlCommand command = new SqlCommand(sql, connection);
                 var result = command.ExecuteNonQuery();
                 connection.Close();
                 return result;
@@ -72,11 +78,14 @@ namespace POSN3.Helpers
 
             try
             {
-                connection.Open();
+                if (connection.State == ConnectionState.Closed)
+                {
+                    connection.Open();
+                }
                 UtilityHelper.consoleLog(sql);
-                SQLiteCommand command = new SQLiteCommand(sql, connection);
+                SqlCommand command = new SqlCommand(sql, connection);
                 command.ExecuteNonQuery();
-                SQLiteDataAdapter da = new SQLiteDataAdapter(command);
+                SqlDataAdapter da = new SqlDataAdapter(command);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
                 connection.Close();
@@ -94,13 +103,13 @@ namespace POSN3.Helpers
         }
 
 
-        public SQLiteCommand executeDataTable(string sql, Object[] param)
+        public SqlCommand executeDataTable(string sql, Object[] param)
         {
 
             try
             {
                 connection.Open();
-                SQLiteCommand command = new SQLiteCommand(sql, connection);
+                SqlCommand command = new SqlCommand(sql, connection);
                 command.ExecuteNonQuery();
                 connection.Close();
                 return command;

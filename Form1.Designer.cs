@@ -29,29 +29,27 @@
         private void InitializeComponent()
         {
             sidebar = new Panel();
+            sidebarroles = new Button();
+            sidebarusers = new Button();
             logopanel = new Panel();
             header = new Panel();
+            button1 = new Button();
             shutdown = new Button();
             panel1 = new Panel();
-            flowLayoutPanel1 = new FlowLayoutPanel();
-            deleterecord = new Button();
-            editrecord = new Button();
-            newrecord = new Button();
+            RoleViewInPanel = new Views.RolesView();
+            UserViewInPanel = new Views.UsersView();
             panel2 = new Panel();
-            topheading = new Label();
-            searchbox = new TextBox();
-            dashboardbutton = new Button();
             sidebar.SuspendLayout();
             header.SuspendLayout();
             panel1.SuspendLayout();
-            flowLayoutPanel1.SuspendLayout();
             panel2.SuspendLayout();
             SuspendLayout();
             // 
             // sidebar
             // 
             sidebar.BackColor = Color.FromArgb(2, 48, 71);
-            sidebar.Controls.Add(dashboardbutton);
+            sidebar.Controls.Add(sidebarroles);
+            sidebar.Controls.Add(sidebarusers);
             sidebar.Controls.Add(logopanel);
             sidebar.Dock = DockStyle.Left;
             sidebar.Location = new Point(0, 0);
@@ -59,6 +57,34 @@
             sidebar.Size = new Size(172, 450);
             sidebar.TabIndex = 0;
             sidebar.Paint += panel1_Paint;
+            // 
+            // sidebarroles
+            // 
+            sidebarroles.Dock = DockStyle.Top;
+            sidebarroles.FlatStyle = FlatStyle.Flat;
+            sidebarroles.ForeColor = Color.FromArgb(251, 133, 0);
+            sidebarroles.Location = new Point(0, 72);
+            sidebarroles.Margin = new Padding(0);
+            sidebarroles.Name = "sidebarroles";
+            sidebarroles.Size = new Size(172, 36);
+            sidebarroles.TabIndex = 3;
+            sidebarroles.Text = "Roles";
+            sidebarroles.UseVisualStyleBackColor = true;
+            sidebarroles.Click += sidebarroles_Click;
+            // 
+            // sidebarusers
+            // 
+            sidebarusers.Dock = DockStyle.Top;
+            sidebarusers.FlatStyle = FlatStyle.Flat;
+            sidebarusers.ForeColor = Color.FromArgb(251, 133, 0);
+            sidebarusers.Location = new Point(0, 36);
+            sidebarusers.Margin = new Padding(0);
+            sidebarusers.Name = "sidebarusers";
+            sidebarusers.Size = new Size(172, 36);
+            sidebarusers.TabIndex = 2;
+            sidebarusers.Text = "Users";
+            sidebarusers.UseVisualStyleBackColor = true;
+            sidebarusers.Click += sidebarusers_Click;
             // 
             // logopanel
             // 
@@ -72,12 +98,27 @@
             // header
             // 
             header.BackColor = Color.FromArgb(254, 250, 224);
+            header.Controls.Add(button1);
             header.Controls.Add(shutdown);
             header.Dock = DockStyle.Top;
             header.Location = new Point(172, 0);
             header.Name = "header";
             header.Size = new Size(628, 36);
             header.TabIndex = 1;
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.FromArgb(254, 250, 224);
+            button1.BackgroundImageLayout = ImageLayout.None;
+            button1.Dock = DockStyle.Right;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.ForeColor = Color.FromArgb(254, 250, 224);
+            button1.Location = new Point(556, 0);
+            button1.Margin = new Padding(0);
+            button1.Name = "button1";
+            button1.Size = new Size(36, 36);
+            button1.TabIndex = 1;
+            button1.UseVisualStyleBackColor = false;
             // 
             // shutdown
             // 
@@ -92,114 +133,50 @@
             shutdown.Size = new Size(36, 36);
             shutdown.TabIndex = 0;
             shutdown.UseVisualStyleBackColor = false;
-            shutdown.Click += shutdownClick;
+            shutdown.Click += shutdown_Click;
             // 
             // panel1
             // 
-            panel1.Controls.Add(flowLayoutPanel1);
-            panel1.Dock = DockStyle.Bottom;
-            panel1.Location = new Point(172, 414);
+            panel1.Controls.Add(panel2);
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(172, 36);
             panel1.Name = "panel1";
-            panel1.Size = new Size(628, 36);
+            panel1.Size = new Size(628, 414);
             panel1.TabIndex = 2;
             // 
-            // flowLayoutPanel1
+            // RoleViewInPanel
             // 
-            flowLayoutPanel1.Controls.Add(deleterecord);
-            flowLayoutPanel1.Controls.Add(editrecord);
-            flowLayoutPanel1.Controls.Add(newrecord);
-            flowLayoutPanel1.Dock = DockStyle.Right;
-            flowLayoutPanel1.FlowDirection = FlowDirection.RightToLeft;
-            flowLayoutPanel1.Location = new Point(369, 0);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(259, 36);
-            flowLayoutPanel1.TabIndex = 3;
+            RoleViewInPanel.BackColor = Color.FromArgb(254, 250, 224);
+            RoleViewInPanel.Location = new Point(118, 222);
+            RoleViewInPanel.Name = "RoleViewInPanel";
+            RoleViewInPanel.Size = new Size(66, 56);
+            RoleViewInPanel.TabIndex = 1;
             // 
-            // deleterecord
+            // UserViewInPanel
             // 
-            deleterecord.Location = new Point(181, 3);
-            deleterecord.Name = "deleterecord";
-            deleterecord.Size = new Size(75, 23);
-            deleterecord.TabIndex = 2;
-            deleterecord.Text = "Delete";
-            deleterecord.UseVisualStyleBackColor = true;
-            deleterecord.Click += deleterecordClick;
-            // 
-            // editrecord
-            // 
-            editrecord.Location = new Point(100, 3);
-            editrecord.Name = "editrecord";
-            editrecord.Size = new Size(75, 23);
-            editrecord.TabIndex = 1;
-            editrecord.Text = "Edit";
-            editrecord.UseVisualStyleBackColor = true;
-            editrecord.Click += editrecordClick;
-            // 
-            // newrecord
-            // 
-            newrecord.Location = new Point(19, 3);
-            newrecord.Name = "newrecord";
-            newrecord.Size = new Size(75, 23);
-            newrecord.TabIndex = 0;
-            newrecord.Text = "New";
-            newrecord.UseVisualStyleBackColor = true;
-            newrecord.Click += newrecordClick;
+            UserViewInPanel.BackColor = Color.FromArgb(254, 250, 224);
+            UserViewInPanel.Dock = DockStyle.Fill;
+            UserViewInPanel.Location = new Point(0, 0);
+            UserViewInPanel.Name = "UserViewInPanel";
+            UserViewInPanel.Size = new Size(628, 414);
+            UserViewInPanel.TabIndex = 0;
             // 
             // panel2
             // 
-            panel2.Controls.Add(topheading);
-            panel2.Controls.Add(searchbox);
-            panel2.Dock = DockStyle.Top;
-            panel2.Location = new Point(172, 36);
+            panel2.Controls.Add(UserViewInPanel);
+            panel2.Controls.Add(RoleViewInPanel);
+            panel2.Dock = DockStyle.Fill;
+            panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
-            panel2.Padding = new Padding(0, 11, 0, 0);
-            panel2.Size = new Size(628, 36);
-            panel2.TabIndex = 3;
-            // 
-            // topheading
-            // 
-            topheading.AutoSize = true;
-            topheading.Dock = DockStyle.Left;
-            topheading.FlatStyle = FlatStyle.Flat;
-            topheading.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            topheading.ForeColor = Color.FromArgb(2, 48, 71);
-            topheading.Location = new Point(0, 11);
-            topheading.Name = "topheading";
-            topheading.Size = new Size(37, 15);
-            topheading.TabIndex = 1;
-            topheading.Text = "label1";
-            topheading.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // searchbox
-            // 
-            searchbox.Dock = DockStyle.Right;
-            searchbox.Location = new Point(388, 11);
-            searchbox.Name = "searchbox";
-            searchbox.Size = new Size(240, 23);
-            searchbox.TabIndex = 0;
-            searchbox.Text = "Search ...";
-            searchbox.TextChanged += textBox1_TextChanged;
-            // 
-            // dashboardbutton
-            // 
-            dashboardbutton.Dock = DockStyle.Top;
-            dashboardbutton.FlatStyle = FlatStyle.Flat;
-            dashboardbutton.ForeColor = Color.FromArgb(251, 133, 0);
-            dashboardbutton.Location = new Point(0, 36);
-            dashboardbutton.Margin = new Padding(0);
-            dashboardbutton.Name = "dashboardbutton";
-            dashboardbutton.Size = new Size(172, 36);
-            dashboardbutton.TabIndex = 1;
-            dashboardbutton.Text = "Dashboard";
-            dashboardbutton.UseVisualStyleBackColor = true;
+            panel2.Size = new Size(628, 414);
+            panel2.TabIndex = 2;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(254, 250, 224);
+            BackColor = Color.Blue;
             ClientSize = new Size(800, 450);
-            Controls.Add(panel2);
             Controls.Add(panel1);
             Controls.Add(header);
             Controls.Add(sidebar);
@@ -210,9 +187,7 @@
             sidebar.ResumeLayout(false);
             header.ResumeLayout(false);
             panel1.ResumeLayout(false);
-            flowLayoutPanel1.ResumeLayout(false);
             panel2.ResumeLayout(false);
-            panel2.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -222,14 +197,6 @@
         private Panel header;
         private Panel logopanel;
         private Button shutdown;
-        private Panel panel1;
-        private FlowLayoutPanel flowLayoutPanel1;
-        private Button deleterecord;
-        private Button editrecord;
-        private Button newrecord;
-        private Panel panel2;
-        private TextBox searchbox;
-        private Label topheading;
         private Button button23;
         private Button button22;
         private Button button21;
@@ -250,6 +217,13 @@
         private Button button6;
         private Button button5;
         private Button button4;
-        private Button dashboardbutton;
+        private Button button1;
+        private Button sidebarusers;
+        private Button sidebarroles;
+        private Panel panel1;
+        private Views.UsersView usersView4;
+        private Views.RolesView RoleViewInPanel;
+        private Views.UsersView UserViewInPanel;
+        private Panel panel2;
     }
 }

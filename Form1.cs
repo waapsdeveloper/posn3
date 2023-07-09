@@ -1,5 +1,6 @@
 using System.Data;
 using POSN3.Helpers;
+using POSN3.Views;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace POSN3
@@ -10,8 +11,7 @@ namespace POSN3
         public Form1()
         {
             InitializeComponent();
-            showPanelBaseOnStep(1);
-
+            hideAllPanels();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -29,71 +29,44 @@ namespace POSN3
 
         }
 
-        void showPanelBaseOnStep(int step)
+        void hideAllPanels()
         {
-            string[] panels = { "login", "dashboard" };
+
+            UserViewInPanel.Visible = false;
+            RoleViewInPanel.Visible = false;
+        }
+
+        void showPanelBaseOnStep(string step)
+        {
+            hideAllPanels();
             switch (step)
             {
-                case 1:
-                    topheading.Text = "Login";
+                case "login":
+                    UserViewInPanel.Visible = true;
                     break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
-                case 5:
-                    break;
-                case 6:
+                case "roles":
+                    RoleViewInPanel.Visible = true;
                     break;
             }
         }
 
-        // shutdown button
-        private void shutdownClick(object sender, System.EventArgs e)
+
+        private void sidebarusers_Click(object sender, EventArgs e)
         {
+            UtilityHelper.consoleLog("point1");
+            showPanelBaseOnStep("login");
 
         }
 
-        private void newrecordClick(object sender, EventArgs e)
+        private void sidebarroles_Click(object sender, EventArgs e)
         {
-
+            UtilityHelper.consoleLog("point2");
+            showPanelBaseOnStep("roles");
         }
 
-        private void editrecordClick(object sender, EventArgs e)
+        private void shutdown_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void deleterecordClick(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void flowLayoutPanel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dashboardbutton_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void vScrollBar1_Scroll(object sender, ScrollEventArgs e)
-        {
-
+            hideAllPanels();
         }
     }
 }

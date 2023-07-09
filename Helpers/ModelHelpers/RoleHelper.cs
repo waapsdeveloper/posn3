@@ -34,8 +34,7 @@ namespace POSN3.Helpers.ModelHelpers
         public bool insert(string name)
         {
 
-
-            string sql = "INSERT OR IGNORE INTO roles ";
+            string sql = "INSERT INTO roles ";
             sql += "(";
             sql += "name";
             sql += ")";

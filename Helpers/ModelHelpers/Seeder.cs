@@ -51,12 +51,14 @@ namespace POSN3.Helpers.ModelHelpers
             DataTable dt = roleHelper.getByRoleName("super_admin");
             var row = dt.AsEnumerable().First();
 
-            var id = row.Field<Object>("id").ToString();
-            UtilityHelper.consoleLog(id);
+            var role_id = row.Field<int>("id");
 
             // create a super admin user in database
 
-            var sql = "";
+            UserHelper userHelper = new UserHelper(sqliteHelper);
+            userHelper.insert("super admin", "superadmin@email.com", "admin123$", role_id);
+
+
 
         }
 

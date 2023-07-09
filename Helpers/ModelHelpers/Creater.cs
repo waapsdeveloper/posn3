@@ -34,15 +34,16 @@ namespace POSN3.Helpers.ModelHelpers
 
         bool initializeUsersTable()
         {
-            string sql = "CREATE TABLE IF NOT EXISTS users";
+            string sql = "CREATE TABLE users";
             sql += "(";
-            sql += "id INTEGER PRIMARY KEY, ";
-            sql += "name TEXT, ";
-            sql += "email TEXT, ";
-            sql += "password TEXT, ";
+            sql += "id INTEGER PRIMARY KEY IDENTITY, ";
+            sql += "name varchar(100), ";
+            sql += "email varchar(100), ";
+            sql += "password varchar(100), ";
             sql += "role_id INTEGER, ";
             sql += "created_at DATETIME DEFAULT CURRENT_TIMESTAMP, ";
-            sql += "updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ";
+            sql += "updated_at DATETIME DEFAULT CURRENT_TIMESTAMP, ";
+            sql += "unique(email) ";
             sql += ")";
 
             Object[] values = { };
@@ -56,10 +57,10 @@ namespace POSN3.Helpers.ModelHelpers
 
         bool initializeRolesTable()
         {
-            string sql = "CREATE TABLE IF NOT EXISTS roles";
+            string sql = "CREATE TABLE roles";
             sql += "(";
-            sql += "id INTEGER PRIMARY KEY, ";
-            sql += "name TEXT, ";
+            sql += "id INTEGER PRIMARY KEY IDENTITY, ";
+            sql += "name varchar(100), ";
             sql += "created_at DATETIME DEFAULT CURRENT_TIMESTAMP, ";
             sql += "updated_at DATETIME DEFAULT CURRENT_TIMESTAMP, ";
             sql += "unique(name) ";
@@ -75,12 +76,12 @@ namespace POSN3.Helpers.ModelHelpers
 
         bool initializeAppSettingsTable()
         {
-            string sql = "CREATE TABLE IF NOT EXISTS app_settings";
+            string sql = "CREATE TABLE app_settings";
             sql += "(";
-            sql += "id INTEGER PRIMARY KEY, ";
+            sql += "id INTEGER PRIMARY KEY IDENTITY, ";
             sql += "title TEXT UNIQUE, ";
-            sql += "description TEXT, ";
-            sql += "type TEXT, ";
+            sql += "description  varchar(200), ";
+            sql += "type  varchar(100), ";
             sql += "value INTEGER, ";
             sql += "created_at DATETIME DEFAULT CURRENT_TIMESTAMP, ";
             sql += "updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ";
@@ -98,14 +99,14 @@ namespace POSN3.Helpers.ModelHelpers
 
         bool initializeTaxListTable()
         {
-            string sql = "CREATE TABLE IF NOT EXISTS tax_list";
+            string sql = "CREATE TABLE tax_list";
             sql += "(";
-            sql += "id INTEGER PRIMARY KEY, ";
-            sql += "account TEXT, ";
-            sql += "name TEXT, ";
-            sql += "tax1 TEXT, ";
-            sql += "tax2 TEXT, ";
-            sql += "tax3 TEXT, ";
+            sql += "id INTEGER PRIMARY KEY IDENTITY, ";
+            sql += "account varchar(7), ";
+            sql += "name varchar(150), ";
+            sql += "tax1 decimal(7,2), ";
+            sql += "tax2 decimal(7,2), ";
+            sql += "tax3 decimal(7,2), ";
             sql += "account_in_id INTEGER, ";
             sql += "account_out_id INTEGER, ";
             sql += "created_at DATETIME DEFAULT CURRENT_TIMESTAMP, ";
@@ -124,12 +125,12 @@ namespace POSN3.Helpers.ModelHelpers
 
         bool initializeAccountListTable()
         {
-            string sql = "CREATE TABLE IF NOT EXISTS account_list";
+            string sql = "CREATE TABLE account_list";
             sql += "(";
-            sql += "id INTEGER PRIMARY KEY, ";
-            sql += "account TEXT, ";
-            sql += "name TEXT, ";
-            sql += "aop TEXT, ";
+            sql += "id INTEGER PRIMARY KEY AUTOIMCREMENT, ";
+            sql += "account varchar(15), ";
+            sql += "name varchar(150), ";
+            sql += "aop varchar(10), ";
             sql += "created_at DATETIME DEFAULT CURRENT_TIMESTAMP, ";
             sql += "updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ";
             sql += ")";
@@ -146,16 +147,17 @@ namespace POSN3.Helpers.ModelHelpers
 
         bool initializeAccountingTable()
         {
-            string sql = "CREATE TABLE IF NOT EXISTS accounting";
+            string sql = "CREATE TABLE accounting";
             sql += "(";
-            sql += "id INTEGER PRIMARY KEY, ";
-            sql += "account_id TEXT, ";
-            sql += "account_date TEXT, ";
-            sql += "document_name TEXT, ";
-            sql += "description TEXT, ";
-            sql += "debit TEXT, ";
-            sql += "credit TEXT, ";
+            sql += "id INTEGER PRIMARY KEY IDENTITY, ";
+            sql += "account_id INTEGER, ";
             sql += "partner_id INTEGER, ";
+            sql += "account_date DATETIME, ";
+            sql += "document_name varchar(70), ";
+            sql += "description varchar(120), ";
+            sql += "debit decimal(16,2), ";
+            sql += "credit decimal(16,2), ";
+            
             sql += "created_at DATETIME DEFAULT CURRENT_TIMESTAMP, ";
             sql += "updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ";
             sql += ")";
