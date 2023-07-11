@@ -8,10 +8,10 @@ using System.Xml.Linq;
 
 namespace POSN3.Helpers.ModelHelpers
 {
-    internal class RoleHelper
+    internal class TaxListHelper
     {
         SqliteHelper sqliteHelper;
-        public RoleHelper(SqliteHelper sqliteHelper)
+        public TaxListHelper(SqliteHelper sqliteHelper)
         {
             this.sqliteHelper = sqliteHelper;
         }

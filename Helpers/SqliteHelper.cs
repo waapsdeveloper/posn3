@@ -22,13 +22,28 @@ namespace POSN3.Helpers
             return connect();
         }
 
+        public SqlConnection getConnection()
+        {
+            return newconnect();
+        }
+
+        private SqlConnection newconnect()
+        {
+            if (connection == null)
+            {
+                connection = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\WAAPS-52\\Desktop\\Shoaib\\Jozo\\pos-n3\\POSN3\\posn3lc.mdf;Integrated Security=True");
+                connection.Open();
+            }
+            
+            return connection;
+        }
+
         bool connect()
         {
 
             try
             {
-
-                connection = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\WAAPS-52\\Desktop\\Shoaib\\Jozo\\pos-n3\\POSN3\\posn3lc.mdf;Integrated Security=True");
+                newconnect();
 
                 Creater cr = new Creater(this);
                 cr.initialize();
@@ -53,8 +68,14 @@ namespace POSN3.Helpers
 
             try
             {
+                if (connection == null)
+                {
+                    newconnect();
+                }
+
                 if (connection.State == ConnectionState.Closed)
                 {
+                    newconnect();
                     connection.Open();
                 }
                 
@@ -78,6 +99,11 @@ namespace POSN3.Helpers
 
             try
             {
+                if (connection == null)
+                {
+                    newconnect();
+                }
+
                 if (connection.State == ConnectionState.Closed)
                 {
                     connection.Open();

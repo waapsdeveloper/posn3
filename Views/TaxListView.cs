@@ -1,5 +1,6 @@
 ﻿using POSN3.Helpers.ModelHelpers;
 using POSN3.Helpers;
+using POSN3.Views.components;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,13 +10,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
 
 namespace POSN3.Views
 {
-    public partial class RolesView : UserControl
+    public partial class TaxListView : UserControl
     {
-        public RolesView()
+        public TaxListView()
         {
             InitializeComponent();
             this.Paint += view_Paint;
@@ -42,7 +42,7 @@ namespace POSN3.Views
                 dt.Columns["created_at"].ReadOnly = true;
 
 
-                datatableView1.DataSource = dt;
+                dataGridView1.DataSource = dt;
 
 
 
@@ -62,7 +62,7 @@ namespace POSN3.Views
 
         private void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
-            if (datatableView1.CurrentCell.ColumnIndex == 0)
+            if (dataGridView1.CurrentCell.ColumnIndex == 0)
             {
                 e.Control.KeyPress -= DontAllow;
                 e.Control.KeyPress += DontAllow;
@@ -85,10 +85,10 @@ namespace POSN3.Views
 
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if (datatableView1.CurrentRow != null)
+            if (dataGridView1.CurrentRow != null)
             {
 
-                DataGridViewRow dataGridViewRow = datatableView1.CurrentRow;
+                DataGridViewRow dataGridViewRow = dataGridView1.CurrentRow;
                 SqliteHelper sqliteHelper = new SqliteHelper();
                 RoleHelper helper = new RoleHelper(sqliteHelper);
                 int id = 0;
@@ -120,7 +120,7 @@ namespace POSN3.Views
         private void dataGridView1_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
 
-            if (datatableView1.CurrentRow.Cells["id"].Value != DBNull.Value)
+            if (dataGridView1.CurrentRow.Cells["id"].Value != DBNull.Value)
             {
                 if (MessageBox.Show("Are Sure You Want Delete The User?", "DataGridView", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
@@ -128,7 +128,7 @@ namespace POSN3.Views
                     RoleHelper helper = new RoleHelper(sqliteHelper);
 
 
-                    var id = (int)datatableView1.CurrentRow.Cells["id"].Value;
+                    var id = (int)dataGridView1.CurrentRow.Cells["id"].Value;
                     bool r = helper.delete(id);
                     if (r)
                     {

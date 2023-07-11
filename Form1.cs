@@ -1,4 +1,5 @@
 using System.Data;
+using System.Diagnostics;
 using POSN3.Helpers;
 using POSN3.Views;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
@@ -47,6 +48,9 @@ namespace POSN3
                 case "roles":
                     RoleViewInPanel.Visible = true;
                     break;
+                case "taxlist":
+
+                    break;
             }
         }
 
@@ -64,9 +68,17 @@ namespace POSN3
             showPanelBaseOnStep("roles");
         }
 
+        private void sidebartaxlist_Click(object sender, EventArgs e)
+        {
+            UtilityHelper.consoleLog("point3");
+            showPanelBaseOnStep("taxlist");
+        }
+
         private void shutdown_Click(object sender, EventArgs e)
         {
-            hideAllPanels();
+
         }
+
+        
     }
 }

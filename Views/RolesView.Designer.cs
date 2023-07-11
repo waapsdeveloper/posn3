@@ -1,4 +1,6 @@
-﻿namespace POSN3.Views
+﻿using System.Windows.Forms;
+
+namespace POSN3.Views
 {
     partial class RolesView
     {
@@ -28,32 +30,66 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
+            searchBarView1 = new components.SearchBarView();
+            searchBarView2 = new components.SearchBarView();
+            datatableView1 = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)datatableView1).BeginInit();
             SuspendLayout();
             // 
-            // label1
+            // searchBarView1
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(264, 139);
-            label1.Name = "label1";
-            label1.Size = new Size(32, 15);
-            label1.TabIndex = 0;
-            label1.Text = "roles";
+            searchBarView1.AutoSize = true;
+            searchBarView1.BackColor = Color.FromArgb(254, 250, 224);
+            searchBarView1.Dock = DockStyle.Top;
+            searchBarView1.Location = new Point(0, 0);
+            searchBarView1.Name = "searchBarView1";
+            searchBarView1.Size = new Size(719, 0);
+            searchBarView1.TabIndex = 1;
+            // 
+            // searchBarView2
+            // 
+            searchBarView2.AutoSize = true;
+            searchBarView2.BackColor = Color.FromArgb(254, 250, 224);
+            searchBarView2.Dock = DockStyle.Top;
+            searchBarView2.Location = new Point(0, 0);
+            searchBarView2.Name = "searchBarView2";
+            searchBarView2.Size = new Size(719, 0);
+            searchBarView2.TabIndex = 2;
+            // 
+            // datatableView1
+            // 
+            datatableView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            datatableView1.BackgroundColor = Color.FromArgb(254, 250, 224);
+            datatableView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            datatableView1.GridColor = Color.FromArgb(254, 250, 224);
+            datatableView1.Location = new Point(0, 0);
+            datatableView1.Name = "datatableView1";
+            datatableView1.RowTemplate.Height = 25;
+            datatableView1.Size = new Size(719, 409);
+            datatableView1.TabIndex = 3;
+            datatableView1.CellValueChanged += dataGridView1_CellValueChanged;
+            datatableView1.EditingControlShowing += dataGridView1_EditingControlShowing;
+            datatableView1.UserDeletingRow += dataGridView1_UserDeletingRow;
             // 
             // RolesView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(254, 250, 224);
-            Controls.Add(label1);
-            Name = "RolesView";
+            Controls.Add(datatableView1);
             Size = new Size(719, 409);
+            ((System.ComponentModel.ISupportInitialize)datatableView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private Label label1;
+        private components.SearchBarView searchBarView1;
+        private components.SearchBarView searchBarView2;
+        private DataGridView datatableView1;
+        private DataGridViewTextBoxColumn id;
+        private DataGridViewTextBoxColumn Name;
+        private DataGridViewTextBoxColumn created_at;
+        private DataGridViewTextBoxColumn updated_at;
     }
 }

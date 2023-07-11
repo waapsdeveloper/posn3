@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             sidebar = new Panel();
+            sidebartaxlist = new Button();
             sidebarroles = new Button();
             sidebarusers = new Button();
             logopanel = new Panel();
@@ -36,9 +37,10 @@
             button1 = new Button();
             shutdown = new Button();
             panel1 = new Panel();
-            RoleViewInPanel = new Views.RolesView();
-            UserViewInPanel = new Views.UsersView();
             panel2 = new Panel();
+            UserViewInPanel = new Views.UsersView();
+            RoleViewInPanel = new Views.RolesView();
+            TaxListViewInPanel = new Views.TaxListView();
             sidebar.SuspendLayout();
             header.SuspendLayout();
             panel1.SuspendLayout();
@@ -48,6 +50,7 @@
             // sidebar
             // 
             sidebar.BackColor = Color.FromArgb(2, 48, 71);
+            sidebar.Controls.Add(sidebartaxlist);
             sidebar.Controls.Add(sidebarroles);
             sidebar.Controls.Add(sidebarusers);
             sidebar.Controls.Add(logopanel);
@@ -57,6 +60,20 @@
             sidebar.Size = new Size(172, 450);
             sidebar.TabIndex = 0;
             sidebar.Paint += panel1_Paint;
+            // 
+            // sidebartaxlist
+            // 
+            sidebartaxlist.Dock = DockStyle.Top;
+            sidebartaxlist.FlatStyle = FlatStyle.Flat;
+            sidebartaxlist.ForeColor = Color.FromArgb(251, 133, 0);
+            sidebartaxlist.Location = new Point(0, 108);
+            sidebartaxlist.Margin = new Padding(0);
+            sidebartaxlist.Name = "sidebartaxlist";
+            sidebartaxlist.Size = new Size(172, 36);
+            sidebartaxlist.TabIndex = 4;
+            sidebartaxlist.Text = "TaxList";
+            sidebartaxlist.UseVisualStyleBackColor = true;
+            sidebartaxlist.Click += sidebartaxlist_Click;
             // 
             // sidebarroles
             // 
@@ -144,16 +161,20 @@
             panel1.Size = new Size(628, 414);
             panel1.TabIndex = 2;
             // 
-            // RoleViewInPanel
+            // panel2
             // 
-            RoleViewInPanel.BackColor = Color.FromArgb(254, 250, 224);
-            RoleViewInPanel.Location = new Point(118, 222);
-            RoleViewInPanel.Name = "RoleViewInPanel";
-            RoleViewInPanel.Size = new Size(66, 56);
-            RoleViewInPanel.TabIndex = 1;
+            panel2.Controls.Add(UserViewInPanel);
+            panel2.Controls.Add(RoleViewInPanel);
+            panel2.Controls.Add(TaxListViewInPanel);
+            panel2.Dock = DockStyle.Fill;
+            panel2.Location = new Point(0, 0);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(628, 414);
+            panel2.TabIndex = 2;
             // 
             // UserViewInPanel
             // 
+            UserViewInPanel.AutoSize = true;
             UserViewInPanel.BackColor = Color.FromArgb(254, 250, 224);
             UserViewInPanel.Dock = DockStyle.Fill;
             UserViewInPanel.Location = new Point(0, 0);
@@ -161,15 +182,26 @@
             UserViewInPanel.Size = new Size(628, 414);
             UserViewInPanel.TabIndex = 0;
             // 
-            // panel2
+            // RoleViewInPanel
             // 
-            panel2.Controls.Add(UserViewInPanel);
-            panel2.Controls.Add(RoleViewInPanel);
-            panel2.Dock = DockStyle.Fill;
-            panel2.Location = new Point(0, 0);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(628, 414);
-            panel2.TabIndex = 2;
+            RoleViewInPanel.BackColor = Color.FromArgb(254, 250, 224);
+            RoleViewInPanel.Dock = DockStyle.Fill;
+            RoleViewInPanel.Location = new Point(0, 0);
+            RoleViewInPanel.Name = "RoleViewInPanel";
+            RoleViewInPanel.Size = new Size(628, 414);
+            RoleViewInPanel.TabIndex = 1;
+            // 
+            // RoleViewInPanel
+            // 
+            TaxListViewInPanel.BackColor = Color.FromArgb(254, 250, 224);
+            TaxListViewInPanel.Dock = DockStyle.Fill;
+            TaxListViewInPanel.Location = new Point(0, 0);
+            TaxListViewInPanel.Name = "TaxListViewInPanel";
+            TaxListViewInPanel.Size = new Size(628, 414);
+            TaxListViewInPanel.TabIndex = 1;
+
+            
+
             // 
             // Form1
             // 
@@ -188,6 +220,7 @@
             header.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -221,9 +254,10 @@
         private Button sidebarusers;
         private Button sidebarroles;
         private Panel panel1;
-        private Views.UsersView usersView4;
         private Views.RolesView RoleViewInPanel;
         private Views.UsersView UserViewInPanel;
+        private Views.TaxListView TaxListViewInPanel;
         private Panel panel2;
+        private Button sidebartaxlist;
     }
 }
