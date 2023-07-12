@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             sidebar = new Panel();
+            sidebaracountlist = new Button();
             sidebartaxlist = new Button();
             sidebarroles = new Button();
             sidebarusers = new Button();
@@ -41,6 +42,9 @@
             UserViewInPanel = new Views.UsersView();
             RoleViewInPanel = new Views.RolesView();
             TaxListViewInPanel = new Views.TaxListView();
+            AccountListViewInPanel = new Views.AccountListView();
+            AccountingViewInPanel = new Views.AccountingView();
+            sidebaraccounting = new Button();
             sidebar.SuspendLayout();
             header.SuspendLayout();
             panel1.SuspendLayout();
@@ -50,6 +54,8 @@
             // sidebar
             // 
             sidebar.BackColor = Color.FromArgb(2, 48, 71);
+            sidebar.Controls.Add(sidebaraccounting);
+            sidebar.Controls.Add(sidebaracountlist);
             sidebar.Controls.Add(sidebartaxlist);
             sidebar.Controls.Add(sidebarroles);
             sidebar.Controls.Add(sidebarusers);
@@ -61,6 +67,20 @@
             sidebar.TabIndex = 0;
             sidebar.Paint += panel1_Paint;
             // 
+            // sidebaracountlist
+            // 
+            sidebaracountlist.Dock = DockStyle.Top;
+            sidebaracountlist.FlatStyle = FlatStyle.Flat;
+            sidebaracountlist.ForeColor = Color.FromArgb(251, 133, 0);
+            sidebaracountlist.Location = new Point(0, 144);
+            sidebaracountlist.Margin = new Padding(0);
+            sidebaracountlist.Name = "sidebaracountlist";
+            sidebaracountlist.Size = new Size(172, 36);
+            sidebaracountlist.TabIndex = 5;
+            sidebaracountlist.Text = "Account List";
+            sidebaracountlist.UseVisualStyleBackColor = true;
+            sidebaracountlist.Click += sidebaracountlist_Click;
+            // 
             // sidebartaxlist
             // 
             sidebartaxlist.Dock = DockStyle.Top;
@@ -71,7 +91,7 @@
             sidebartaxlist.Name = "sidebartaxlist";
             sidebartaxlist.Size = new Size(172, 36);
             sidebartaxlist.TabIndex = 4;
-            sidebartaxlist.Text = "TaxList";
+            sidebartaxlist.Text = "Tax List";
             sidebartaxlist.UseVisualStyleBackColor = true;
             sidebartaxlist.Click += sidebartaxlist_Click;
             // 
@@ -166,6 +186,8 @@
             panel2.Controls.Add(UserViewInPanel);
             panel2.Controls.Add(RoleViewInPanel);
             panel2.Controls.Add(TaxListViewInPanel);
+            panel2.Controls.Add(AccountListViewInPanel);
+            panel2.Controls.Add(AccountingViewInPanel);
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
@@ -191,7 +213,7 @@
             RoleViewInPanel.Size = new Size(628, 414);
             RoleViewInPanel.TabIndex = 1;
             // 
-            // RoleViewInPanel
+            // TaxListViewInPanel
             // 
             TaxListViewInPanel.BackColor = Color.FromArgb(254, 250, 224);
             TaxListViewInPanel.Dock = DockStyle.Fill;
@@ -199,9 +221,40 @@
             TaxListViewInPanel.Name = "TaxListViewInPanel";
             TaxListViewInPanel.Size = new Size(628, 414);
             TaxListViewInPanel.TabIndex = 1;
+            // 
+            // AccountListViewInPanel
+            // 
+            AccountListViewInPanel.BackColor = Color.FromArgb(254, 250, 224);
+            AccountListViewInPanel.Dock = DockStyle.Fill;
+            AccountListViewInPanel.Location = new Point(0, 0);
+            AccountListViewInPanel.Name = "AccountListViewInPanel";
+            AccountListViewInPanel.Size = new Size(628, 414);
+            AccountListViewInPanel.TabIndex = 1;
 
-            
+            // 
+            // AccountingViewInPanel
+            // 
+            AccountingViewInPanel.BackColor = Color.FromArgb(254, 250, 224);
+            AccountingViewInPanel.Dock = DockStyle.Fill;
+            AccountingViewInPanel.Location = new Point(0, 0);
+            AccountingViewInPanel.Name = "AccountingViewInPanel";
+            AccountingViewInPanel.Size = new Size(628, 414);
+            AccountingViewInPanel.TabIndex = 1;
 
+            // 
+            // sidebaraccounting
+            // 
+            sidebaraccounting.Dock = DockStyle.Top;
+            sidebaraccounting.FlatStyle = FlatStyle.Flat;
+            sidebaraccounting.ForeColor = Color.FromArgb(251, 133, 0);
+            sidebaraccounting.Location = new Point(0, 180);
+            sidebaraccounting.Margin = new Padding(0);
+            sidebaraccounting.Name = "sidebaraccounting";
+            sidebaraccounting.Size = new Size(172, 36);
+            sidebaraccounting.TabIndex = 6;
+            sidebaraccounting.Text = "Accounting";
+            sidebaraccounting.UseVisualStyleBackColor = true;
+            sidebaraccounting.Click += sidebaraccounting_Click;
             // 
             // Form1
             // 
@@ -257,7 +310,12 @@
         private Views.RolesView RoleViewInPanel;
         private Views.UsersView UserViewInPanel;
         private Views.TaxListView TaxListViewInPanel;
+        private Views.AccountListView AccountListViewInPanel;
+        private Views.AccountingView AccountingViewInPanel;
+
         private Panel panel2;
         private Button sidebartaxlist;
+        private Button sidebaracountlist;
+        private Button sidebaraccounting;
     }
 }

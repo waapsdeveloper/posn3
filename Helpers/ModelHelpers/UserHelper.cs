@@ -60,7 +60,7 @@ namespace POSN3.Helpers.ModelHelpers
             return ra == 0 ? false : true;
         }
 
-        public bool update(int id, string name, string email, string password, int role_id, DateTime updated_at)
+        public bool update(int id, string name, string email, string password, int role_id)
         {
             try
             {
@@ -69,6 +69,8 @@ namespace POSN3.Helpers.ModelHelpers
                 sqla += "email = '" + email + "', ";
                 sqla += "password = '" + password + "', ";
                 sqla += "role_id = " + role_id + ", ";
+
+                var updated_at = DateTime.Now;
                 sqla += "updated_at = '" +  updated_at + "' ";
                 sqla += "WHERE id = " + id;
 

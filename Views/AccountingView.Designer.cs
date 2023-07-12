@@ -1,6 +1,6 @@
 ﻿namespace POSN3.Views
 {
-    partial class TaxListView
+    partial class AccountingView
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,19 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dataGridView1 = new DataGridView();
             UserList = new DataGridViewComboBoxColumn();
+            dataGridView1 = new DataGridView();
             id = new DataGridViewTextBoxColumn();
-            AccountInId = new DataGridViewComboBoxColumn();
-            AccountOutId = new DataGridViewComboBoxColumn();
+            AccountId = new DataGridViewComboBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
+            // 
+            // UserList
+            // 
+            UserList.Name = "UserList";
             // 
             // dataGridView1
             // 
             dataGridView1.BackgroundColor = Color.FromArgb(254, 250, 224);
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { id, AccountInId, AccountOutId });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { id, AccountId });
             dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.GridColor = Color.FromArgb(254, 250, 224);
             dataGridView1.Location = new Point(0, 0);
@@ -54,46 +57,34 @@
             dataGridView1.EditingControlShowing += dataGridView1_EditingControlShowing;
             dataGridView1.UserDeletingRow += dataGridView1_UserDeletingRow;
             // 
-            // UserList
-            // 
-            UserList.Name = "UserList";
-            // 
             // id
             // 
             id.DataPropertyName = "id";
             id.HeaderText = "id";
             id.Name = "id";
             // 
-            // AccountInId
+            // AccountId
             // 
-            AccountInId.DataPropertyName = "account_in_id";
-            AccountInId.HeaderText = "AccountInId";
-            AccountInId.Name = "AccountInId";
+            AccountId.DataPropertyName = "account_id";
+            AccountId.HeaderText = "account_id";
+            AccountId.Name = "AccountId";
             // 
-            // AccountOutId
-            // 
-            AccountOutId.DataPropertyName = "account_out_id";
-            AccountOutId.HeaderText = "AccountOutId";
-            AccountOutId.Name = "AccountOutId";
-            // 
-            // TaxListView
+            // AccountingView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(254, 250, 224);
             Controls.Add(dataGridView1);
-            Name = "TaxListView";
+            Name = "AccountingView";
             Size = new Size(787, 490);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
-
-        private DataGridView dataGridView1;
         private DataGridViewComboBoxColumn UserList;
+        private DataGridView dataGridView1;
         private DataGridViewTextBoxColumn id;
-        private DataGridViewComboBoxColumn AccountInId;
-        private DataGridViewComboBoxColumn AccountOutId;
+        private DataGridViewComboBoxColumn AccountId;
     }
 }

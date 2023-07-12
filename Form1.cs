@@ -35,6 +35,9 @@ namespace POSN3
 
             UserViewInPanel.Visible = false;
             RoleViewInPanel.Visible = false;
+            TaxListViewInPanel.Visible = false;
+            AccountListViewInPanel.Visible = false;
+            AccountingViewInPanel.Visible = false;
         }
 
         void showPanelBaseOnStep(string step)
@@ -49,11 +52,22 @@ namespace POSN3
                     RoleViewInPanel.Visible = true;
                     break;
                 case "taxlist":
-
+                    TaxListViewInPanel.Visible = true;
                     break;
+                case "accountlist":
+                    AccountListViewInPanel.Visible = true;
+                    break;
+                case "accounting":
+                    AccountingViewInPanel.Visible = true;
+                    break;
+
             }
         }
 
+        private void shutdown_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.Application.Exit();
+        }
 
         private void sidebarusers_Click(object sender, EventArgs e)
         {
@@ -74,11 +88,18 @@ namespace POSN3
             showPanelBaseOnStep("taxlist");
         }
 
-        private void shutdown_Click(object sender, EventArgs e)
-        {
 
+
+        private void sidebaracountlist_Click(object sender, EventArgs e)
+        {
+            UtilityHelper.consoleLog("point4");
+            showPanelBaseOnStep("accountlist");
         }
 
-        
+        private void sidebaraccounting_Click(object sender, EventArgs e)
+        {
+            UtilityHelper.consoleLog("point5");
+            showPanelBaseOnStep("accounting");
+        }
     }
 }

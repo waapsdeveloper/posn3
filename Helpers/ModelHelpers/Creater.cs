@@ -127,7 +127,7 @@ namespace POSN3.Helpers.ModelHelpers
         {
             string sql = "CREATE TABLE account_list";
             sql += "(";
-            sql += "id INTEGER PRIMARY KEY AUTOIMCREMENT, ";
+            sql += "id INTEGER PRIMARY KEY IDENTITY, ";
             sql += "account varchar(15), ";
             sql += "name varchar(150), ";
             sql += "aop varchar(10), ";

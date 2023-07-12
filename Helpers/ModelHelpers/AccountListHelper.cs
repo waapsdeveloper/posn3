@@ -8,36 +8,32 @@ using System.Xml.Linq;
 
 namespace POSN3.Helpers.ModelHelpers
 {
-    internal class TaxListHelper
+    internal class AccountListHelper
     {
         SqliteHelper sqliteHelper;
-        public TaxListHelper(SqliteHelper sqliteHelper)
+        public AccountListHelper(SqliteHelper sqliteHelper)
         {
             this.sqliteHelper = sqliteHelper;
         }
 
         public DataTable all()
         {
-            string sql = "Select * from tax_list";
+            string sql = "Select * from account_list";
 
             object[] values = { };
             DataTable dt = sqliteHelper.executeData(sql, values);
-            UtilityHelper.consoleLog("tax_list table list");
+            UtilityHelper.consoleLog("account_list table list");
             return dt;
         }
 
-        public bool insert(string name, string account, double tax1, double tax2, double tax3, int? account_in_id, int? account_out_id )
+        public bool insert(string name, string account, string aop)
         {
 
-            string sql = "INSERT INTO tax_list ";
+            string sql = "INSERT INTO account_list ";
             sql += "(";
             sql += "account, ";
-            sql += "name, ";
-            sql += "tax1, ";
-            sql += "tax2, ";
-            sql += "tax3, ";
-            sql += "account_in_id, ";
-            sql += "account_out_id";
+            sql += "name, ";            
+            sql += "aop";
             sql += ")";
              
             sql += " VALUES ";
@@ -45,11 +41,7 @@ namespace POSN3.Helpers.ModelHelpers
             sql += "(";
             sql += "'" + account  + "', ";
             sql += "'" + name  + "', ";
-            sql += "" + tax1  + ", ";
-            sql += "" + tax2  + ", ";
-            sql += "" + tax3  + ", ";
-            sql += "" + account_in_id  + ", ";
-            sql += "" + account_out_id + " ";
+            sql += "'" + aop + "' ";            
             sql += ")";
 
             object[] valuesa = { };
@@ -59,18 +51,14 @@ namespace POSN3.Helpers.ModelHelpers
 
         }
 
-        public bool update(int id, string name, string account, double tax1, double tax2, double tax3, int? account_in_id, int? account_out_id)
+        public bool update(int id, string name, string account, string aop)
         {
             try
             {
-                string sql = "UPDATE tax_list SET ";
+                string sql = "UPDATE account_list SET ";
                 sql += "name = '" + name + "', ";
                 sql += "account = '" + account + "', ";
-                sql += "tax1 = " + tax1 + ", ";
-                sql += "tax2 = " + tax2 + ", ";
-                sql += "tax3 = " + tax3 + ", ";
-                sql += "account_in_id = " + account_in_id + ", ";
-                sql += "account_out_id = " + account_out_id + ", ";
+                sql += "aop = '" + aop + "', ";
 
                 var updated_at = DateTime.Now;
                 sql += "updated_at = '" + updated_at + "' ";
@@ -92,7 +80,7 @@ namespace POSN3.Helpers.ModelHelpers
 
         public bool delete(int id) {
 
-            string sql = "DELETE FROM tax_list ";
+            string sql = "DELETE FROM account_list ";
 
             sql += " WHERE ";
             sql += "id = " + id;

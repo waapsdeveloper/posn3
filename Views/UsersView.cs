@@ -76,9 +76,8 @@ namespace POSN3.Views
                 string name = dataGridViewRow.Cells["UserName"].Value.ToString();
                 string email = dataGridViewRow.Cells["UserEmail"].Value.ToString();
                 string password = dataGridViewRow.Cells["password"].Value.ToString();
-                int role_id = Int32.Parse(dataGridViewRow.Cells["RoleList"].Value.ToString());
-                DateTime created_at = DateTime.Parse(dataGridViewRow.Cells["Created_at"].Value.ToString());
-                DateTime updated_at = DateTime.Parse(dataGridViewRow.Cells["Updated_At"].Value.ToString());
+                int role_id = 1;// dataGridViewRow.Cells["RoleList"].Value != null ? Int32.Parse(dataGridViewRow.Cells["RoleList"].Value.ToString()) : 1;
+                
                 if (id == 0)
                 {
                     bool r = userHelper.insert(name, email, password, role_id);
@@ -93,7 +92,7 @@ namespace POSN3.Views
                 }
                 else
                 {
-                    bool r = userHelper.update(id, name, email, password, role_id, updated_at);
+                    bool r = userHelper.update(id, name, email, password, role_id);
                     if (r)
                     {
                         initalizeData();
