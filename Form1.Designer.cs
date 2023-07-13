@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             sidebar = new Panel();
+            sidebargroups = new Button();
+            sidebarpartnerlist = new Button();
             sidebaraccounting = new Button();
             sidebaracountlist = new Button();
             sidebartaxlist = new Button();
@@ -46,8 +48,9 @@
             AccountListViewInPanel = new Views.AccountListView();
             AccountingViewInPanel = new Views.AccountingView();
             PartnerListViewInPanel = new Views.PartnerListView();
-            
-            sidebarpartnerlist = new Button();
+            GroupsViewInPanel = new Views.GroupsView();
+            ProductsViewInPanel = new Views.ProductsView();
+            sidebarproducts = new Button();
             sidebar.SuspendLayout();
             header.SuspendLayout();
             panel1.SuspendLayout();
@@ -57,6 +60,8 @@
             // sidebar
             // 
             sidebar.BackColor = Color.FromArgb(2, 48, 71);
+            sidebar.Controls.Add(sidebarproducts);
+            sidebar.Controls.Add(sidebargroups);
             sidebar.Controls.Add(sidebarpartnerlist);
             sidebar.Controls.Add(sidebaraccounting);
             sidebar.Controls.Add(sidebaracountlist);
@@ -70,6 +75,34 @@
             sidebar.Size = new Size(172, 450);
             sidebar.TabIndex = 0;
             sidebar.Paint += panel1_Paint;
+            // 
+            // sidebargroups
+            // 
+            sidebargroups.Dock = DockStyle.Top;
+            sidebargroups.FlatStyle = FlatStyle.Flat;
+            sidebargroups.ForeColor = Color.FromArgb(251, 133, 0);
+            sidebargroups.Location = new Point(0, 252);
+            sidebargroups.Margin = new Padding(0);
+            sidebargroups.Name = "sidebargroups";
+            sidebargroups.Size = new Size(172, 36);
+            sidebargroups.TabIndex = 8;
+            sidebargroups.Text = "Groups";
+            sidebargroups.UseVisualStyleBackColor = true;
+            sidebargroups.Click += sidebargroups_Click;
+            // 
+            // sidebarpartnerlist
+            // 
+            sidebarpartnerlist.Dock = DockStyle.Top;
+            sidebarpartnerlist.FlatStyle = FlatStyle.Flat;
+            sidebarpartnerlist.ForeColor = Color.FromArgb(251, 133, 0);
+            sidebarpartnerlist.Location = new Point(0, 216);
+            sidebarpartnerlist.Margin = new Padding(0);
+            sidebarpartnerlist.Name = "sidebarpartnerlist";
+            sidebarpartnerlist.Size = new Size(172, 36);
+            sidebarpartnerlist.TabIndex = 7;
+            sidebarpartnerlist.Text = "Partner List";
+            sidebarpartnerlist.UseVisualStyleBackColor = true;
+            sidebarpartnerlist.Click += sidebarpartnerlist_Click;
             // 
             // sidebaraccounting
             // 
@@ -206,7 +239,9 @@
             panel2.Controls.Add(TaxListViewInPanel);
             panel2.Controls.Add(AccountListViewInPanel);
             panel2.Controls.Add(AccountingViewInPanel);
-            panel2.Controls.Add(PartnerListViewInPanel); 
+            panel2.Controls.Add(PartnerListViewInPanel);
+            panel2.Controls.Add(GroupsViewInPanel);
+            panel2.Controls.Add(ProductsViewInPanel);            
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
@@ -267,21 +302,39 @@
             PartnerListViewInPanel.Name = "PartnerListViewInPanel";
             PartnerListViewInPanel.Size = new Size(628, 414);
             PartnerListViewInPanel.TabIndex = 1;
+            // 
+            // GroupsViewInPanel
+            // 
+            GroupsViewInPanel.BackColor = Color.FromArgb(254, 250, 224);
+            GroupsViewInPanel.Dock = DockStyle.Fill;
+            GroupsViewInPanel.Location = new Point(0, 0);
+            GroupsViewInPanel.Name = "GroupsViewInPanel";
+            GroupsViewInPanel.Size = new Size(628, 414);
+            GroupsViewInPanel.TabIndex = 1;
+            // 
+            // ProductsViewInPanel
+            // 
+            ProductsViewInPanel.BackColor = Color.FromArgb(254, 250, 224);
+            ProductsViewInPanel.Dock = DockStyle.Fill;
+            ProductsViewInPanel.Location = new Point(0, 0);
+            ProductsViewInPanel.Name = "ProductsViewInPanel";
+            ProductsViewInPanel.Size = new Size(628, 414);
+            ProductsViewInPanel.TabIndex = 1;
             
             // 
-            // sidebarpartnerlist
+            // sidebarproducts
             // 
-            sidebarpartnerlist.Dock = DockStyle.Top;
-            sidebarpartnerlist.FlatStyle = FlatStyle.Flat;
-            sidebarpartnerlist.ForeColor = Color.FromArgb(251, 133, 0);
-            sidebarpartnerlist.Location = new Point(0, 216);
-            sidebarpartnerlist.Margin = new Padding(0);
-            sidebarpartnerlist.Name = "sidebarpartnerlist";
-            sidebarpartnerlist.Size = new Size(172, 36);
-            sidebarpartnerlist.TabIndex = 7;
-            sidebarpartnerlist.Text = "Partner List";
-            sidebarpartnerlist.UseVisualStyleBackColor = true;
-            sidebarpartnerlist.Click += sidebarpartnerlist_Click;
+            sidebarproducts.Dock = DockStyle.Top;
+            sidebarproducts.FlatStyle = FlatStyle.Flat;
+            sidebarproducts.ForeColor = Color.FromArgb(251, 133, 0);
+            sidebarproducts.Location = new Point(0, 288);
+            sidebarproducts.Margin = new Padding(0);
+            sidebarproducts.Name = "sidebarproducts";
+            sidebarproducts.Size = new Size(172, 36);
+            sidebarproducts.TabIndex = 9;
+            sidebarproducts.Text = "Products";
+            sidebarproducts.UseVisualStyleBackColor = true;
+            sidebarproducts.Click += sidebarproducts_Click;
             // 
             // Form1
             // 
@@ -340,12 +393,14 @@
         private Views.AccountListView AccountListViewInPanel;
         private Views.AccountingView AccountingViewInPanel;
         private Views.PartnerListView PartnerListViewInPanel;
-        
-
+        private Views.GroupsView GroupsViewInPanel;
+        private Views.ProductsView ProductsViewInPanel;        
         private Panel panel2;
         private Button sidebartaxlist;
         private Button sidebaracountlist;
         private Button sidebaraccounting;
         private Button sidebarpartnerlist;
+        private Button sidebargroups;
+        private Button sidebarproducts;
     }
 }

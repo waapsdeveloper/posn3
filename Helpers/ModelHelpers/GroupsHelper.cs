@@ -18,7 +18,7 @@ namespace POSN3.Helpers.ModelHelpers
 
         public DataTable all()
         {
-            string sql = "Select * from roles";
+            string sql = "Select * from groups";
 
             object[] values = { };
             DataTable dt = sqliteHelper.executeData(sql, values);
@@ -28,7 +28,7 @@ namespace POSN3.Helpers.ModelHelpers
 
         public DataTable getByRoleName(string name)
         {
-            string sql = "SELECT * FROM roles ";
+            string sql = "SELECT * FROM groups ";
 
             sql += " WHERE ";
 
@@ -41,55 +41,59 @@ namespace POSN3.Helpers.ModelHelpers
             return ra;
         }
 
-        public bool insert(string name)
+        public bool insert(string name, string code, decimal discount_group, DateTime? happy_hour_1, DateTime? happy_hour_2, DateTime? happy_hour_3)
         {
-
-            string sql = "INSERT INTO roles ";
+            string sql = "INSERT INTO groups ";
             sql += "(";
-            sql += "name";
+            sql += "name, code, discount_group, happy_hour_1, happy_hour_2, happy_hour_3";
             sql += ")";
-             
+
             sql += " VALUES ";
 
             sql += "(";
-            sql += "'" + name + "'";
+            sql += $"'{name}', '{code}', {discount_group}, ";
+            sql += happy_hour_1 != null ? $"'{happy_hour_1.Value.ToString("yyyy-MM-dd HH:mm:ss")}', " : "NULL, ";
+            sql += happy_hour_2 != null ? $"'{happy_hour_2.Value.ToString("yyyy-MM-dd HH:mm:ss")}', " : "NULL, ";
+            sql += happy_hour_3 != null ? $"'{happy_hour_3.Value.ToString("yyyy-MM-dd HH:mm:ss")}'" : "NULL";
             sql += ")";
 
-            object[] valuesa = { };
+            object[] values = { };
 
-            var ra = sqliteHelper.execute(sql, valuesa);
-            return ra == 0 ? false : true;
-
+            var result = sqliteHelper.execute(sql, values);
+            return result == 0 ? false : true;
         }
 
-        public bool update(int id, string name)
+        public bool update(int id, string name, string code, decimal discount_group, DateTime? happy_hour_1, DateTime? happy_hour_2, DateTime? happy_hour_3)
         {
             try
             {
-                string sqla = "UPDATE roles SET ";
-                sqla += "name = '" + name + "', ";
+                string sql = "UPDATE groups SET ";
+                sql += "name = '" + name + "', ";
+                sql += "code = '" + code + "', ";
+                sql += "discount_group = " + discount_group.ToString("0.00") + ", ";
+                sql += "happy_hour_1 = " + (happy_hour_1 != null ? $"'{happy_hour_1.Value.ToString("yyyy-MM-dd HH:mm:ss")}'" : "NULL") + ", ";
+                sql += "happy_hour_2 = " + (happy_hour_2 != null ? $"'{happy_hour_2.Value.ToString("yyyy-MM-dd HH:mm:ss")}'" : "NULL") + ", ";
+                sql += "happy_hour_3 = " + (happy_hour_3 != null ? $"'{happy_hour_3.Value.ToString("yyyy-MM-dd HH:mm:ss")}'" : "NULL") + ", ";
 
                 var updated_at = DateTime.Now;
-                sqla += "updated_at = '" + updated_at + "' ";
-                sqla += "WHERE id = " + id;
+                sql += "updated_at = '" + updated_at.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
+                sql += "WHERE id = " + id;
 
-                object[] valuesa = { };
+                object[] values = { };
 
-                var ra = sqliteHelper.execute(sqla, valuesa);                
-                return ra == 0 ? false : true;
-
+                var result = sqliteHelper.execute(sql, values);
+                return result == 0 ? false : true;
             }
             catch (Exception ex)
             {
-                UtilityHelper.consoleLog("User Update Error:" + ex.Message);
+                UtilityHelper.consoleLog("User Update Error: " + ex.Message);
                 return false;
             }
-
         }
 
         public bool delete(int id) {
 
-            string sql = "DELETE FROM roles ";
+            string sql = "DELETE FROM groups ";
 
             sql += " WHERE ";
             sql += "id = " + id;

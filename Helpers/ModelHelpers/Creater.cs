@@ -23,12 +23,16 @@ namespace POSN3.Helpers.ModelHelpers
             initializeUsersTable();
             initializeRolesTable();
             initializeCityTable();
+            initializeUnitMeasuresTable();
             initializeGroupTable();
             initializeAppSettingsTable();
             initializeTaxListTable();
             initializeAccountListTable();
             initializeAccountingTable();
             initializePartnerListTable();
+            initializeProductsTable();
+            initializePriceTypeTable();
+            initializePriceTypesTable();
 
             return true;
         }
@@ -83,6 +87,45 @@ namespace POSN3.Helpers.ModelHelpers
             sql += "(";
             sql += "id INTEGER PRIMARY KEY IDENTITY, ";
             sql += "name varchar(100), ";
+            sql += "created_at DATETIME DEFAULT CURRENT_TIMESTAMP, ";
+            sql += "updated_at DATETIME DEFAULT CURRENT_TIMESTAMP, ";
+            sql += "unique(name) ";
+            sql += ")";
+
+            Object[] values = { };
+
+            var r = sqliteHelper.execute(sql, values);
+            UtilityHelper.consoleLog("roles table created successful");
+            return r == 0 ? false : true;
+
+        }
+
+        bool initializePriceTypesTable()
+        {
+            string sql = "CREATE TABLE price_types";
+            sql += "(";
+            sql += "id INTEGER PRIMARY KEY IDENTITY, ";
+            sql += "name varchar(100), ";
+            sql += "created_at DATETIME DEFAULT CURRENT_TIMESTAMP, ";
+            sql += "updated_at DATETIME DEFAULT CURRENT_TIMESTAMP, ";
+            sql += "unique(name) ";
+            sql += ")";
+
+            Object[] values = { };
+
+            var r = sqliteHelper.execute(sql, values);
+            UtilityHelper.consoleLog("roles table created successful");
+            return r == 0 ? false : true;
+
+        }
+
+        bool initializeUnitMeasuresTable()
+        {
+            string sql = "CREATE TABLE unit_measures";
+            sql += "(";
+            sql += "id INTEGER PRIMARY KEY IDENTITY, ";
+            sql += "name varchar(100), ";
+            sql += "code varchar(100), ";
             sql += "created_at DATETIME DEFAULT CURRENT_TIMESTAMP, ";
             sql += "updated_at DATETIME DEFAULT CURRENT_TIMESTAMP, ";
             sql += "unique(name) ";
@@ -263,6 +306,44 @@ namespace POSN3.Helpers.ModelHelpers
 
             return r == 0 ? false : true;
         }
+
+        bool initializeProductsTable()
+        {
+            string sql = "CREATE TABLE products";
+            sql += "(";
+            sql += "id INTEGER PRIMARY KEY IDENTITY, ";
+            sql += "accounting_date DATETIME, ";
+            sql += "document varchar(70), ";
+            sql += "account_id INTEGER, ";
+            sql += "unit_measure INTEGER, ";
+            sql += "description varchar(150), ";
+            sql += "in_value NUMERIC(16,3), ";
+            sql += "out_value NUMERIC(16,3), ";
+            sql += "price NUMERIC(16,2), ";
+            sql += "price_type  varchar(50), ";
+            sql += "debit NUMERIC(16,2), ";
+            sql += "credit NUMERIC(16,2), ";
+            sql += "partner_id INTEGER, ";
+            sql += "tax_id INTEGER, ";
+            sql += "warehouse_id INTEGER, ";
+
+            sql += "created_at DATETIME DEFAULT CURRENT_TIMESTAMP, ";
+            sql += "updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ";
+            sql += ")";
+
+            Object[] values = { };
+
+            var result = sqliteHelper.execute(sql, values);
+            UtilityHelper.consoleLog("products table created successfully");
+
+            return result == 0 ? false : true;
+        }
+
+        void initializePriceTypeTable()
+        {
+
+        }
+
 
     }
 }

@@ -2,7 +2,7 @@
 
 namespace POSN3.Views
 {
-    partial class RolesView
+    partial class GroupsView
     {
         /// <summary> 
         /// Required designer variable.
@@ -70,6 +70,7 @@ namespace POSN3.Views
             datatableView1.CellValueChanged += dataGridView1_CellValueChanged;
             datatableView1.EditingControlShowing += dataGridView1_EditingControlShowing;
             datatableView1.UserDeletingRow += dataGridView1_UserDeletingRow;
+            datatableView1.CellEndEdit += dataGridView1_CellEndEdit;
             // 
             // RolesView
             // 

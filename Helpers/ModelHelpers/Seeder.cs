@@ -20,6 +20,7 @@ namespace POSN3.Helpers.ModelHelpers
 
             seedRoles();
             seedCities();
+            seedUnitMeasures();
             seedSuperUser();
 
         }
@@ -61,6 +62,21 @@ namespace POSN3.Helpers.ModelHelpers
                 "Duisburg"
             };
             CityHelper helper = new CityHelper(sqliteHelper);
+
+            for (var i = 0; i < list.Length; i++)
+            {
+                string a = list[i];
+                helper.insert(a);
+            }
+
+        }
+
+        void seedUnitMeasures()
+        {
+            UtilityHelper.consoleLog("start seeding for roles");
+
+            string[] list = { "inches", "centimeters", "feet", "meters" };
+            UnitMeasureHelper helper = new UnitMeasureHelper(sqliteHelper);
 
             for (var i = 0; i < list.Length; i++)
             {
