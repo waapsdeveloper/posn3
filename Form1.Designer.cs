@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             sidebar = new Panel();
+            sidebaraccounting = new Button();
             sidebaracountlist = new Button();
             sidebartaxlist = new Button();
             sidebarroles = new Button();
@@ -44,7 +45,9 @@
             TaxListViewInPanel = new Views.TaxListView();
             AccountListViewInPanel = new Views.AccountListView();
             AccountingViewInPanel = new Views.AccountingView();
-            sidebaraccounting = new Button();
+            PartnerListViewInPanel = new Views.PartnerListView();
+            
+            sidebarpartnerlist = new Button();
             sidebar.SuspendLayout();
             header.SuspendLayout();
             panel1.SuspendLayout();
@@ -54,6 +57,7 @@
             // sidebar
             // 
             sidebar.BackColor = Color.FromArgb(2, 48, 71);
+            sidebar.Controls.Add(sidebarpartnerlist);
             sidebar.Controls.Add(sidebaraccounting);
             sidebar.Controls.Add(sidebaracountlist);
             sidebar.Controls.Add(sidebartaxlist);
@@ -66,6 +70,20 @@
             sidebar.Size = new Size(172, 450);
             sidebar.TabIndex = 0;
             sidebar.Paint += panel1_Paint;
+            // 
+            // sidebaraccounting
+            // 
+            sidebaraccounting.Dock = DockStyle.Top;
+            sidebaraccounting.FlatStyle = FlatStyle.Flat;
+            sidebaraccounting.ForeColor = Color.FromArgb(251, 133, 0);
+            sidebaraccounting.Location = new Point(0, 180);
+            sidebaraccounting.Margin = new Padding(0);
+            sidebaraccounting.Name = "sidebaraccounting";
+            sidebaraccounting.Size = new Size(172, 36);
+            sidebaraccounting.TabIndex = 6;
+            sidebaraccounting.Text = "Accounting";
+            sidebaraccounting.UseVisualStyleBackColor = true;
+            sidebaraccounting.Click += sidebaraccounting_Click;
             // 
             // sidebaracountlist
             // 
@@ -188,6 +206,7 @@
             panel2.Controls.Add(TaxListViewInPanel);
             panel2.Controls.Add(AccountListViewInPanel);
             panel2.Controls.Add(AccountingViewInPanel);
+            panel2.Controls.Add(PartnerListViewInPanel); 
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
@@ -230,7 +249,6 @@
             AccountListViewInPanel.Name = "AccountListViewInPanel";
             AccountListViewInPanel.Size = new Size(628, 414);
             AccountListViewInPanel.TabIndex = 1;
-
             // 
             // AccountingViewInPanel
             // 
@@ -240,21 +258,30 @@
             AccountingViewInPanel.Name = "AccountingViewInPanel";
             AccountingViewInPanel.Size = new Size(628, 414);
             AccountingViewInPanel.TabIndex = 1;
-
             // 
-            // sidebaraccounting
+            // PartnerListViewInPanel
             // 
-            sidebaraccounting.Dock = DockStyle.Top;
-            sidebaraccounting.FlatStyle = FlatStyle.Flat;
-            sidebaraccounting.ForeColor = Color.FromArgb(251, 133, 0);
-            sidebaraccounting.Location = new Point(0, 180);
-            sidebaraccounting.Margin = new Padding(0);
-            sidebaraccounting.Name = "sidebaraccounting";
-            sidebaraccounting.Size = new Size(172, 36);
-            sidebaraccounting.TabIndex = 6;
-            sidebaraccounting.Text = "Accounting";
-            sidebaraccounting.UseVisualStyleBackColor = true;
-            sidebaraccounting.Click += sidebaraccounting_Click;
+            PartnerListViewInPanel.BackColor = Color.FromArgb(254, 250, 224);
+            PartnerListViewInPanel.Dock = DockStyle.Fill;
+            PartnerListViewInPanel.Location = new Point(0, 0);
+            PartnerListViewInPanel.Name = "PartnerListViewInPanel";
+            PartnerListViewInPanel.Size = new Size(628, 414);
+            PartnerListViewInPanel.TabIndex = 1;
+            
+            // 
+            // sidebarpartnerlist
+            // 
+            sidebarpartnerlist.Dock = DockStyle.Top;
+            sidebarpartnerlist.FlatStyle = FlatStyle.Flat;
+            sidebarpartnerlist.ForeColor = Color.FromArgb(251, 133, 0);
+            sidebarpartnerlist.Location = new Point(0, 216);
+            sidebarpartnerlist.Margin = new Padding(0);
+            sidebarpartnerlist.Name = "sidebarpartnerlist";
+            sidebarpartnerlist.Size = new Size(172, 36);
+            sidebarpartnerlist.TabIndex = 7;
+            sidebarpartnerlist.Text = "Partner List";
+            sidebarpartnerlist.UseVisualStyleBackColor = true;
+            sidebarpartnerlist.Click += sidebarpartnerlist_Click;
             // 
             // Form1
             // 
@@ -312,10 +339,13 @@
         private Views.TaxListView TaxListViewInPanel;
         private Views.AccountListView AccountListViewInPanel;
         private Views.AccountingView AccountingViewInPanel;
+        private Views.PartnerListView PartnerListViewInPanel;
+        
 
         private Panel panel2;
         private Button sidebartaxlist;
         private Button sidebaracountlist;
         private Button sidebaraccounting;
+        private Button sidebarpartnerlist;
     }
 }

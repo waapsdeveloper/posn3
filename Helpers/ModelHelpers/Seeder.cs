@@ -19,6 +19,7 @@ namespace POSN3.Helpers.ModelHelpers
 
 
             seedRoles();
+            seedCities();
             seedSuperUser();
 
         }
@@ -27,13 +28,44 @@ namespace POSN3.Helpers.ModelHelpers
         {
             UtilityHelper.consoleLog("start seeding for roles");
 
-            string[] roles = { "super_admin", "admin", "account_holder", "user" };
-            RoleHelper roleHelper = new RoleHelper(sqliteHelper);
+            string[] list = { "super_admin", "admin", "account_holder", "user" };
+            RoleHelper helper = new RoleHelper(sqliteHelper);
 
-            for (var i = 0; i < roles.Length; i++)
+            for (var i = 0; i < list.Length; i++)
             {
-                string a = roles[i];
-                roleHelper.insert(a);
+                string a = list[i];
+                helper.insert(a);
+            }
+
+        }
+
+        void seedCities()
+        {
+            UtilityHelper.consoleLog("start seeding for roles");
+
+            string[] list = {
+                "Berlin",
+                "Hamburg",
+                "Munich",
+                "Cologne",
+                "Frankfurt",
+                "Stuttgart",
+                "Dusseldorf",
+                "Dortmund",
+                "Essen",
+                "Leipzig",
+                "Bremen",
+                "Dresden",
+                "Hanover",
+                "Nuremberg",
+                "Duisburg"
+            };
+            CityHelper helper = new CityHelper(sqliteHelper);
+
+            for (var i = 0; i < list.Length; i++)
+            {
+                string a = list[i];
+                helper.insert(a);
             }
 
         }

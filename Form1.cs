@@ -38,6 +38,7 @@ namespace POSN3
             TaxListViewInPanel.Visible = false;
             AccountListViewInPanel.Visible = false;
             AccountingViewInPanel.Visible = false;
+            PartnerListViewInPanel.Visible = false;
         }
 
         void showPanelBaseOnStep(string step)
@@ -60,6 +61,10 @@ namespace POSN3
                 case "accounting":
                     AccountingViewInPanel.Visible = true;
                     break;
+                case "partner_list":
+                    PartnerListViewInPanel.Visible = true;
+                    break;
+                    
 
             }
         }
@@ -100,6 +105,12 @@ namespace POSN3
         {
             UtilityHelper.consoleLog("point5");
             showPanelBaseOnStep("accounting");
+        }
+
+        private void sidebarpartnerlist_Click(object sender, EventArgs e)
+        {
+            UtilityHelper.consoleLog("point6");
+            showPanelBaseOnStep("partner_list");
         }
     }
 }

@@ -27,6 +27,9 @@
     <Compile Update="Views\AccountingView.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Views\PartnerListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Views\AccountListView.cs">
       <SubType>UserControl</SubType>
     </Compile>

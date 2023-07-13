@@ -72,7 +72,14 @@ namespace POSN3.Views
                 AccountId.DisplayMember = "name";
                 AccountId.DataSource = dt;
 
-                
+                PartnerListHelper list = new PartnerListHelper(sqliteHelper);
+                DataTable dt2 = list.all();
+
+                PartnerId.ValueMember = "id";
+                PartnerId.DisplayMember = "name";
+                PartnerId.DataSource = dt2;
+
+
 
             }
             catch (Exception e)
