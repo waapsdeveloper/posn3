@@ -13,9 +13,9 @@ using System.Xml.Linq;
 
 namespace POSN3.Views
 {
-    public partial class GroupsView : UserControl
+    public partial class MessageListView : UserControl
     {
-        public GroupsView()
+        public MessageListView()
         {
             InitializeComponent();
             this.Paint += view_Paint;
@@ -33,7 +33,7 @@ namespace POSN3.Views
             try
             {
                 SqliteHelper sqliteHelper = new SqliteHelper();
-                GroupsHelper helper = new GroupsHelper(sqliteHelper);
+                MessageListHelper helper = new MessageListHelper(sqliteHelper);
 
                 DataTable dt = await helper.all();
 
@@ -83,10 +83,10 @@ namespace POSN3.Views
             }
         }
 
-        private async void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (datatableView1.CurrentRow != null)
-            {  
+            {
 
             }
         }
@@ -101,43 +101,25 @@ namespace POSN3.Views
 
                 DataGridViewRow dataGridViewRow = datatableView1.CurrentRow;
                 SqliteHelper sqliteHelper = new SqliteHelper();
-                GroupsHelper helper = new GroupsHelper(sqliteHelper);
+                MessageListHelper helper = new MessageListHelper(sqliteHelper);
                 int id = 0;
                 if (dataGridViewRow.Cells["id"].Value != DBNull.Value)
                 {
                     id = Int32.Parse(dataGridViewRow.Cells["id"].Value.ToString());
                 }
 
-                string name = dataGridViewRow.Cells["name"].Value.ToString();
-                string code = dataGridViewRow.Cells["code"].Value.ToString();
-                
-                decimal discount_group = 0;
-                if (dataGridViewRow.Cells["discount_group"].Value != DBNull.Value)
+                string message = dataGridViewRow.Cells["message"].Value.ToString();
+
+                int? invoice_id = null;
+                if (dataGridViewRow.Cells["InvoiceId"].Value != DBNull.Value)
                 {
-                    discount_group = Convert.ToDecimal(dataGridViewRow.Cells["discount_group"].Value);
+                    invoice_id = Int32.Parse(dataGridViewRow.Cells["InvoiceId"].Value.ToString());
                 }
 
-                DateTime? happy_hour_1 = null;
-                if (dataGridViewRow.Cells["happy_hour_1"].Value != DBNull.Value)
-                {
-                    happy_hour_1 = DateTime.Parse(dataGridViewRow.Cells["happy_hour_1"].Value.ToString());
-                }
-
-                DateTime? happy_hour_2 = null;
-                if (dataGridViewRow.Cells["happy_hour_2"].Value != DBNull.Value)
-                {
-                    happy_hour_2 = DateTime.Parse(dataGridViewRow.Cells["happy_hour_2"].Value.ToString());
-                }
-
-                DateTime? happy_hour_3 = null;
-                if (dataGridViewRow.Cells["happy_hour_3"].Value != DBNull.Value)
-                {
-                    happy_hour_3 = DateTime.Parse(dataGridViewRow.Cells["happy_hour_3"].Value.ToString());
-                }
 
                 if (id == 0)
                 {
-                    bool r = await helper.insertAsync(name, code, discount_group, happy_hour_1, happy_hour_2, happy_hour_3);
+                    bool r = await helper.insert(message, invoice_id);
                     if (r)
                     {
                         initalizeData();
@@ -145,7 +127,7 @@ namespace POSN3.Views
                 }
                 else
                 {
-                    bool r = await helper.updateAsync(id, name, code, discount_group, happy_hour_1, happy_hour_2, happy_hour_3);
+                    bool r = await helper.updateAsync(id, message, invoice_id);
                     if (r)
                     {
                         initalizeData();
@@ -163,7 +145,7 @@ namespace POSN3.Views
                 if (MessageBox.Show("Are Sure You Want Delete The User?", "DataGridView", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     SqliteHelper sqliteHelper = new SqliteHelper();
-                    GroupsHelper helper = new GroupsHelper(sqliteHelper);
+                    MessageListHelper helper = new MessageListHelper(sqliteHelper);
 
 
                     var id = (int)datatableView1.CurrentRow.Cells["id"].Value;
@@ -175,6 +157,16 @@ namespace POSN3.Views
 
                 }
 
+            }
+        }
+
+        private async void dataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            if (datatableView1.Columns[e.ColumnIndex] is DataGridViewComboBoxColumn)
+            {
+                //dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = null; // Clear the invalid value
+                //e.ThrowException = false; // Prevent the exception from being thrown
+                // MessageBox.Show("Please select a valid value.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

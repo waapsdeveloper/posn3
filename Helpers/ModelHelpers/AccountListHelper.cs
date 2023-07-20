@@ -16,17 +16,17 @@ namespace POSN3.Helpers.ModelHelpers
             this.sqliteHelper = sqliteHelper;
         }
 
-        public DataTable all()
+        public async Task<DataTable> all()
         {
             string sql = "Select * from account_list";
 
             object[] values = { };
-            DataTable dt = sqliteHelper.executeData(sql, values);
+            DataTable dt = await sqliteHelper.executeData(sql, values);
             UtilityHelper.consoleLog("account_list table list");
             return dt;
         }
 
-        public bool insert(string name, string account, string aop)
+        public async Task<bool> insertAsync(string name, string account, string aop)
         {
 
             string sql = "INSERT INTO account_list ";
@@ -46,12 +46,12 @@ namespace POSN3.Helpers.ModelHelpers
 
             object[] valuesa = { };
 
-            var ra = sqliteHelper.execute(sql, valuesa);
+            var ra = await sqliteHelper.execute(sql, valuesa);
             return ra == 0 ? false : true;
 
         }
 
-        public bool update(int id, string name, string account, string aop)
+        public async Task<bool> updateAsync(int id, string name, string account, string aop)
         {
             try
             {
@@ -66,7 +66,7 @@ namespace POSN3.Helpers.ModelHelpers
 
                 object[] valuesa = { };
 
-                var ra = sqliteHelper.execute(sql, valuesa);                
+                var ra = await sqliteHelper.execute(sql, valuesa);                
                 return ra == 0 ? false : true;
 
             }
@@ -78,7 +78,7 @@ namespace POSN3.Helpers.ModelHelpers
 
         }
 
-        public bool delete(int id) {
+        public async Task<bool> deleteAsync(int id) {
 
             string sql = "DELETE FROM account_list ";
 
@@ -86,7 +86,7 @@ namespace POSN3.Helpers.ModelHelpers
             sql += "id = " + id;
             object[] valuesa = { };
 
-            var ra = sqliteHelper.execute(sql, valuesa);
+            var ra = await sqliteHelper.execute(sql, valuesa);
             return ra == 0 ? false : true;
 
         }

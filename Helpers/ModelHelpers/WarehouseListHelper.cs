@@ -8,17 +8,17 @@ using System.Xml.Linq;
 
 namespace POSN3.Helpers.ModelHelpers
 {
-    internal class UnitMeasureHelper
+    internal class WarehouseListHelper
     {
         SqliteHelper sqliteHelper;
-        public UnitMeasureHelper(SqliteHelper sqliteHelper)
+        public WarehouseListHelper(SqliteHelper sqliteHelper)
         {
             this.sqliteHelper = sqliteHelper;
         }
 
         public async Task<DataTable> all()
         {
-            string sql = "Select * from unit_measures";
+            string sql = "Select * from warehouse_list";
 
             object[] values = { };
             DataTable dt = await sqliteHelper.executeData(sql, values);
@@ -28,7 +28,7 @@ namespace POSN3.Helpers.ModelHelpers
 
         public async Task<DataTable> getByRoleName(string name)
         {
-            string sql = "SELECT * FROM unit_measures ";
+            string sql = "SELECT * FROM warehouse_list ";
 
             sql += " WHERE ";
 
@@ -41,18 +41,20 @@ namespace POSN3.Helpers.ModelHelpers
             return ra;
         }
 
-        public async Task<bool> insertAsync(string name)
+        public async Task<bool> insertAsync(string name, string code)
         {
 
-            string sql = "INSERT INTO unit_measures ";
+            string sql = "INSERT INTO warehouse_list ";
             sql += "(";
-            sql += "name";
+            sql += "name, ";
+            sql += "code ";
             sql += ")";
              
             sql += " VALUES ";
 
             sql += "(";
-            sql += "'" + name + "'";
+            sql += "'" + name + "', ";
+            sql += "'" + code + "'";
             sql += ")";
 
             object[] valuesa = { };
@@ -62,12 +64,13 @@ namespace POSN3.Helpers.ModelHelpers
 
         }
 
-        public async Task<bool> updateAsync(int id, string name)
+        public async Task<bool> updateAsync(int id, string name, string code)
         {
             try
             {
-                string sqla = "UPDATE unit_measures SET ";
+                string sqla = "UPDATE warehouse_list SET ";
                 sqla += "name = '" + name + "', ";
+                sqla += "code = '" + code + "', ";
 
                 var updated_at = DateTime.Now;
                 sqla += "updated_at = '" + updated_at + "' ";
@@ -89,7 +92,7 @@ namespace POSN3.Helpers.ModelHelpers
 
         public async Task<bool> deleteAsync(int id) {
 
-            string sql = "DELETE FROM unit_measures ";
+            string sql = "DELETE FROM warehouse_list ";
 
             sql += " WHERE ";
             sql += "id = " + id;

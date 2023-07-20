@@ -1,5 +1,6 @@
 using System.Data;
 using System.Diagnostics;
+using System.Windows.Forms;
 using POSN3.Helpers;
 using POSN3.Views;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
@@ -13,6 +14,10 @@ namespace POSN3
         {
             InitializeComponent();
             hideAllPanels();
+
+            sidebar.Visible = false;
+            UserControlViewInPanel.Visible = true;
+            //loginSuccessful();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -20,7 +25,7 @@ namespace POSN3
 
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private async void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
@@ -41,6 +46,20 @@ namespace POSN3
             PartnerListViewInPanel.Visible = false;
             GroupsViewInPanel.Visible = false;
             ProductsViewInPanel.Visible = false;
+            WarehouseListViewInPanel.Visible = false;
+            InvoiceListViewInPanel.Visible = false;
+            EmployeeListViewInPanel.Visible = false;
+            MessageListViewInPanel.Visible = false;
+            UserControlViewInPanel.Visible = false;
+        }
+
+        public void loginSuccessful()
+        {
+            sidebar.Visible = true;
+            UserControlViewInPanel.Visible = false;
+            hideAllPanels();
+            showPanelBaseOnStep("login");
+
         }
 
         void showPanelBaseOnStep(string step)
@@ -72,8 +91,28 @@ namespace POSN3
                 case "products":
                     ProductsViewInPanel.Visible = true;
                     break;
+                case "warehouse":
+                    WarehouseListViewInPanel.Visible = true;
+                    break;
+                case "invoice_list":
+                    InvoiceListViewInPanel.Visible = true;
+                    break;
+                case "employee_list":
+                    EmployeeListViewInPanel.Visible = true;
+                    break;
+                case "messages":
+                    MessageListViewInPanel.Visible = true;
+                    break;
+                case "clogin":
+                    UserControlViewInPanel.Visible = true;
+                    break;
 
-                    
+
+
+
+
+
+
 
             }
         }
@@ -132,6 +171,36 @@ namespace POSN3
         {
             UtilityHelper.consoleLog("point8");
             showPanelBaseOnStep("products");
+        }
+
+        private void sidebarwarehouse_Click(object sender, EventArgs e)
+        {
+            UtilityHelper.consoleLog("point9");
+            showPanelBaseOnStep("warehouse");
+        }
+
+        private void sidebarinvoicelist_Click(object sender, EventArgs e)
+        {
+            UtilityHelper.consoleLog("point10");
+            showPanelBaseOnStep("invoice_list");
+        }
+
+        private void sidebaremployeelist_Click(object sender, EventArgs e)
+        {
+            UtilityHelper.consoleLog("point11");
+            showPanelBaseOnStep("employee_list");
+        }
+
+        private void sidebarmessages_Click(object sender, EventArgs e)
+        {
+            UtilityHelper.consoleLog("point12");
+            showPanelBaseOnStep("messages");
+        }
+
+        private void Login_Click(object sender, EventArgs e)
+        {
+            UtilityHelper.consoleLog("point13");
+            showPanelBaseOnStep("clogin");
         }
     }
 }

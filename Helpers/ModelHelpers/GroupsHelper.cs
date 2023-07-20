@@ -16,17 +16,17 @@ namespace POSN3.Helpers.ModelHelpers
             this.sqliteHelper = sqliteHelper;
         }
 
-        public DataTable all()
+        public async Task<DataTable> all()
         {
             string sql = "Select * from groups";
 
             object[] values = { };
-            DataTable dt = sqliteHelper.executeData(sql, values);
+            DataTable dt = await sqliteHelper.executeData(sql, values);
             UtilityHelper.consoleLog("Roles table created successful");
             return dt;
         }
 
-        public DataTable getByRoleName(string name)
+        public async Task<DataTable> getByRoleName(string name)
         {
             string sql = "SELECT * FROM groups ";
 
@@ -37,11 +37,11 @@ namespace POSN3.Helpers.ModelHelpers
 
             object[] valuesa = { };
 
-            var ra = sqliteHelper.executeData(sql, valuesa);
+            var ra = await sqliteHelper.executeData(sql, valuesa);
             return ra;
         }
 
-        public bool insert(string name, string code, decimal discount_group, DateTime? happy_hour_1, DateTime? happy_hour_2, DateTime? happy_hour_3)
+        public async Task<bool> insertAsync(string name, string code, decimal discount_group, DateTime? happy_hour_1, DateTime? happy_hour_2, DateTime? happy_hour_3)
         {
             string sql = "INSERT INTO groups ";
             sql += "(";
@@ -59,11 +59,11 @@ namespace POSN3.Helpers.ModelHelpers
 
             object[] values = { };
 
-            var result = sqliteHelper.execute(sql, values);
+            var result = await sqliteHelper.execute(sql, values);
             return result == 0 ? false : true;
         }
 
-        public bool update(int id, string name, string code, decimal discount_group, DateTime? happy_hour_1, DateTime? happy_hour_2, DateTime? happy_hour_3)
+        public async Task<bool> updateAsync(int id, string name, string code, decimal discount_group, DateTime? happy_hour_1, DateTime? happy_hour_2, DateTime? happy_hour_3)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace POSN3.Helpers.ModelHelpers
 
                 object[] values = { };
 
-                var result = sqliteHelper.execute(sql, values);
+                var result = await sqliteHelper.execute(sql, values);
                 return result == 0 ? false : true;
             }
             catch (Exception ex)
@@ -91,7 +91,7 @@ namespace POSN3.Helpers.ModelHelpers
             }
         }
 
-        public bool delete(int id) {
+        public async Task<bool> deleteAsync(int id) {
 
             string sql = "DELETE FROM groups ";
 
@@ -99,7 +99,7 @@ namespace POSN3.Helpers.ModelHelpers
             sql += "id = " + id;
             object[] valuesa = { };
 
-            var ra = sqliteHelper.execute(sql, valuesa);
+            var ra = await sqliteHelper.execute(sql, valuesa);
             return ra == 0 ? false : true;
 
         }

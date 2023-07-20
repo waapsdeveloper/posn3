@@ -17,17 +17,17 @@ namespace POSN3.Helpers.ModelHelpers
             this.sqliteHelper = sqliteHelper;
         }
 
-        public DataTable all()
+        public async Task<DataTable> all()
         {
             string sql = "Select * from accounting";
 
             object[] values = { };
-            DataTable dt = sqliteHelper.executeData(sql, values);
+            DataTable dt = await sqliteHelper.executeData(sql, values);
             UtilityHelper.consoleLog("accounting table list");
             return dt;
         }
 
-        public bool insert(int? account_id, int partner_id, DateTime account_date, string document_name, string description, double debit, double credit)
+        public async Task<bool> insertAsync(int? account_id, int partner_id, DateTime account_date, string document_name, string description, double debit, double credit)
         {
             string sql = "INSERT INTO accounting ";
             sql += "(";
@@ -54,11 +54,11 @@ namespace POSN3.Helpers.ModelHelpers
 
             object[] valuesa = { };
 
-            var ra = sqliteHelper.execute(sql, valuesa);
+            var ra = await sqliteHelper.execute(sql, valuesa);
             return ra == 0 ? false : true;
         }
 
-        public bool update(int id, int? account_id, int partner_id, DateTime account_date, string documentName, string description, double debit, double credit)
+        public async Task<bool> updateAsync(int id, int? account_id, int partner_id, DateTime account_date, string documentName, string description, double debit, double credit)
         {
             try
             {
@@ -77,7 +77,7 @@ namespace POSN3.Helpers.ModelHelpers
 
                 object[] values = { };
 
-                var rowsAffected = sqliteHelper.execute(sql, values);
+                var rowsAffected = await sqliteHelper.execute(sql, values);
                 return rowsAffected == 0 ? false : true;
             }
             catch (Exception ex)
@@ -87,7 +87,7 @@ namespace POSN3.Helpers.ModelHelpers
             }
         }
 
-        public bool delete(int id) {
+        public async Task<bool> deleteAsync(int id) {
 
             string sql = "DELETE FROM accounting ";
 
@@ -95,7 +95,7 @@ namespace POSN3.Helpers.ModelHelpers
             sql += "id = " + id;
             object[] valuesa = { };
 
-            var ra = sqliteHelper.execute(sql, valuesa);
+            var ra = await sqliteHelper.execute(sql, valuesa);
             return ra == 0 ? false : true;
 
         }

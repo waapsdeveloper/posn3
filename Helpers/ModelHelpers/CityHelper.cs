@@ -16,17 +16,17 @@ namespace POSN3.Helpers.ModelHelpers
             this.sqliteHelper = sqliteHelper;
         }
 
-        public DataTable all()
+        public async Task<DataTable> all()
         {
             string sql = "Select * from cities";
 
             object[] values = { };
-            DataTable dt = sqliteHelper.executeData(sql, values);
+            DataTable dt = await sqliteHelper.executeData(sql, values);
             UtilityHelper.consoleLog("Roles table created successful");
             return dt;
         }
 
-        public DataTable getByRoleName(string name)
+        public async Task<DataTable> getByRoleName(string name)
         {
             string sql = "SELECT * FROM cities ";
 
@@ -37,11 +37,11 @@ namespace POSN3.Helpers.ModelHelpers
 
             object[] valuesa = { };
 
-            var ra = sqliteHelper.executeData(sql, valuesa);
+            var ra = await sqliteHelper.executeData(sql, valuesa);
             return ra;
         }
 
-        public bool insert(string name)
+        public async Task<bool> insertAsync(string name)
         {
 
             string sql = "INSERT INTO cities ";
@@ -57,12 +57,12 @@ namespace POSN3.Helpers.ModelHelpers
 
             object[] valuesa = { };
 
-            var ra = sqliteHelper.execute(sql, valuesa);
+            var ra = await sqliteHelper.execute(sql, valuesa);
             return ra == 0 ? false : true;
 
         }
 
-        public bool update(int id, string name)
+        public async Task<bool> updateAsync(int id, string name)
         {
             try
             {
@@ -75,7 +75,7 @@ namespace POSN3.Helpers.ModelHelpers
 
                 object[] valuesa = { };
 
-                var ra = sqliteHelper.execute(sqla, valuesa);                
+                var ra = await sqliteHelper.execute(sqla, valuesa);                
                 return ra == 0 ? false : true;
 
             }
@@ -87,7 +87,7 @@ namespace POSN3.Helpers.ModelHelpers
 
         }
 
-        public bool delete(int id) {
+        public async Task<bool> deleteAsync(int id) {
 
             string sql = "DELETE FROM cities ";
 
@@ -95,7 +95,7 @@ namespace POSN3.Helpers.ModelHelpers
             sql += "id = " + id;
             object[] valuesa = { };
 
-            var ra = sqliteHelper.execute(sql, valuesa);
+            var ra = await sqliteHelper.execute(sql, valuesa);
             return ra == 0 ? false : true;
 
         }

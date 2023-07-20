@@ -57,6 +57,7 @@
             dataGridView1.CellValueChanged += dataGridView1_CellValueChanged;
             dataGridView1.EditingControlShowing += dataGridView1_EditingControlShowing;
             dataGridView1.UserDeletingRow += dataGridView1_UserDeletingRow;
+            dataGridView1.DataError += dataGridView1_DataError;
             // 
             // id
             // 

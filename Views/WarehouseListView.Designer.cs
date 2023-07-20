@@ -2,7 +2,7 @@
 
 namespace POSN3.Views
 {
-    partial class GroupsView
+    partial class WarehouseListView
     {
         /// <summary> 
         /// Required designer variable.
@@ -67,12 +67,12 @@ namespace POSN3.Views
             datatableView1.RowTemplate.Height = 25;
             datatableView1.Size = new Size(719, 409);
             datatableView1.TabIndex = 3;
-            datatableView1.CellValueChanged += dataGridView1_CellValueChanged;
+            datatableView1.CellEndEdit += dataGridView1_CellEndEdit;
             datatableView1.EditingControlShowing += dataGridView1_EditingControlShowing;
             datatableView1.UserDeletingRow += dataGridView1_UserDeletingRow;
-            datatableView1.CellEndEdit += dataGridView1_CellEndEditAsync;
+            datatableView1.DataError += dataGridView1_DataError;
             // 
-            // RolesView
+            // WarehouseListView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;

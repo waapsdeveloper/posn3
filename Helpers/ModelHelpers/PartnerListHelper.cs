@@ -16,17 +16,17 @@ namespace POSN3.Helpers.ModelHelpers
             this.sqliteHelper = sqliteHelper;
         }
 
-        public DataTable all()
+        public async Task<DataTable> all()
         {
             string sql = "Select * from partner_list";
 
             object[] values = { };
-            DataTable dt = sqliteHelper.executeData(sql, values);
+            DataTable dt = await sqliteHelper.executeData(sql, values);
             UtilityHelper.consoleLog("partner_list table list");
             return dt;
         }
 
-        public bool insert(string name, string code, string long_name, string address, int? city_id, string mb, string oib, string in_tax_system, string tax_type, bool is_customer, bool is_vendor, string iban, string phone, string telefax, string mobile_phone, string mail, string web, int? customer_account, int? vendor_account, int? person, decimal customer_discount, decimal vendor_discount, int? customer_due_date, int? vendor_due_date, bool active)
+        public async Task<bool> insertAsync(string name, string code, string long_name, string address, int? city_id, string mb, string oib, string in_tax_system, string tax_type, bool is_customer, bool is_vendor, string iban, string phone, string telefax, string mobile_phone, string mail, string web, int? customer_account, int? vendor_account, int? person, decimal customer_discount, decimal vendor_discount, int? customer_due_date, int? vendor_due_date, bool active)
         {
             string sql = "INSERT INTO partner_list ";
             sql += "(";
@@ -89,11 +89,11 @@ namespace POSN3.Helpers.ModelHelpers
 
             object[] values = { };
 
-            var rowsAffected = sqliteHelper.execute(sql, values);
+            var rowsAffected = await sqliteHelper.execute(sql, values);
             return rowsAffected > 0;
         }
 
-        public bool update(int id, string code, string name, string long_name, string address, int? city_id, string mb, string oib, string in_tax_system, string tax_type, bool is_customer, bool is_vendor, string iban, string phone, string telefax, string mobile_phone, string mail, string web, int? customer_account, int? vendor_account, int? person, decimal customer_discount, decimal vendor_discount, int? customer_due_date, int? vendor_due_date, bool active)
+        public async Task<bool> updateAsync(int id, string code, string name, string long_name, string address, int? city_id, string mb, string oib, string in_tax_system, string tax_type, bool is_customer, bool is_vendor, string iban, string phone, string telefax, string mobile_phone, string mail, string web, int? customer_account, int? vendor_account, int? person, decimal customer_discount, decimal vendor_discount, int? customer_due_date, int? vendor_due_date, bool active)
         {
             try
             {
@@ -127,7 +127,7 @@ namespace POSN3.Helpers.ModelHelpers
 
                 object[] values = { };
 
-                var rowsAffected = sqliteHelper.execute(sql, values);
+                var rowsAffected = await sqliteHelper.execute(sql, values);
                 return rowsAffected > 0;
             }
             catch (Exception ex)
@@ -137,7 +137,7 @@ namespace POSN3.Helpers.ModelHelpers
             }
         }
 
-        public bool delete(int id) {
+        public async Task<bool> deleteAsync(int id) {
 
             string sql = "DELETE FROM partner_list ";
 
@@ -145,7 +145,7 @@ namespace POSN3.Helpers.ModelHelpers
             sql += "id = " + id;
             object[] valuesa = { };
 
-            var ra = sqliteHelper.execute(sql, valuesa);
+            var ra = await sqliteHelper.execute(sql, valuesa);
             return ra == 0 ? false : true;
 
         }

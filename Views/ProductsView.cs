@@ -33,7 +33,7 @@ namespace POSN3.Views
 
         }
 
-        void initalizeData()
+        async void initalizeData()
         {
 
             try
@@ -42,13 +42,14 @@ namespace POSN3.Views
                 SqliteHelper sqliteHelper = new SqliteHelper();
                 ProductsHelper helper = new ProductsHelper(sqliteHelper);
 
-                DataTable dt = helper.all();
+                DataTable dt = await helper.all();
 
                 dt.Columns["id"].ReadOnly = true;
                 dt.Columns["created_at"].ReadOnly = true;
                 dt.Columns["updated_at"].ReadOnly = true;
 
                 dataGridView1.DataSource = dt;
+                dataGridView1.DataError += new DataGridViewDataErrorEventHandler(combobox_DataError);
 
 
             }
@@ -62,25 +63,55 @@ namespace POSN3.Views
 
         }
 
-        void populateAccountComboBox()
+        async void populateAccountComboBox()
         {
 
             try
             {
                 SqliteHelper sqliteHelper = new SqliteHelper();
                 AccountListHelper list1 = new AccountListHelper(sqliteHelper);
-                DataTable dt = list1.all();
+                DataTable dt = await list1.all();
 
                 AccountId.ValueMember = "id";
                 AccountId.DisplayMember = "name";
                 AccountId.DataSource = dt;
 
                 UnitMeasureHelper list2 = new UnitMeasureHelper(sqliteHelper);
-                DataTable dt2 = list2.all();
+                DataTable dt2 = await list2.all();
 
                 UnitMeasure.ValueMember = "id";
                 UnitMeasure.DisplayMember = "name";
                 UnitMeasure.DataSource = dt2;
+
+                PriceTypesHelper list3 = new PriceTypesHelper(sqliteHelper);
+                DataTable dt3 = await list3.all();
+
+                PriceType.ValueMember = "id";
+                PriceType.DisplayMember = "name";
+                PriceType.DataSource = dt3;
+
+                PartnerListHelper list4 = new PartnerListHelper(sqliteHelper);
+                DataTable dt4 = await list4.all();
+
+                PartnerId.ValueMember = "id";
+                PartnerId.DisplayMember = "name";
+                PartnerId.DataSource = dt4;
+
+                TaxListHelper list5 = new TaxListHelper(sqliteHelper);
+                DataTable dt5 = await list5.all();
+
+                TaxId.ValueMember = "id";
+                TaxId.DisplayMember = "name";
+                TaxId.DataSource = dt5;
+
+                WarehouseListHelper list6 = new WarehouseListHelper(sqliteHelper);
+                DataTable dt6 = await list6.all();
+
+                WarehouseId.ValueMember = "id";
+                WarehouseId.DisplayMember = "name";
+                WarehouseId.DataSource = dt6;
+
+
 
 
 
@@ -92,7 +123,7 @@ namespace POSN3.Views
         }
 
 
-        private void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        private async void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             if (dataGridView1.CurrentCell.ColumnIndex == 0)
             {
@@ -115,7 +146,7 @@ namespace POSN3.Views
             }
         }
 
-        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private async void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 6 || e.ColumnIndex == 7)
             {
@@ -123,7 +154,7 @@ namespace POSN3.Views
             }
         }
 
-        private void dataGridView1_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        private async void dataGridView1_UserDeletingRowAsync(object sender, DataGridViewRowCancelEventArgs e)
         {
 
             if (dataGridView1.CurrentRow.Cells["id"].Value != DBNull.Value)
@@ -135,7 +166,7 @@ namespace POSN3.Views
 
 
                     var id = (int)dataGridView1.CurrentRow.Cells["id"].Value;
-                    bool r = helper.delete(id);
+                    bool r = await helper.deleteAsync(id);
                     if (r)
                     {
                         initalizeData();
@@ -146,12 +177,12 @@ namespace POSN3.Views
             }
         }
 
-        private void dataGridView1_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        private async void dataGridView1_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
             // Check if the validation is for the specific column            
         }
 
-        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        private async void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             // Perform your desired operation here
             if (dataGridView1.CurrentRow != null)
@@ -191,7 +222,7 @@ namespace POSN3.Views
 
 
                 string description = dataGridViewRow.Cells["description"].Value.ToString();
-                
+
                 decimal in_value = 0;
                 if (dataGridViewRow.Cells["in_value"].Value != DBNull.Value)
                 {
@@ -203,8 +234,6 @@ namespace POSN3.Views
                 {
                     out_value = Convert.ToDecimal(dataGridViewRow.Cells["out_value"].Value);
                 }
-                
-                decimal price = Decimal.Parse(dataGridViewRow.Cells["price"].Value.ToString());
 
                 decimal price = 0;
                 if (dataGridViewRow.Cells["price"].Value != DBNull.Value)
@@ -213,17 +242,47 @@ namespace POSN3.Views
                 }
 
 
+                int? price_type = null;
+                if (dataGridViewRow.Cells["PriceType"].Value != DBNull.Value)
+                {
+                    price_type = Int32.Parse(dataGridViewRow.Cells["PriceType"].Value.ToString());
+                }
 
-                string price_type = dataGridViewRow.Cells["price_type"].Value.ToString();
-                decimal debit = Decimal.Parse(dataGridViewRow.Cells["debit"].Value.ToString());
-                decimal credit = Decimal.Parse(dataGridViewRow.Cells["credit"].Value.ToString());
-                int partner_id = Int32.Parse(dataGridViewRow.Cells["partner_id"].Value.ToString());
-                int tax_id = Int32.Parse(dataGridViewRow.Cells["tax_id"].Value.ToString());
-                int warehouse_id = Int32.Parse(dataGridViewRow.Cells["warehouse_id"].Value.ToString());
+
+                decimal debit = 0;
+                if (dataGridViewRow.Cells["debit"].Value != DBNull.Value)
+                {
+                    debit = Convert.ToDecimal(dataGridViewRow.Cells["debit"].Value);
+                }
+
+                decimal credit = 0;
+                if (dataGridViewRow.Cells["credit"].Value != DBNull.Value)
+                {
+                    credit = Convert.ToDecimal(dataGridViewRow.Cells["credit"].Value);
+                }
+
+                int? partner_id = null;
+                if (dataGridViewRow.Cells["PartnerId"].Value != DBNull.Value)
+                {
+                    partner_id = Int32.Parse(dataGridViewRow.Cells["PartnerId"].Value.ToString());
+                }
+
+                int? tax_id = null;
+                if (dataGridViewRow.Cells["TaxId"].Value != DBNull.Value)
+                {
+                    tax_id = Int32.Parse(dataGridViewRow.Cells["TaxId"].Value.ToString());
+                }
+
+                int? warehouse_id = null;
+                if (dataGridViewRow.Cells["WarehouseId"].Value != DBNull.Value)
+                {
+                    warehouse_id = Int32.Parse(dataGridViewRow.Cells["WarehouseId"].Value.ToString());
+                }
+
 
                 if (id == 0)
                 {
-                    bool r = helper.insert(
+                    bool r = await helper.insertAsync(
                         accounting_date,
                         document,
                         account_id,
@@ -246,7 +305,7 @@ namespace POSN3.Views
                 }
                 else
                 {
-                    bool r = helper.update(
+                    bool r = await helper.updateAsync(
                         id,
                         accounting_date,
                         document,
@@ -271,5 +330,22 @@ namespace POSN3.Views
             }
         }
 
+        void combobox_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            // (No need to write anything in here)
+        }
+
+        private async void dataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            if (dataGridView1.Columns[e.ColumnIndex] is DataGridViewComboBoxColumn)
+            {
+                //dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = null; // Clear the invalid value
+                //e.ThrowException = false; // Prevent the exception from being thrown
+                // MessageBox.Show("Please select a valid value.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
     }
+
+
 }

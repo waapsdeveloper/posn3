@@ -31,8 +31,12 @@
             dataGridView1 = new DataGridView();
             UserList = new DataGridViewComboBoxColumn();
             id = new DataGridViewTextBoxColumn();
+            PriceType = new DataGridViewComboBoxColumn();
+            TaxId = new DataGridViewComboBoxColumn();
+            PartnerId = new DataGridViewComboBoxColumn();
             AccountId = new DataGridViewComboBoxColumn();
             UnitMeasure = new DataGridViewComboBoxColumn();
+            WarehouseId = new DataGridViewComboBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -40,7 +44,7 @@
             // 
             dataGridView1.BackgroundColor = Color.FromArgb(254, 250, 224);
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { id, AccountId, UnitMeasure });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { id, PriceType, TaxId, PartnerId, AccountId, UnitMeasure, WarehouseId });
             dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.GridColor = Color.FromArgb(254, 250, 224);
             dataGridView1.Location = new Point(0, 0);
@@ -52,7 +56,8 @@
             dataGridView1.CellValidating += dataGridView1_CellValidating;
             dataGridView1.CellValueChanged += dataGridView1_CellValueChanged;
             dataGridView1.EditingControlShowing += dataGridView1_EditingControlShowing;
-            dataGridView1.UserDeletingRow += dataGridView1_UserDeletingRow;
+            dataGridView1.UserDeletingRow += dataGridView1_UserDeletingRowAsync;
+            dataGridView1.DataError += dataGridView1_DataError;
             // 
             // UserList
             // 
@@ -63,6 +68,24 @@
             id.DataPropertyName = "id";
             id.HeaderText = "id";
             id.Name = "id";
+            // 
+            // PriceType
+            // 
+            PriceType.DataPropertyName = "price_type";
+            PriceType.HeaderText = "price_type";
+            PriceType.Name = "PriceType";
+            // 
+            // TaxId
+            // 
+            TaxId.DataPropertyName = "tax_id";
+            TaxId.HeaderText = "tax_id";
+            TaxId.Name = "TaxId";
+            // 
+            // PartnerId
+            // 
+            PartnerId.DataPropertyName = "partner_id";
+            PartnerId.HeaderText = "partner_id";
+            PartnerId.Name = "PartnerId";
             // 
             // AccountId
             // 
@@ -75,6 +98,12 @@
             UnitMeasure.DataPropertyName = "unit_measure";
             UnitMeasure.HeaderText = "unit_measure";
             UnitMeasure.Name = "UnitMeasure";
+            // 
+            // WarehouseId
+            // 
+            WarehouseId.DataPropertyName = "warehouse_id";
+            WarehouseId.HeaderText = "warehouse_id";
+            WarehouseId.Name = "WarehouseId";
             // 
             // ProductsView
             // 
@@ -93,7 +122,11 @@
         private DataGridView dataGridView1;
         private DataGridViewComboBoxColumn UserList;
         private DataGridViewTextBoxColumn id;
+        private DataGridViewComboBoxColumn PriceType;
+        private DataGridViewComboBoxColumn TaxId;
+        private DataGridViewComboBoxColumn PartnerId;
         private DataGridViewComboBoxColumn AccountId;
         private DataGridViewComboBoxColumn UnitMeasure;
+        private DataGridViewComboBoxColumn WarehouseId;
     }
 }

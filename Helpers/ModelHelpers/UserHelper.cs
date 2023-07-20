@@ -20,75 +20,126 @@ namespace POSN3.Helpers.ModelHelpers
             this.sqliteHelper = sqliteHelper;
         }
 
-        public DataTable all()
+        public async Task<DataTable> all()
         {
             string sql = "Select * from Users";
 
             object[] values = { };
-            DataTable dt = sqliteHelper.executeData(sql, values);
+            DataTable dt = await sqliteHelper.executeData(sql, values);
             UtilityHelper.consoleLog("Users table created successful");
             return dt;
         }
 
-        //public DataTable get(Object[] param)
-        //{
-        //    string sql = "Select * from Users";
-
-        //object[] values = { };
-        //var r = sqliteHelper.executeDataTable(sql, values);
-        //UtilityHelper.consoleLog("Users table created successful");
-        //SQLiteDataAdapter da = new SQLiteDataAdapter(r);
-        //DataTable dt = new DataTable();
-        //da.Fill(dt);
-        //return dt;
-        //}
-
-        public bool insert(string name, string email, string password, int role_id)
+        public async Task<DataTable> emailPasswordCheck(string email, string password)
         {
-            string sqla = "INSERT INTO Users ";
-            sqla += "(";
-            sqla += "name, ";
-            sqla += "email, ";
-            sqla += "password, ";
-            sqla += "role_id ";
-            sqla += ") ";
-            sqla += "VALUES ('"+name+"','"+email+"','"+password+"', " + role_id + ")";
+            string sql = "Select TOP 1 * from Users where email = '" + email + "' and password = '" + password + "'";
 
-            object[] valuesa = { };
-
-            var ra = sqliteHelper.execute(sqla, valuesa);
-            return ra == 0 ? false : true;
+            object[] values = { };
+            DataTable dt = await sqliteHelper.executeData(sql, values);
+            UtilityHelper.consoleLog("Users table created successful");
+            return dt;
         }
 
-        public bool update(int id, string name, string email, string password, int role_id)
+        public async void setActiveUser(int id)
+        {
+            string sql = "Update Users SET is_login = 0 where id != " + id;
+
+            object[] values = { }; 
+            var r = await sqliteHelper.execute(sql, values);
+
+            string sqla = "Update Users SET is_login = 1 where id = " + id;
+
+            var f = await sqliteHelper.execute(sqla, values);
+
+        }
+
+
+
+        public async Task<bool> insertAsync(string? name = null, string? email = null, string? password = null, int? role_id = null)
+        {
+            string sql = "INSERT INTO Users ";
+            sql += "(";
+
+            List<string> columns = new List<string>();
+            List<string> values = new List<string>();
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                columns.Add("name");
+                values.Add("'" + name + "'");
+            }
+
+            if (!string.IsNullOrEmpty(email))
+            {
+                columns.Add("email");
+                values.Add("'" + email + "'");
+            }
+
+            if (!string.IsNullOrEmpty(password))
+            {
+                columns.Add("password");
+                values.Add("'" + password + "'");
+            }
+
+            if (role_id.HasValue)
+            {
+                columns.Add("role_id");
+                values.Add(role_id.ToString());
+            }
+
+            sql += string.Join(", ", columns);
+            sql += ") VALUES (";
+            sql += string.Join(", ", values);
+            sql += ")";
+
+            object[] sqlParameters = { };
+
+            var result = await sqliteHelper.execute(sql, sqlParameters);
+            return result != 0;
+        }
+
+
+        public async Task<bool> updateAsync(int id, string name = null, string email = null, string password = null, int? role_id = null)
         {
             try
             {
-                string sqla = "UPDATE Users SET ";
-                sqla += "name = '" + name + "', ";
-                sqla += "email = '" + email + "', ";
-                sqla += "password = '" + password + "', ";
-                sqla += "role_id = " + role_id + ", ";
+                string sql = "UPDATE Users SET ";
+
+                if (!string.IsNullOrEmpty(name))
+                    sql += "name = '" + name + "', ";
+
+                if (!string.IsNullOrEmpty(email))
+                    sql += "email = '" + email + "', ";
+
+                if (!string.IsNullOrEmpty(password))
+                    sql += "password = '" + password + "', ";
+
+                if (role_id.HasValue)
+                    sql += "role_id = " + role_id.Value + ", ";
 
                 var updated_at = DateTime.Now;
-                sqla += "updated_at = '" +  updated_at + "' ";
-                sqla += "WHERE id = " + id;
+                sql += "updated_at = '" + updated_at + "' ";
 
-                object[] valuesa = { };
+                sql += "WHERE id = " + id;
 
-                var ra = sqliteHelper.execute(sqla, valuesa);
-                UtilityHelper.consoleLog("Users table created successful");
-                return ra == 0 ? false : true;
+                object[] values = { };
 
-            } catch (Exception ex)
+                var rowsAffected = await sqliteHelper.execute(sql, values);
+                UtilityHelper.consoleLog("User table updated successfully");
+                return rowsAffected != 0;
+            }
+            catch (Exception ex)
             {
-                UtilityHelper.consoleLog("User Update Error:" + ex.Message);
+                UtilityHelper.consoleLog("User Update Error: " + ex.Message);
                 return false;
             }
-
         }
 
-        public bool delete(Object[] param)
+
+
+
+
+        public async Task<bool> deleteAsync(Object[] param)
         {
             string sqla = "INSERT INTO Users ";
             sqla += "(";
@@ -100,7 +151,7 @@ namespace POSN3.Helpers.ModelHelpers
 
             object[] valuesa = { };
 
-            var ra = sqliteHelper.execute(sqla, valuesa);
+            var ra = await sqliteHelper.execute(sqla, valuesa);
             return ra == 0 ? false : true;
 
         }

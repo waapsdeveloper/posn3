@@ -9,7 +9,7 @@ namespace POSN3.Views
         public UsersView()
         {
             InitializeComponent();
-
+            
             this.Paint += view_Paint;
         }
 
@@ -17,22 +17,22 @@ namespace POSN3.Views
         {
             populateRoleComboBox();
             initalizeData();
-            
+
         }
 
 
 
-        void initalizeData()
+        async void initalizeData()
         {
             try
             {
                 SqliteHelper sqliteHelper = new SqliteHelper();
                 UserHelper userHelper = new UserHelper(sqliteHelper);
-                DataTable dt = userHelper.all();
+                DataTable dt = await userHelper.all();
 
                 dt.Columns["ID"].ReadOnly = true;
                 dt.Columns["created_at"].ReadOnly = true;
-                dt.Columns["created_at"].ReadOnly = true;
+                dt.Columns["updated_at"].ReadOnly = true;
 
                 dataGridView1.DataSource = dt;
             }
@@ -42,14 +42,14 @@ namespace POSN3.Views
             }
         }
 
-        void populateRoleComboBox()
+        async void populateRoleComboBox()
         {
 
             try
             {
                 SqliteHelper sqliteHelper = new SqliteHelper();
                 RoleHelper roleHelper = new RoleHelper(sqliteHelper);
-                DataTable dt = roleHelper.all();
+                DataTable dt = await roleHelper.all();
                 RoleList.ValueMember = "id";
                 RoleList.DisplayMember = "name";
                 RoleList.DataSource = dt;
@@ -61,76 +61,67 @@ namespace POSN3.Views
         }
 
 
-        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private async void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             if (dataGridView1.CurrentRow != null)
             {
-                DataGridViewRow dataGridViewRow = dataGridView1.CurrentRow;
-                SqliteHelper sqliteHelper = new SqliteHelper();
-                UserHelper userHelper = new UserHelper(sqliteHelper);
-                int id = 0;
-                if (dataGridViewRow.Cells["UserId"].Value != DBNull.Value)
+                try
                 {
-                    id = Int32.Parse(dataGridViewRow.Cells["UserId"].Value.ToString());
-                }
-                string name = dataGridViewRow.Cells["UserName"].Value.ToString();
-                string email = dataGridViewRow.Cells["UserEmail"].Value.ToString();
-                string password = dataGridViewRow.Cells["password"].Value.ToString();
-                int role_id = 1;// dataGridViewRow.Cells["RoleList"].Value != null ? Int32.Parse(dataGridViewRow.Cells["RoleList"].Value.ToString()) : 1;
-                
-                if (id == 0)
-                {
-                    bool r = userHelper.insert(name, email, password, role_id);
-                    if (r)
+                    DataGridViewRow dataGridViewRow = dataGridView1.CurrentRow;
+                    SqliteHelper sqliteHelper = new SqliteHelper();
+                    UserHelper userHelper = new UserHelper(sqliteHelper);
+                    int id = 0;
+                    if (dataGridViewRow.Cells["ID"].Value != DBNull.Value)
                     {
-                        initalizeData();
+                        id = Int32.Parse(dataGridViewRow.Cells["ID"].Value.ToString());
+                    }
+                    string name = dataGridViewRow.Cells["name"].Value.ToString();
+                    string email = dataGridViewRow.Cells["email"].Value.ToString();
+                    string password = dataGridViewRow.Cells["password"].Value.ToString();
+
+                    int? role_id = null;
+                    if (dataGridViewRow.Cells["RoleList"].Value != DBNull.Value)
+                    {
+                        role_id = Int32.Parse(dataGridViewRow.Cells["RoleList"].Value.ToString());
+                    }
+
+                    // Perform validation
+                    if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+                    {
+                        MessageBox.Show("Please provide all required fields.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    if (id == 0)
+                    {
+                        bool r = await userHelper.insertAsync(name, email, password, role_id);
+                        if (r)
+                        {
+                            initalizeData();
+                        }
                     }
                     else
                     {
-                        MessageBox.Show("Added Seccssefully", "DataGridView", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        bool r = await userHelper.updateAsync(id, name, email, password, role_id);
+                        if (r)
+                        {
+                            initalizeData();
+                        }
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    bool r = userHelper.update(id, name, email, password, role_id);
-                    if (r)
-                    {
-                        initalizeData();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Updated Seccssefully", "DataGridView", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
+                    MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
             }
         }
 
-        private void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
-        {
-            if (dataGridView1.CurrentCell.ColumnIndex == 0)
-            {
-                e.Control.KeyPress -= DontAllow;
-                e.Control.KeyPress += DontAllow;
-            }
 
-        }
 
-        private void AllowNumbersOnly(Object Sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }
-        private void DontAllow(Object Sender, KeyPressEventArgs e)
-        {
-            e.Handled = true;
-        }
 
         private void dataGridView1_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
-            if (dataGridView1.CurrentRow.Cells["UserId"].Value != DBNull.Value)
+            if (dataGridView1.CurrentRow.Cells["ID"].Value != DBNull.Value)
             {
                 if (MessageBox.Show("Are Sure You Want Delete The User?", "DataGridView", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
@@ -139,5 +130,16 @@ namespace POSN3.Views
 
             }
         }
+
+        private void dataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            if (dataGridView1.Columns[e.ColumnIndex] is DataGridViewComboBoxColumn)
+            {
+                //dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = null; // Clear the invalid value
+                //e.ThrowException = false; // Prevent the exception from being thrown
+                // MessageBox.Show("Please select a valid value.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
     }
 }

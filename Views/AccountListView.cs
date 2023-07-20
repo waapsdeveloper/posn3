@@ -29,7 +29,7 @@ namespace POSN3.Views
 
         }
 
-        void initalizeData()
+        async void initalizeData()
         {
 
             try
@@ -38,7 +38,7 @@ namespace POSN3.Views
                 SqliteHelper sqliteHelper = new SqliteHelper();
                 AccountListHelper helper = new AccountListHelper(sqliteHelper);
 
-                DataTable dt = helper.all();
+                DataTable dt = await helper.all();
 
                 dt.Columns["id"].ReadOnly = true;
                 dt.Columns["created_at"].ReadOnly = true;
@@ -59,7 +59,7 @@ namespace POSN3.Views
         }
 
 
-        private void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        private async void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             if (dataGridView1.CurrentCell.ColumnIndex == 0)
             {
@@ -82,7 +82,7 @@ namespace POSN3.Views
             }
         }
 
-        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private async void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 6 || e.ColumnIndex == 7)
             {
@@ -90,7 +90,7 @@ namespace POSN3.Views
             }
         }
 
-        private void dataGridView1_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        private async void dataGridView1_UserDeletingRowAsync(object sender, DataGridViewRowCancelEventArgs e)
         {
 
             if (dataGridView1.CurrentRow.Cells["id"].Value != DBNull.Value)
@@ -102,7 +102,7 @@ namespace POSN3.Views
 
 
                     var id = (int)dataGridView1.CurrentRow.Cells["id"].Value;
-                    bool r = helper.delete(id);
+                    bool r = await helper.deleteAsync(id);
                     if (r)
                     {
                         initalizeData();
@@ -113,12 +113,12 @@ namespace POSN3.Views
             }
         }
 
-        private void dataGridView1_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        private async void dataGridView1_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
             // Check if the validation is for the specific column            
         }
 
-        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        private async void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
 
             // Perform your desired operation here
@@ -141,7 +141,7 @@ namespace POSN3.Views
 
                 if (id == 0)
                 {
-                    bool r = helper.insert(name, account, aop);
+                    bool r = await helper.insertAsync(name, account, aop);
                     if (r)
                     {
                         initalizeData();
@@ -149,7 +149,7 @@ namespace POSN3.Views
                 }
                 else
                 {
-                    bool r = helper.update(id, name, account, aop);
+                    bool r = await helper.updateAsync(id, name, account, aop);
                     if (r)
                     {
                         initalizeData();

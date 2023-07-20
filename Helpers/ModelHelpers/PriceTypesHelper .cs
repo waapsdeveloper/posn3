@@ -8,17 +8,17 @@ using System.Xml.Linq;
 
 namespace POSN3.Helpers.ModelHelpers
 {
-    internal class UnitMeasureHelper
+    internal class PriceTypesHelper
     {
         SqliteHelper sqliteHelper;
-        public UnitMeasureHelper(SqliteHelper sqliteHelper)
+        public PriceTypesHelper(SqliteHelper sqliteHelper)
         {
             this.sqliteHelper = sqliteHelper;
         }
 
         public async Task<DataTable> all()
         {
-            string sql = "Select * from unit_measures";
+            string sql = "Select * from price_types";
 
             object[] values = { };
             DataTable dt = await sqliteHelper.executeData(sql, values);
@@ -28,7 +28,7 @@ namespace POSN3.Helpers.ModelHelpers
 
         public async Task<DataTable> getByRoleName(string name)
         {
-            string sql = "SELECT * FROM unit_measures ";
+            string sql = "SELECT * FROM price_types ";
 
             sql += " WHERE ";
 
@@ -44,7 +44,7 @@ namespace POSN3.Helpers.ModelHelpers
         public async Task<bool> insertAsync(string name)
         {
 
-            string sql = "INSERT INTO unit_measures ";
+            string sql = "INSERT INTO price_types ";
             sql += "(";
             sql += "name";
             sql += ")";
@@ -66,7 +66,7 @@ namespace POSN3.Helpers.ModelHelpers
         {
             try
             {
-                string sqla = "UPDATE unit_measures SET ";
+                string sqla = "UPDATE price_types SET ";
                 sqla += "name = '" + name + "', ";
 
                 var updated_at = DateTime.Now;
@@ -89,7 +89,7 @@ namespace POSN3.Helpers.ModelHelpers
 
         public async Task<bool> deleteAsync(int id) {
 
-            string sql = "DELETE FROM unit_measures ";
+            string sql = "DELETE FROM price_types ";
 
             sql += " WHERE ";
             sql += "id = " + id;

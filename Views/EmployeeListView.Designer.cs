@@ -2,7 +2,7 @@
 
 namespace POSN3.Views
 {
-    partial class GroupsView
+    partial class EmployeeListView
     {
         /// <summary> 
         /// Required designer variable.

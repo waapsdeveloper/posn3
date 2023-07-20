@@ -117,31 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        DwAACw8BkvkDpQAAAdBJREFUWEftl7tKBDEUhkcQrK28X1G0Vwux0ofwEWxFEGtLKzufQ0tLrbUTxfvl
-        EQTxAoL+/84cyWZOkpkhEZH94YNMNifnI7PszGad/LFMgTnQ37pKlDFwDI6KsSvr4KvgAyyC6BkF90Aa
-        ceyS2geyjmyCqBkBt8BsQp7ABLBzAMx1WyBaeDJ3QDa/LJBr7aSSCdkncwUGQR84L+aIfVJJhFwyEp9U
-        dCGfzDbYyYdOqahCw8CU4fdlADCUkXmOGX5mf6dOjGvSWIgyN0A2sk/GbEJcJ2XTSKiujFBFqrZQUxkh
-        JFVLiM+aCyDFdWUEn1RloVgygkvK3NeZ2DJCIykuTiEj+KSGQFt85jFkBJfUNfiR4m0yf8Q4TiEjcE+G
-        Pey+rRe33WJCJlPKCC6pPZCtgk9wBn5DRjCl5PatcYLpBd35sLIMX0mnwaQF5zaAVmMjUj1gPB+2p6rM
-        AwjlEWi1NiJVyjzQCjR430Mxvxsh2LuUJaAt1ogtxN6ldIQMOkIh/p8QH76hcI1Wq6EKzQJtscYr4N8i
-        V/jP9g1otRozoJQuwNcArUDjGZw64GdajQZPkr3VrIB3oBWmgL2WgTcL4BC8AG2TGHBv9rAeGVn2DQd0
-        mH81+KWZAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="shutdown.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAF0SURBVFhH7ZdBasMwEEW9bemR0mO0kNDum+SKbRe9Vgvu
-        +2ZUjCNLM44MhfjBQNDMH31HEpa7jY2bo+/7O+JEPNpQGGmJo3rZ0DJocE+8E+KHeLWUGzTPxLcawBfx
-        YKkYCMdmEiFT1I7NJOKmEGiZPqTOIFMHK52Fmr3V5vgk/MtHsfZMCU20t/ILlLOaEicrr0Pxjqg1zJrS
-        mOVKKB87JAhy6z9FjV9MEtGED8cAQrcpYl0zCRocrFEJ5T011cPggkaepy9x/T8zhYZLTcnM3z5rCo2j
-        ptYzk2ACr6n1zQgmiRhqu2+mMMGSJVvHFI2v2dT/5oQl2u0nGnnfTZ6a2ReyCxp4/pnh6Ql3rbWPgTA8
-        Ab/XMYVAd2AJSyh/8W7SmOVKKL8zSR2Kz4NsnqyZBDnPvjtaeR2KdYXVNTNH0UyCmnZXWIFg7pLvXn9q
-        n4jpnmr25REyk0AzNrXcTIIGWj595Pk34QRpiTf1sqGNjVuh634B+Yhnf7mELEYAAAAASUVORK5CYII=
-</value>
-  </data>
+  <metadata name="id.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
 </root>

@@ -33,7 +33,7 @@ namespace POSN3.Views
 
         }
 
-        void initalizeData()
+        async void initalizeData()
         {
 
             try
@@ -42,7 +42,7 @@ namespace POSN3.Views
                 SqliteHelper sqliteHelper = new SqliteHelper();
                 TaxListHelper helper = new TaxListHelper(sqliteHelper);
 
-                DataTable dt = helper.all();
+                DataTable dt = await helper.all();
 
                 dt.Columns["id"].ReadOnly = true;
                 dt.Columns["created_at"].ReadOnly = true;
@@ -64,14 +64,14 @@ namespace POSN3.Views
 
         }
 
-        void populateAccountComboBox()
+        async void populateAccountComboBox()
         {
 
             try
             {
                 SqliteHelper sqliteHelper = new SqliteHelper();
                 AccountListHelper roleHelper = new AccountListHelper(sqliteHelper);
-                DataTable dt = roleHelper.all();
+                DataTable dt = await roleHelper.all();
 
                 AccountInId.ValueMember = "id";
                 AccountInId.DisplayMember = "name";
@@ -89,7 +89,7 @@ namespace POSN3.Views
         }
 
 
-        private void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        private async void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             if (dataGridView1.CurrentCell.ColumnIndex == 0)
             {
@@ -112,7 +112,7 @@ namespace POSN3.Views
             }
         }
 
-        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private async void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 6 || e.ColumnIndex == 7)
             {
@@ -120,7 +120,7 @@ namespace POSN3.Views
             }
         }
 
-        private void dataGridView1_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        private async void dataGridView1_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
 
             if (dataGridView1.CurrentRow.Cells["id"].Value != DBNull.Value)
@@ -132,7 +132,7 @@ namespace POSN3.Views
 
 
                     var id = (int)dataGridView1.CurrentRow.Cells["id"].Value;
-                    bool r = helper.delete(id);
+                    bool r = await helper.deleteAsync(id);
                     if (r)
                     {
                         initalizeData();
@@ -143,7 +143,7 @@ namespace POSN3.Views
             }
         }
 
-        private void dataGridView1_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        private async void dataGridView1_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
             // Check if the validation is for the specific column
             if (e.ColumnIndex == 3 || e.ColumnIndex == 4 || e.ColumnIndex == 5)
@@ -170,7 +170,7 @@ namespace POSN3.Views
             }
         }
 
-        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        private async void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
 
             // Perform your desired operation here
@@ -224,7 +224,7 @@ namespace POSN3.Views
                 
                 if (id == 0)
                 {
-                    bool r = helper.insert(name, account, tax1, tax2, tax3, account_in_id, account_out_id);
+                    bool r = await helper.insertAsync(name, account, tax1, tax2, tax3, account_in_id, account_out_id);
                     if (r)
                     {
                         initalizeData();
@@ -232,13 +232,23 @@ namespace POSN3.Views
                 }
                 else
                 {
-                    bool r = helper.update(id, name, account, tax1, tax2, tax3, account_in_id, account_out_id);
+                    bool r = await helper.updateAsync(id, name, account, tax1, tax2, tax3, account_in_id, account_out_id);
                     if (r)
                     {
                         initalizeData();
                     }
                 }
 
+            }
+        }
+
+        private async void dataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            if (dataGridView1.Columns[e.ColumnIndex] is DataGridViewComboBoxColumn)
+            {
+                //dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = null; // Clear the invalid value
+                //e.ThrowException = false; // Prevent the exception from being thrown
+                // MessageBox.Show("Please select a valid value.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

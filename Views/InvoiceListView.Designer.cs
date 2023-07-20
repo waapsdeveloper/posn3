@@ -1,6 +1,6 @@
 ﻿namespace POSN3.Views
 {
-    partial class PartnerListView
+    partial class InvoiceListView
     {
         /// <summary> 
         /// Required designer variable.
@@ -31,10 +31,9 @@
             dataGridView1 = new DataGridView();
             UserList = new DataGridViewComboBoxColumn();
             id = new DataGridViewTextBoxColumn();
-            Users = new DataGridViewComboBoxColumn();
-            Cities = new DataGridViewComboBoxColumn();
-            VendorAccount = new DataGridViewComboBoxColumn();
-            CustomerAccount = new DataGridViewComboBoxColumn();
+            UnitMeasure = new DataGridViewComboBoxColumn();
+            TaxId = new DataGridViewComboBoxColumn();
+            WarehouseId = new DataGridViewComboBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -42,7 +41,7 @@
             // 
             dataGridView1.BackgroundColor = Color.FromArgb(254, 250, 224);
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { id, Users, Cities, VendorAccount, CustomerAccount });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { id, UnitMeasure, TaxId, WarehouseId });
             dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.GridColor = Color.FromArgb(254, 250, 224);
             dataGridView1.Location = new Point(0, 0);
@@ -54,7 +53,7 @@
             dataGridView1.CellValidating += dataGridView1_CellValidating;
             dataGridView1.CellValueChanged += dataGridView1_CellValueChanged;
             dataGridView1.EditingControlShowing += dataGridView1_EditingControlShowing;
-            dataGridView1.UserDeletingRow += dataGridView1_UserDeletingRowAsync;
+            dataGridView1.UserDeletingRow += dataGridView1_UserDeletingRow;
             dataGridView1.DataError += dataGridView1_DataError;
             // 
             // UserList
@@ -67,41 +66,31 @@
             id.HeaderText = "id";
             id.Name = "id";
             // 
-            // Users
+            // UnitMeasure
             // 
-            Users.DataPropertyName = "person";
-            Users.HeaderText = "user";
-            Users.Name = "Users";
+            UnitMeasure.DataPropertyName = "unit_measure";
+            UnitMeasure.HeaderText = "unit_measure";
+            UnitMeasure.Name = "UnitMeasure";
             // 
-            // Cities
+            // TaxId
             // 
-            Cities.DataPropertyName = "city_id";
-            Cities.HeaderText = "city";
-            Cities.Name = "Cities";
+            TaxId.DataPropertyName = "tax_id";
+            TaxId.HeaderText = "tax_id";
+            TaxId.Name = "TaxId";
             // 
-            // VendorAccount
+            // WarehouseId
             // 
-            VendorAccount.DataPropertyName = "vendor_account";
-            VendorAccount.HeaderText = "vendor_account";
-            VendorAccount.Name = "VendorAccount";
-            VendorAccount.Resizable = DataGridViewTriState.True;
-            VendorAccount.SortMode = DataGridViewColumnSortMode.Automatic;
+            WarehouseId.DataPropertyName = "warehouse_id";
+            WarehouseId.HeaderText = "warehouse_id";
+            WarehouseId.Name = "WarehouseId";
             // 
-            // CustomerAccount
-            // 
-            CustomerAccount.DataPropertyName = "customer_account";
-            CustomerAccount.HeaderText = "customer_account";
-            CustomerAccount.Name = "CustomerAccount";
-            CustomerAccount.Resizable = DataGridViewTriState.True;
-            CustomerAccount.SortMode = DataGridViewColumnSortMode.Automatic;
-            // 
-            // PartnerListView
+            // InvoiceListView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(254, 250, 224);
             Controls.Add(dataGridView1);
-            Name = "PartnerListView";
+            Name = "InvoiceListView";
             Size = new Size(787, 490);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
@@ -112,10 +101,8 @@
         private DataGridView dataGridView1;
         private DataGridViewComboBoxColumn UserList;
         private DataGridViewTextBoxColumn id;
-        private DataGridViewComboBoxColumn Cities;
-        private DataGridViewComboBoxColumn VendorAccount;
-        private DataGridViewComboBoxColumn CustomerAccount;
-        private DataGridViewComboBoxColumn Users;
+        private DataGridViewComboBoxColumn UnitMeasure;
+        private DataGridViewComboBoxColumn TaxId;
         private DataGridViewComboBoxColumn WarehouseId;
     }
 }

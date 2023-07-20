@@ -1,4 +1,6 @@
-﻿namespace POSN3.Views
+﻿using POSN3.Views.components;
+
+namespace POSN3.Views
 {
     partial class TaxListView
     {
@@ -53,6 +55,7 @@
             dataGridView1.CellValueChanged += dataGridView1_CellValueChanged;
             dataGridView1.EditingControlShowing += dataGridView1_EditingControlShowing;
             dataGridView1.UserDeletingRow += dataGridView1_UserDeletingRow;
+            dataGridView1.DataError += dataGridView1_DataError;
             // 
             // UserList
             // 

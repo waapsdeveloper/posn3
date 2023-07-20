@@ -27,7 +27,7 @@ namespace POSN3.Views
             initalizeData();
         }
 
-        void initalizeData()
+        async void initalizeData()
         {
 
             try
@@ -35,7 +35,7 @@ namespace POSN3.Views
                 SqliteHelper sqliteHelper = new SqliteHelper();
                 RoleHelper helper = new RoleHelper(sqliteHelper);
 
-                DataTable dt = helper.all();
+                DataTable dt = await helper.all();
 
                 dt.Columns["ID"].ReadOnly = true;
                 dt.Columns["created_at"].ReadOnly = true;
@@ -60,7 +60,7 @@ namespace POSN3.Views
 
         }
 
-        private void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        private async void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             if (datatableView1.CurrentCell.ColumnIndex == 0)
             {
@@ -83,11 +83,10 @@ namespace POSN3.Views
             }
         }
 
-        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private async void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             if (datatableView1.CurrentRow != null)
             {
-
                 DataGridViewRow dataGridViewRow = datatableView1.CurrentRow;
                 SqliteHelper sqliteHelper = new SqliteHelper();
                 RoleHelper helper = new RoleHelper(sqliteHelper);
@@ -97,9 +96,17 @@ namespace POSN3.Views
                     id = Int32.Parse(dataGridViewRow.Cells["id"].Value.ToString());
                 }
                 string name = dataGridViewRow.Cells["name"].Value.ToString();
+
+                // Perform validation
+                if (string.IsNullOrEmpty(name))
+                {
+                    MessageBox.Show("Name is required.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 if (id == 0)
                 {
-                    bool r = helper.insert(name);
+                    bool r = await helper.insertAsync(name);
                     if (r)
                     {
                         initalizeData();
@@ -107,17 +114,17 @@ namespace POSN3.Views
                 }
                 else
                 {
-                    bool r = helper.update(id, name);
+                    bool r = await helper.updateAsync(id, name);
                     if (r)
                     {
                         initalizeData();
                     }
                 }
-
             }
         }
 
-        private void dataGridView1_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+
+        private async void dataGridView1_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
 
             if (datatableView1.CurrentRow.Cells["id"].Value != DBNull.Value)
@@ -129,7 +136,7 @@ namespace POSN3.Views
 
 
                     var id = (int)datatableView1.CurrentRow.Cells["id"].Value;
-                    bool r = helper.delete(id);
+                    bool r = await helper.deleteAsync(id);
                     if (r)
                     {
                         initalizeData();

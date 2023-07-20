@@ -27,6 +27,15 @@
     <Compile Update="Views\AccountingView.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Views\EmployeeListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\MessageListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\InvoiceListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Views\ProductsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -37,6 +46,9 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Views\GroupsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\WarehouseListView.cs">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>

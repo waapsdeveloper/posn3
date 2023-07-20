@@ -30,7 +30,7 @@ namespace POSN3.Views
 
         }
 
-        void initalizeData()
+        async void initalizeData()
         {
 
             try
@@ -39,7 +39,7 @@ namespace POSN3.Views
                 SqliteHelper sqliteHelper = new SqliteHelper();
                 PartnerListHelper helper = new PartnerListHelper(sqliteHelper);
 
-                DataTable dt = helper.all();
+                DataTable dt = await helper.all();
 
                 dt.Columns["id"].ReadOnly = true;
                 dt.Columns["created_at"].ReadOnly = true;
@@ -59,14 +59,14 @@ namespace POSN3.Views
 
         }
 
-        void populateAccountComboBox()
+        async void populateAccountComboBox()
         {
 
             try
             {
                 SqliteHelper sqliteHelper = new SqliteHelper();
                 AccountListHelper list1 = new AccountListHelper(sqliteHelper);
-                DataTable dt = list1.all();
+                DataTable dt = await list1.all();
 
                 CustomerAccount.ValueMember = "id";
                 CustomerAccount.DisplayMember = "name";
@@ -78,14 +78,14 @@ namespace POSN3.Views
                 VendorAccount.DataSource = dt;
 
                 CityHelper list2 = new CityHelper(sqliteHelper);
-                DataTable dt2 = list2.all();
+                DataTable dt2 = await list2.all();
 
                 Cities.ValueMember = "id";
                 Cities.DisplayMember = "name";
                 Cities.DataSource = dt2;
 
                 UserHelper list3 = new UserHelper(sqliteHelper);
-                DataTable dt3 = list3.all();
+                DataTable dt3 = await list3.all();
 
                 Users.ValueMember = "id";
                 Users.DisplayMember = "name";
@@ -100,7 +100,7 @@ namespace POSN3.Views
         }
 
 
-        private void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        private async void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             if (dataGridView1.CurrentCell.ColumnIndex == 0)
             {
@@ -123,7 +123,7 @@ namespace POSN3.Views
             }
         }
 
-        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private async void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 6 || e.ColumnIndex == 7)
             {
@@ -131,7 +131,7 @@ namespace POSN3.Views
             }
         }
 
-        private void dataGridView1_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        private async void dataGridView1_UserDeletingRowAsync(object sender, DataGridViewRowCancelEventArgs e)
         {
 
             if (dataGridView1.CurrentRow.Cells["id"].Value != DBNull.Value)
@@ -143,7 +143,7 @@ namespace POSN3.Views
 
 
                     var id = (int)dataGridView1.CurrentRow.Cells["id"].Value;
-                    bool r = helper.delete(id);
+                    bool r = await helper.deleteAsync(id);
                     if (r)
                     {
                         initalizeData();
@@ -154,12 +154,12 @@ namespace POSN3.Views
             }
         }
 
-        private void dataGridView1_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        private async void dataGridView1_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
             // Check if the validation is for the specific column            
         }
 
-        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        private async void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             // Perform your desired operation here
             if (dataGridView1.CurrentRow != null)
@@ -253,7 +253,7 @@ namespace POSN3.Views
 
                 if (id == 0)
                 {
-                    bool r = helper.insert(name, code, long_name, address, city_id, mb, oib, in_tax_system, tax_type, is_customer, is_vendor, iban, phone, telefax, mobile_phone, mail, web, customer_account, vendor_account, person, customer_discount, vendor_discount, customer_due_date, vendor_due_date, active);
+                    bool r = await helper.insertAsync(name, code, long_name, address, city_id, mb, oib, in_tax_system, tax_type, is_customer, is_vendor, iban, phone, telefax, mobile_phone, mail, web, customer_account, vendor_account, person, customer_discount, vendor_discount, customer_due_date, vendor_due_date, active);
                     if (r)
                     {
                         initalizeData();
@@ -261,12 +261,21 @@ namespace POSN3.Views
                 }
                 else
                 {
-                    bool r = helper.update(id, name, code, long_name, address, city_id, mb, oib, in_tax_system, tax_type, is_customer, is_vendor, iban, phone, telefax, mobile_phone, mail, web, customer_account, vendor_account, person, customer_discount, vendor_discount, customer_due_date, vendor_due_date, active);
+                    bool r = await helper.updateAsync(id, name, code, long_name, address, city_id, mb, oib, in_tax_system, tax_type, is_customer, is_vendor, iban, phone, telefax, mobile_phone, mail, web, customer_account, vendor_account, person, customer_discount, vendor_discount, customer_due_date, vendor_due_date, active);
                     if (r)
                     {
                         initalizeData();
                     }
                 }
+            }
+        }
+        private async void dataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            if (dataGridView1.Columns[e.ColumnIndex] is DataGridViewComboBoxColumn)
+            {
+                //dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = null; // Clear the invalid value
+                //e.ThrowException = false; // Prevent the exception from being thrown
+                // MessageBox.Show("Please select a valid value.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

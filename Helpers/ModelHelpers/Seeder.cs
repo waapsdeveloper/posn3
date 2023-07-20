@@ -21,6 +21,7 @@ namespace POSN3.Helpers.ModelHelpers
             seedRoles();
             seedCities();
             seedUnitMeasures();
+            seedPriceTypes();
             seedSuperUser();
 
         }
@@ -35,7 +36,7 @@ namespace POSN3.Helpers.ModelHelpers
             for (var i = 0; i < list.Length; i++)
             {
                 string a = list[i];
-                helper.insert(a);
+                helper.insertAsync(a);
             }
 
         }
@@ -66,7 +67,7 @@ namespace POSN3.Helpers.ModelHelpers
             for (var i = 0; i < list.Length; i++)
             {
                 string a = list[i];
-                helper.insert(a);
+                helper.insertAsync(a);
             }
 
         }
@@ -81,13 +82,28 @@ namespace POSN3.Helpers.ModelHelpers
             for (var i = 0; i < list.Length; i++)
             {
                 string a = list[i];
-                helper.insert(a);
+                helper.insertAsync(a);
+            }
+
+        }
+
+        void seedPriceTypes()
+        {
+            UtilityHelper.consoleLog("start seeding for roles");
+
+            string[] list = { "Retail", "Wholesale", "Sale", "Discount" };
+            PriceTypesHelper helper = new PriceTypesHelper(sqliteHelper);
+
+            for (var i = 0; i < list.Length; i++)
+            {
+                string a = list[i];
+                helper.insertAsync(a);
             }
 
         }
 
 
-        void seedSuperUser()
+        async void seedSuperUser()
         {
             // check if super admin settings done? 
 
@@ -96,7 +112,7 @@ namespace POSN3.Helpers.ModelHelpers
             RoleHelper roleHelper = new RoleHelper(sqliteHelper);
 
             // get role id of super user 
-            DataTable dt = roleHelper.getByRoleName("super_admin");
+            DataTable dt = await roleHelper.getByRoleName("super_admin");
             var row = dt.AsEnumerable().First();
 
             var role_id = row.Field<int>("id");
@@ -104,7 +120,7 @@ namespace POSN3.Helpers.ModelHelpers
             // create a super admin user in database
 
             UserHelper userHelper = new UserHelper(sqliteHelper);
-            userHelper.insert("super admin", "superadmin@email.com", "admin123$", role_id);
+            userHelper.insertAsync("super admin", "superadmin@email.com", "admin123$", role_id);
 
 
 
