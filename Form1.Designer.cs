@@ -342,7 +342,7 @@
             shutdown.Dock = DockStyle.Right;
             shutdown.FlatStyle = FlatStyle.Flat;
             shutdown.ForeColor = Color.FromArgb(251, 133, 0);
-            shutdown.Image = new Bitmap((Image)resources.GetObject("shutdown.Image"), new Size(24, 24));
+            shutdown.Image = (Image)resources.GetObject("shutdown.Image");
             shutdown.Location = new Point(592, 0);
             shutdown.Margin = new Padding(0);
             shutdown.Name = "shutdown";
@@ -391,6 +391,7 @@
             UserViewInPanel.Name = "UserViewInPanel";
             UserViewInPanel.Size = new Size(628, 540);
             UserViewInPanel.TabIndex = 0;
+            UserViewInPanel.Load += UserViewInPanel_Load;
             // 
             // RoleViewInPanel
             // 

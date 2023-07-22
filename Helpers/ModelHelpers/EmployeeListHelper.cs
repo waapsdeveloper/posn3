@@ -21,7 +21,7 @@ namespace POSN3.Helpers.ModelHelpers
             string sql = "SELECT * FROM employees";
 
             object[] values = { };
-            DataTable dt = await sqliteHelper.executeData(sql, values);
+            DataTable dt = sqliteHelper.executeData(sql, values);
             UtilityHelper.consoleLog("Employees table fetched successfully");
             return dt;
         }
@@ -35,7 +35,7 @@ namespace POSN3.Helpers.ModelHelpers
 
             object[] values = { };
 
-            var result = await sqliteHelper.executeData(sql, values);
+            var result = sqliteHelper.executeData(sql, values);
             return result;
         }
 
@@ -54,7 +54,7 @@ namespace POSN3.Helpers.ModelHelpers
 
             object[] values = { };
 
-            var result = await sqliteHelper.execute(sql, values);
+            var result = sqliteHelper.execute(sql, values);
             return result == 0 ? false : true;
         }
 
@@ -85,7 +85,7 @@ namespace POSN3.Helpers.ModelHelpers
 
                 object[] values = { };
 
-                var result = await sqliteHelper.execute(sql, values);
+                var result = sqliteHelper.execute(sql, values);
                 return result == 0 ? false : true;
             }
             catch (Exception ex)
@@ -103,7 +103,7 @@ namespace POSN3.Helpers.ModelHelpers
 
             object[] values = { };
 
-            var result = await sqliteHelper.execute(sql, values);
+            var result = sqliteHelper.execute(sql, values);
             return result == 0 ? false : true;
         }
     }

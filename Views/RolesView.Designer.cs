@@ -33,6 +33,8 @@ namespace POSN3.Views
             searchBarView1 = new components.SearchBarView();
             searchBarView2 = new components.SearchBarView();
             datatableView1 = new DataGridView();
+            id = new DataGridViewTextBoxColumn();
+            name = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)datatableView1).BeginInit();
             SuspendLayout();
             // 
@@ -61,6 +63,7 @@ namespace POSN3.Views
             datatableView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             datatableView1.BackgroundColor = Color.FromArgb(254, 250, 224);
             datatableView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            datatableView1.Columns.AddRange(new DataGridViewColumn[] { id, name });
             datatableView1.GridColor = Color.FromArgb(254, 250, 224);
             datatableView1.Location = new Point(0, 0);
             datatableView1.Name = "datatableView1";
@@ -71,16 +74,30 @@ namespace POSN3.Views
             datatableView1.EditingControlShowing += dataGridView1_EditingControlShowing;
             datatableView1.UserDeletingRow += dataGridView1_UserDeletingRow;
             // 
+            // id
+            // 
+            id.DataPropertyName = "id";
+            id.Frozen = true;
+            id.HeaderText = "id";
+            id.Name = "id";
+            id.ReadOnly = true;
+            // 
+            // name
+            // 
+            name.DataPropertyName = "name";
+            name.HeaderText = "name *";
+            name.Name = "name";
+            // 
             // RolesView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(254, 250, 224);
             Controls.Add(datatableView1);
+            Name = "RolesView";
             Size = new Size(719, 409);
             ((System.ComponentModel.ISupportInitialize)datatableView1).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -88,8 +105,6 @@ namespace POSN3.Views
         private components.SearchBarView searchBarView2;
         private DataGridView datatableView1;
         private DataGridViewTextBoxColumn id;
-        private DataGridViewTextBoxColumn Name;
-        private DataGridViewTextBoxColumn created_at;
-        private DataGridViewTextBoxColumn updated_at;
+        private DataGridViewTextBoxColumn name;
     }
 }

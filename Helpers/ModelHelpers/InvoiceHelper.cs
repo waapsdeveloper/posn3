@@ -21,7 +21,7 @@ namespace POSN3.Helpers.ModelHelpers
             string sql = "SELECT * FROM invoices";
 
             object[] values = { };
-            DataTable dt = await sqliteHelper.executeData(sql, values);
+            DataTable dt = sqliteHelper.executeData(sql, values);
             UtilityHelper.consoleLog("Invoices table retrieved successfully");
             return dt;
         }
@@ -35,7 +35,7 @@ namespace POSN3.Helpers.ModelHelpers
 
             object[] values = { };
 
-            var result = await sqliteHelper.executeData(sql, values);
+            var result = sqliteHelper.executeData(sql, values);
             return result;
         }
 
@@ -227,7 +227,7 @@ namespace POSN3.Helpers.ModelHelpers
 
                 object[] sqlParams = { };
 
-                var rowsAffected = await sqliteHelper.execute(sql, sqlParams);
+                var rowsAffected = sqliteHelper.execute(sql, sqlParams);
                 return rowsAffected > 0;
             }
             catch (Exception ex)
@@ -337,7 +337,7 @@ namespace POSN3.Helpers.ModelHelpers
 
                 object[] sqlParams = { };
 
-                var rowsAffected = await sqliteHelper.execute(sql, sqlParams);
+                var rowsAffected = sqliteHelper.execute(sql, sqlParams);
                 return rowsAffected > 0;
             }
             catch (Exception ex)
@@ -355,7 +355,7 @@ namespace POSN3.Helpers.ModelHelpers
 
             object[] values = { };
 
-            var rowsAffected = await sqliteHelper.execute(sql, values);
+            var rowsAffected = sqliteHelper.execute(sql, values);
             return rowsAffected > 0;
         }
     }

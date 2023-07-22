@@ -21,7 +21,7 @@ namespace POSN3.Helpers.ModelHelpers
             string sql = "Select * from tax_list";
 
             object[] values = { };
-            DataTable dt = await sqliteHelper.executeData(sql, values);
+            DataTable dt = sqliteHelper.executeData(sql, values);
             UtilityHelper.consoleLog("tax_list table list");
             return dt;
         }
@@ -54,7 +54,7 @@ namespace POSN3.Helpers.ModelHelpers
 
             object[] valuesa = { };
 
-            var ra = await sqliteHelper.execute(sql, valuesa);
+            var ra = sqliteHelper.execute(sql, valuesa);
             return ra == 0 ? false : true;
 
         }
@@ -78,7 +78,7 @@ namespace POSN3.Helpers.ModelHelpers
 
                 object[] valuesa = { };
 
-                var ra = await sqliteHelper.execute(sql, valuesa);                
+                var ra = sqliteHelper.execute(sql, valuesa);                
                 return ra == 0 ? false : true;
 
             }
@@ -98,7 +98,7 @@ namespace POSN3.Helpers.ModelHelpers
             sql += "id = " + id;
             object[] valuesa = { };
 
-            var ra = await sqliteHelper.execute(sql, valuesa);
+            var ra = sqliteHelper.execute(sql, valuesa);
             return ra == 0 ? false : true;
 
         }

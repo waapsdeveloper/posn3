@@ -58,7 +58,7 @@ namespace POSN3.Helpers.ModelHelpers
 
             Object[] values = { };
 
-            var r = await sqliteHelper.execute(sql, values);
+            var r = sqliteHelper.execute(sql, values);
             UtilityHelper.consoleLog("users table created successful");
             return r == 0 ? false : true;
 
@@ -78,7 +78,7 @@ namespace POSN3.Helpers.ModelHelpers
 
             Object[] values = { };
 
-            var r = await sqliteHelper.execute(sql, values);
+            var r = sqliteHelper.execute(sql, values);
             UtilityHelper.consoleLog("roles table created successful");
             return r == 0 ? false : true;
 
@@ -97,7 +97,7 @@ namespace POSN3.Helpers.ModelHelpers
 
             Object[] values = { };
 
-            var r = await sqliteHelper.execute(sql, values);
+            var r = sqliteHelper.execute(sql, values);
             UtilityHelper.consoleLog("roles table created successful");
             return r == 0 ? false : true;
 
@@ -116,7 +116,7 @@ namespace POSN3.Helpers.ModelHelpers
 
             Object[] values = { };
 
-            var r = await sqliteHelper.execute(sql, values);
+            var r = sqliteHelper.execute(sql, values);
             UtilityHelper.consoleLog("roles table created successful");
             return r == 0 ? false : true;
 
@@ -136,7 +136,7 @@ namespace POSN3.Helpers.ModelHelpers
 
             Object[] values = { };
 
-            var r = await sqliteHelper.execute(sql, values);
+            var r = sqliteHelper.execute(sql, values);
             UtilityHelper.consoleLog("roles table created successful");
             return r == 0 ? false : true;
 
@@ -156,7 +156,7 @@ namespace POSN3.Helpers.ModelHelpers
 
             Object[] values = { };
 
-            var r = await sqliteHelper.execute(sql, values);
+            var r = sqliteHelper.execute(sql, values);
             UtilityHelper.consoleLog("roles table created successful");
             return r == 0 ? false : true;
 
@@ -182,7 +182,7 @@ namespace POSN3.Helpers.ModelHelpers
 
             Object[] values = { };
 
-            var r = await sqliteHelper.execute(sql, values);
+            var r = sqliteHelper.execute(sql, values);
             UtilityHelper.consoleLog("roles table created successful");
             return r == 0 ? false : true;
 
@@ -203,7 +203,7 @@ namespace POSN3.Helpers.ModelHelpers
 
             Object[] values = { };
 
-            var r = await sqliteHelper.execute(sql, values);
+            var r = sqliteHelper.execute(sql, values);
             UtilityHelper.consoleLog("AppSettings table created successful");
 
             return r == 0 ? false : true;
@@ -229,7 +229,7 @@ namespace POSN3.Helpers.ModelHelpers
 
             Object[] values = { };
 
-            var r = await sqliteHelper.execute(sql, values);
+            var r = sqliteHelper.execute(sql, values);
             UtilityHelper.consoleLog("tax list table created successful");
 
             return r == 0 ? false : true;
@@ -251,7 +251,7 @@ namespace POSN3.Helpers.ModelHelpers
 
             Object[] values = { };
 
-            var r = await sqliteHelper.execute(sql, values);
+            var r = sqliteHelper.execute(sql, values);
             UtilityHelper.consoleLog("account list table created successful");
 
             return r == 0 ? false : true;
@@ -278,7 +278,7 @@ namespace POSN3.Helpers.ModelHelpers
 
             Object[] values = { };
 
-            var r = await sqliteHelper.execute(sql, values);
+            var r = sqliteHelper.execute(sql, values);
             UtilityHelper.consoleLog("accounting table created successful");
 
             return r == 0 ? false : true;
@@ -324,7 +324,7 @@ namespace POSN3.Helpers.ModelHelpers
 
             Object[] values = { };
 
-            var r = await sqliteHelper.execute(sql, values);
+            var r = sqliteHelper.execute(sql, values);
             UtilityHelper.consoleLog("partner_list table created successfully");
 
             return r == 0 ? false : true;
@@ -356,7 +356,7 @@ namespace POSN3.Helpers.ModelHelpers
 
             Object[] values = { };
 
-            var result = await sqliteHelper.execute(sql, values);
+            var result = sqliteHelper.execute(sql, values);
             UtilityHelper.consoleLog("products table created successfully");
 
             return result == 0 ? false : true;
@@ -408,7 +408,7 @@ namespace POSN3.Helpers.ModelHelpers
 
             Object[] values = { };
 
-            var rowsAffected = await sqliteHelper.execute(sql, values);
+            var rowsAffected = sqliteHelper.execute(sql, values);
 
             if (rowsAffected >= 0)
             {
@@ -438,7 +438,7 @@ namespace POSN3.Helpers.ModelHelpers
 
             Object[] values = { };
 
-            var rowsAffected = await sqliteHelper.execute(sql, values);
+            var rowsAffected = sqliteHelper.execute(sql, values);
 
             if (rowsAffected >= 0)
             {
@@ -465,7 +465,7 @@ namespace POSN3.Helpers.ModelHelpers
 
             object[] values = { };
 
-            var rowsAffected = await sqliteHelper.execute(sql, values);
+            var rowsAffected = sqliteHelper.execute(sql, values);
 
             if (rowsAffected >= 0)
             {
@@ -495,7 +495,7 @@ namespace POSN3.Helpers.ModelHelpers
 
             object[] values = { };
 
-            var rowsAffected = await sqliteHelper.execute(sql, values);
+            var rowsAffected = sqliteHelper.execute(sql, values);
 
             if (rowsAffected >= 0)
             {
@@ -523,7 +523,7 @@ namespace POSN3.Helpers.ModelHelpers
 
             object[] values = { };
 
-            var rowsAffected = await sqliteHelper.execute(sql, values);
+            var rowsAffected = sqliteHelper.execute(sql, values);
 
             if (rowsAffected >= 0)
             {
@@ -579,7 +579,7 @@ namespace POSN3.Helpers.ModelHelpers
 
             object[] values = { };
 
-            var rowsAffected = await sqliteHelper.execute(sql, values);
+            var rowsAffected = sqliteHelper.execute(sql, values);
 
             if (rowsAffected >= 0)
             {
@@ -607,7 +607,7 @@ namespace POSN3.Helpers.ModelHelpers
 
             object[] values = { };
 
-            var rowsAffected = await sqliteHelper.execute(sql, values);
+            var rowsAffected = sqliteHelper.execute(sql, values);
 
             if (rowsAffected >= 0)
             {
@@ -635,7 +635,7 @@ namespace POSN3.Helpers.ModelHelpers
 
             object[] values = { };
 
-            var rowsAffected = await sqliteHelper.execute(sql, values);
+            var rowsAffected = sqliteHelper.execute(sql, values);
 
             if (rowsAffected >= 0)
             {
@@ -695,7 +695,7 @@ namespace POSN3.Helpers.ModelHelpers
 
             object[] values = { };
 
-            var rowsAffected = await sqliteHelper.execute(sql, values);
+            var rowsAffected = sqliteHelper.execute(sql, values);
 
             if (rowsAffected >= 0)
             {
@@ -752,7 +752,7 @@ namespace POSN3.Helpers.ModelHelpers
 
             object[] values = { };
 
-            var rowsAffected = await sqliteHelper.execute(sql, values);
+            var rowsAffected = sqliteHelper.execute(sql, values);
 
             if (rowsAffected >= 0)
             {

@@ -1,5 +1,6 @@
 ﻿using POSN3.Helpers;
 using POSN3.Helpers.ModelHelpers;
+using POSN3.Views.components;
 using System.Data;
 
 namespace POSN3.Views
@@ -9,7 +10,7 @@ namespace POSN3.Views
         public UsersView()
         {
             InitializeComponent();
-            
+
             this.Paint += view_Paint;
         }
 
@@ -86,9 +87,9 @@ namespace POSN3.Views
                     }
 
                     // Perform validation
-                    if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+                    if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password) || id == 0)
                     {
-                        MessageBox.Show("Please provide all required fields.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        // MessageBox.Show("Please provide all required fields.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
 
@@ -119,13 +120,18 @@ namespace POSN3.Views
 
 
 
-        private void dataGridView1_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        private async void dataGridView1_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
             if (dataGridView1.CurrentRow.Cells["ID"].Value != DBNull.Value)
             {
                 if (MessageBox.Show("Are Sure You Want Delete The User?", "DataGridView", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
+                    SqliteHelper sqliteHelper = new SqliteHelper();
+                    UserHelper helper = new UserHelper(sqliteHelper);
 
+
+                    var id = (int)dataGridView1.CurrentRow.Cells["id"].Value;
+                    bool r = await helper.deleteAsync(id);
                 }
 
             }

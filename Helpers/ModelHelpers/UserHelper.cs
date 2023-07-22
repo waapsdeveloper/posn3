@@ -25,7 +25,7 @@ namespace POSN3.Helpers.ModelHelpers
             string sql = "Select * from Users";
 
             object[] values = { };
-            DataTable dt = await sqliteHelper.executeData(sql, values);
+            DataTable dt = sqliteHelper.executeData(sql, values);
             UtilityHelper.consoleLog("Users table created successful");
             return dt;
         }
@@ -35,7 +35,7 @@ namespace POSN3.Helpers.ModelHelpers
             string sql = "Select TOP 1 * from Users where email = '" + email + "' and password = '" + password + "'";
 
             object[] values = { };
-            DataTable dt = await sqliteHelper.executeData(sql, values);
+            DataTable dt = sqliteHelper.executeData(sql, values);
             UtilityHelper.consoleLog("Users table created successful");
             return dt;
         }
@@ -45,11 +45,11 @@ namespace POSN3.Helpers.ModelHelpers
             string sql = "Update Users SET is_login = 0 where id != " + id;
 
             object[] values = { }; 
-            var r = await sqliteHelper.execute(sql, values);
+            var r = sqliteHelper.execute(sql, values);
 
             string sqla = "Update Users SET is_login = 1 where id = " + id;
 
-            var f = await sqliteHelper.execute(sqla, values);
+            var f = sqliteHelper.execute(sqla, values);
 
         }
 
@@ -94,7 +94,7 @@ namespace POSN3.Helpers.ModelHelpers
 
             object[] sqlParameters = { };
 
-            var result = await sqliteHelper.execute(sql, sqlParameters);
+            var result = sqliteHelper.execute(sql, sqlParameters);
             return result != 0;
         }
 
@@ -124,7 +124,7 @@ namespace POSN3.Helpers.ModelHelpers
 
                 object[] values = { };
 
-                var rowsAffected = await sqliteHelper.execute(sql, values);
+                var rowsAffected = sqliteHelper.execute(sql, values);
                 UtilityHelper.consoleLog("User table updated successfully");
                 return rowsAffected != 0;
             }
@@ -139,21 +139,27 @@ namespace POSN3.Helpers.ModelHelpers
 
 
 
-        public async Task<bool> deleteAsync(Object[] param)
+        public async Task<bool> deleteAsync(int id)
         {
-            string sqla = "INSERT INTO Users ";
-            sqla += "(";
-            sqla += "`name`, ";
-            sqla += "`email`, ";
-            sqla += "`password` ";
-            sqla += ") ";
-            sqla += "VALUES ('ANAS','ANAS.AHMED142@GMAIL.COM','123456789')";
 
+
+            try
+            {
+
+                string sql = "DELETE FROM Users ";
+
+            sql += " WHERE ";
+            sql += "id = " + id;
             object[] valuesa = { };
 
-            var ra = await sqliteHelper.execute(sqla, valuesa);
+            var ra = sqliteHelper.execute(sql, valuesa);
             return ra == 0 ? false : true;
-
+            }
+            catch (Exception ex)
+            {
+                UtilityHelper.consoleLog("User Update Error: " + ex.Message);
+                return false;
+            }
         }
 
     }

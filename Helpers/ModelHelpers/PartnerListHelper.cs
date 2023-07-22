@@ -21,7 +21,7 @@ namespace POSN3.Helpers.ModelHelpers
             string sql = "Select * from partner_list";
 
             object[] values = { };
-            DataTable dt = await sqliteHelper.executeData(sql, values);
+            DataTable dt = sqliteHelper.executeData(sql, values);
             UtilityHelper.consoleLog("partner_list table list");
             return dt;
         }
@@ -89,7 +89,7 @@ namespace POSN3.Helpers.ModelHelpers
 
             object[] values = { };
 
-            var rowsAffected = await sqliteHelper.execute(sql, values);
+            var rowsAffected = sqliteHelper.execute(sql, values);
             return rowsAffected > 0;
         }
 
@@ -127,7 +127,7 @@ namespace POSN3.Helpers.ModelHelpers
 
                 object[] values = { };
 
-                var rowsAffected = await sqliteHelper.execute(sql, values);
+                var rowsAffected = sqliteHelper.execute(sql, values);
                 return rowsAffected > 0;
             }
             catch (Exception ex)
@@ -145,7 +145,7 @@ namespace POSN3.Helpers.ModelHelpers
             sql += "id = " + id;
             object[] valuesa = { };
 
-            var ra = await sqliteHelper.execute(sql, valuesa);
+            var ra = sqliteHelper.execute(sql, valuesa);
             return ra == 0 ? false : true;
 
         }

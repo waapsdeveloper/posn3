@@ -13,6 +13,7 @@ namespace POSN3.Helpers
 {
     internal class SqliteHelper
     {
+
         private SqlConnection connection;
 
         public bool initialize()
@@ -21,14 +22,17 @@ namespace POSN3.Helpers
             return connect();
         }
 
-        public async Task<SqlConnection> getConnectionAsync() => await newconnect();
+        public SqlConnection getConnection()
+        {
+            return newconnect();
+        }
 
-        private async Task<SqlConnection> newconnect()
+        private SqlConnection newconnect()
         {
             if (connection == null)
             {
                 connection = new SqlConnection("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\WAAPS-52\\Desktop\\Shoaib\\Jozo\\pos-n3\\POSN3\\posn3lc.mdf;Integrated Security=True");
-                await connection.OpenAsync(); // Open the connection asynchronously
+                connection.Open();
             }
 
             return connection;
@@ -36,6 +40,7 @@ namespace POSN3.Helpers
 
         bool connect()
         {
+
             try
             {
                 newconnect();
@@ -57,75 +62,108 @@ namespace POSN3.Helpers
             return true;
         }
 
-        public async Task<int> execute(string sql, object[] param)
+
+
+
+        public int execute(string sql, Object[] param)
         {
+
             try
             {
                 if (connection == null)
                 {
-                    await newconnect();
+                    newconnect();
                 }
 
                 if (connection.State == ConnectionState.Closed)
                 {
-                    await newconnect();
+                    newconnect();
+                    connection.Open();
                 }
 
                 UtilityHelper.consoleLog(sql);
-                using (SqlCommand command = new SqlCommand(sql, connection))
-                {
-                    var result = await command.ExecuteNonQueryAsync();
-                    return result;
-                }
+                SqlCommand command = new SqlCommand(sql, connection);
+                var result = command.ExecuteNonQuery();
+                connection.Close();
+                return result;
             }
             catch (Exception e)
             {
                 UtilityHelper.consoleLog(e.Message);
                 return 0;
             }
+
+
+
         }
 
-        public async Task<DataTable> executeData(string sql, Object[] param)
+        public DataTable executeData(string sql, Object[] param)
         {
+
             try
             {
-                await newconnect(); // Ensure connection is open asynchronously
-
-                UtilityHelper.consoleLog(sql);
-                using (SqlCommand command = new SqlCommand(sql, connection))
+                if (connection == null)
                 {
-                    var dt = new DataTable();
-                    SqlDataAdapter da = new SqlDataAdapter(command);
-                    await Task.Run(() => da.Fill(dt)); // Execute data query asynchronously
-                    connection.Close();
-                    return dt;
+                    newconnect();
                 }
+
+                if (connection.State == ConnectionState.Closed)
+                {
+                    connection.Open();
+                }
+                UtilityHelper.consoleLog(sql);
+                SqlCommand command = new SqlCommand(sql, connection);
+                command.ExecuteNonQuery();
+                SqlDataAdapter da = new SqlDataAdapter(command);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                connection.Close();
+                return dt;
             }
             catch (Exception e)
             {
                 UtilityHelper.consoleLog(e.Message);
-                return new DataTable();
+                DataTable dt = new DataTable();
+                return dt;
             }
+
+
+
         }
 
-        public async Task<SqlCommand> executeDataTable(string sql, Object[] param)
+
+        public SqlCommand executeDataTable(string sql, Object[] param)
         {
+
             try
             {
-                await newconnect(); // Ensure connection is open asynchronously
-
-                using (SqlCommand command = new SqlCommand(sql, connection))
-                {
-                    await command.ExecuteNonQueryAsync();
-                    connection.Close();
-                    return command;
-                }
+                connection.Open();
+                SqlCommand command = new SqlCommand(sql, connection);
+                command.ExecuteNonQuery();
+                connection.Close();
+                return command;
             }
             catch (Exception e)
             {
                 UtilityHelper.consoleLog(e.Message);
                 return null;
             }
+
+
+
         }
+
+        private async Task<DataTable> returnAsync(DataTable dt)
+        {
+            // Simulate some async operation with a delay using Task.Delay
+            await Task.Delay(500); // Delay for 2 seconds (2000 milliseconds)
+
+            // After the delay, return a result (in this case, a simple string)
+            return dt;
+        }
+
+
+
+
     }
 }

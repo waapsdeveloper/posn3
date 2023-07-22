@@ -17,7 +17,7 @@ namespace POSN3
 
             sidebar.Visible = false;
             UserControlViewInPanel.Visible = true;
-            //loginSuccessful();
+            loginSuccessful();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -201,6 +201,11 @@ namespace POSN3
         {
             UtilityHelper.consoleLog("point13");
             showPanelBaseOnStep("clogin");
+        }
+
+        private void UserViewInPanel_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -21,7 +21,7 @@ namespace POSN3.Helpers.ModelHelpers
             string sql = "Select * from groups";
 
             object[] values = { };
-            DataTable dt = await sqliteHelper.executeData(sql, values);
+            DataTable dt = sqliteHelper.executeData(sql, values);
             UtilityHelper.consoleLog("Roles table created successful");
             return dt;
         }
@@ -37,7 +37,7 @@ namespace POSN3.Helpers.ModelHelpers
 
             object[] valuesa = { };
 
-            var ra = await sqliteHelper.executeData(sql, valuesa);
+            var ra = sqliteHelper.executeData(sql, valuesa);
             return ra;
         }
 
@@ -59,7 +59,7 @@ namespace POSN3.Helpers.ModelHelpers
 
             object[] values = { };
 
-            var result = await sqliteHelper.execute(sql, values);
+            var result = sqliteHelper.execute(sql, values);
             return result == 0 ? false : true;
         }
 
@@ -81,7 +81,7 @@ namespace POSN3.Helpers.ModelHelpers
 
                 object[] values = { };
 
-                var result = await sqliteHelper.execute(sql, values);
+                var result = sqliteHelper.execute(sql, values);
                 return result == 0 ? false : true;
             }
             catch (Exception ex)
@@ -99,7 +99,7 @@ namespace POSN3.Helpers.ModelHelpers
             sql += "id = " + id;
             object[] valuesa = { };
 
-            var ra = await sqliteHelper.execute(sql, valuesa);
+            var ra = sqliteHelper.execute(sql, valuesa);
             return ra == 0 ? false : true;
 
         }

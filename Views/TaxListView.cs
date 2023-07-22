@@ -28,7 +28,7 @@ namespace POSN3.Views
 
         private void view_Paint(object sender, PaintEventArgs e)
         {
-            
+
             initalizeData();
 
         }
@@ -48,7 +48,7 @@ namespace POSN3.Views
                 dt.Columns["created_at"].ReadOnly = true;
                 dt.Columns["updated_at"].ReadOnly = true;
 
-                
+
 
                 dataGridView1.DataSource = dt;
 
@@ -133,10 +133,10 @@ namespace POSN3.Views
 
                     var id = (int)dataGridView1.CurrentRow.Cells["id"].Value;
                     bool r = await helper.deleteAsync(id);
-                    if (r)
-                    {
-                        initalizeData();
-                    }
+                    //if (r)
+                    //{
+                    //    initalizeData();
+                    //}
 
                 }
 
@@ -216,12 +216,19 @@ namespace POSN3.Views
                 }
 
                 int? account_out_id = null;
-                if (dataGridViewRow.Cells["AccountInOut"].Value != DBNull.Value)
+                if (dataGridViewRow.Cells["AccountOutId"].Value != DBNull.Value)
                 {
-                    account_out_id = Int32.Parse(dataGridViewRow.Cells["AccountInOut"].Value.ToString());
+                    account_out_id = Int32.Parse(dataGridViewRow.Cells["AccountOutId"].Value.ToString());
                 }
 
-                
+                // Validate required fields before insert or update
+                if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(account))
+                {
+                    //MessageBox.Show("Name and Account fields are required.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+
                 if (id == 0)
                 {
                     bool r = await helper.insertAsync(name, account, tax1, tax2, tax3, account_in_id, account_out_id);

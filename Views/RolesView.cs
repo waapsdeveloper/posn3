@@ -136,11 +136,7 @@ namespace POSN3.Views
 
 
                     var id = (int)datatableView1.CurrentRow.Cells["id"].Value;
-                    bool r = await helper.deleteAsync(id);
-                    if (r)
-                    {
-                        initalizeData();
-                    }
+                    bool r = await helper.deleteAsync(id);                    
 
                 }
 

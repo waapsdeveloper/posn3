@@ -35,6 +35,10 @@ namespace POSN3.Views
             dataGridView1 = new DataGridView();
             ID = new DataGridViewTextBoxColumn();
             RoleList = new DataGridViewComboBoxColumn();
+            name = new DataGridViewTextBoxColumn();
+            email = new DataGridViewTextBoxColumn();
+            password = new DataGridViewTextBoxColumn();
+            is_login = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -52,7 +56,7 @@ namespace POSN3.Views
             dataGridView1.AllowUserToOrderColumns = true;
             dataGridView1.BackgroundColor = Color.FromArgb(254, 250, 224);
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { ID, RoleList });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { ID, RoleList, name, email, password, is_login });
             dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.GridColor = Color.FromArgb(254, 250, 224);
             dataGridView1.Location = new Point(0, 0);
@@ -61,9 +65,8 @@ namespace POSN3.Views
             dataGridView1.Size = new Size(863, 442);
             dataGridView1.TabIndex = 5;
             dataGridView1.CellEndEdit += dataGridView1_CellEndEdit;
-            dataGridView1.UserDeletingRow += dataGridView1_UserDeletingRow;
             dataGridView1.DataError += dataGridView1_DataError;
-
+            dataGridView1.UserDeletingRow += dataGridView1_UserDeletingRow;
             // 
             // ID
             // 
@@ -76,8 +79,33 @@ namespace POSN3.Views
             // RoleList
             // 
             RoleList.DataPropertyName = "role_id";
-            RoleList.HeaderText = "role_id";
+            RoleList.HeaderText = "role_id *";
             RoleList.Name = "RoleList";
+            // 
+            // name
+            // 
+            name.DataPropertyName = "name";
+            name.HeaderText = "name *";
+            name.Name = "name";
+            // 
+            // email
+            // 
+            email.DataPropertyName = "email";
+            email.HeaderText = "email *";
+            email.Name = "email";
+            // 
+            // password
+            // 
+            password.DataPropertyName = "password";
+            password.HeaderText = "password *";
+            password.Name = "password";
+            // 
+            // is_login
+            // 
+            is_login.DataPropertyName = "is_login";
+            is_login.HeaderText = "is_login";
+            is_login.Name = "is_login";
+            is_login.ReadOnly = true;
             // 
             // UsersView
             // 
@@ -103,5 +131,9 @@ namespace POSN3.Views
         private DataGridView dataGridView1;
         private DataGridViewTextBoxColumn ID;
         private DataGridViewComboBoxColumn RoleList;
+        private DataGridViewTextBoxColumn name;
+        private DataGridViewTextBoxColumn email;
+        private DataGridViewTextBoxColumn password;
+        private DataGridViewTextBoxColumn is_login;
     }
 }
