@@ -30,6 +30,9 @@
     <Compile Update="Views\EmployeeListView.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Views\LogListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Views\MessageListView.cs">
       <SubType>UserControl</SubType>
     </Compile>

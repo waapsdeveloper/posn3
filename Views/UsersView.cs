@@ -10,14 +10,14 @@ namespace POSN3.Views
         public UsersView()
         {
             InitializeComponent();
-
-            this.Paint += view_Paint;
+            populateRoleComboBox();
+            initalizeData();
+            //this.Paint += view_Paint;
         }
 
         private void view_Paint(object sender, PaintEventArgs e)
         {
-            populateRoleComboBox();
-            initalizeData();
+            
 
         }
 
@@ -90,6 +90,7 @@ namespace POSN3.Views
                     if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password) || id == 0)
                     {
                         // MessageBox.Show("Please provide all required fields.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //dataGridView1.CancelEdit(); // Cancel the cell edit to keep the user in edit mode
                         return;
                     }
 

@@ -48,15 +48,12 @@ namespace POSN3.Views
             dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.GridColor = Color.FromArgb(254, 250, 224);
             dataGridView1.Location = new Point(0, 0);
-            dataGridView1.Name = "dataGridView1";
+            dataGridView1.Name = "dataGridView3";
             dataGridView1.RowTemplate.Height = 25;
             dataGridView1.Size = new Size(787, 490);
             dataGridView1.TabIndex = 0;
             dataGridView1.CellEndEdit += dataGridView1_CellEndEdit;
-            dataGridView1.CellValidating += dataGridView1_CellValidating;
-            dataGridView1.CellValueChanged += dataGridView1_CellValueChanged;
-            dataGridView1.DataError += dataGridView1_DataError;
-            dataGridView1.EditingControlShowing += dataGridView1_EditingControlShowing;
+            //dataGridView1.DataError += dataGridView1_DataError;
             dataGridView1.UserDeletingRow += dataGridView1_UserDeletingRow;
             // 
             // UserList
@@ -79,6 +76,7 @@ namespace POSN3.Views
             // 
             account.DataPropertyName = "account";
             account.HeaderText = "account *";
+            account.MaxInputLength = 7;
             account.Name = "account";
             // 
             // AccountInId

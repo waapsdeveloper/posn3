@@ -19,8 +19,8 @@ namespace POSN3.Views
         public AccountListView()
         {
             InitializeComponent();
-            this.Paint += view_Paint;
-
+            //this.Paint += view_Paint;
+            initalizeData();
         }
 
         private void view_Paint(object sender, PaintEventArgs e)
@@ -103,10 +103,10 @@ namespace POSN3.Views
 
                     var id = (int)dataGridView1.CurrentRow.Cells["id"].Value;
                     bool r = await helper.deleteAsync(id);
-                    if (r)
-                    {
-                        initalizeData();
-                    }
+                    //if (r)
+                    //{
+                    //    initalizeData();
+                    //}
 
                 }
 
@@ -138,6 +138,12 @@ namespace POSN3.Views
                 string name = dataGridViewRow.Cells["name"].Value.ToString();
                 string account = dataGridViewRow.Cells["account"].Value.ToString();
                 string aop = dataGridViewRow.Cells["aop"].Value.ToString();
+
+                if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(account) || string.IsNullOrEmpty(aop))
+                {
+                    dataGridView1.CancelEdit(); // Cancel the cell edit to keep the user in edit mode
+                    return;
+                }
 
                 if (id == 0)
                 {

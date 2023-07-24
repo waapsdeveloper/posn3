@@ -10,15 +10,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using System.IO;
 
 namespace POSN3.Views
 {
-    public partial class MessageListView : UserControl
+    public partial class LogListView : UserControl
     {
-        public MessageListView()
+        public LogListView()
         {
             InitializeComponent();
-            this.Paint += view_Paint;
+            // this.Paint += view_Paint;
+            populateAccountComboBox();
+            initalizeData();
 
         }
 
@@ -33,7 +36,7 @@ namespace POSN3.Views
             try
             {
                 SqliteHelper sqliteHelper = new SqliteHelper();
-                MessageListHelper helper = new MessageListHelper(sqliteHelper);
+                LogListHelper helper = new LogListHelper(sqliteHelper);
 
                 DataTable dt = await helper.all();
 
@@ -58,6 +61,28 @@ namespace POSN3.Views
 
 
 
+        }
+
+        async void populateAccountComboBox()
+        {
+
+            try
+            {
+                SqliteHelper sqliteHelper = new SqliteHelper();
+                UserHelper list2 = new UserHelper(sqliteHelper);
+                DataTable dt2 = await list2.all();
+
+                UserId.ValueMember = "id";
+                UserId.DisplayMember = "name";
+                UserId.DataSource = dt2;
+
+                
+
+            }
+            catch (Exception e)
+            {
+                UtilityHelper.consoleLog(e.Message);
+            }
         }
 
         private async void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
@@ -101,7 +126,7 @@ namespace POSN3.Views
 
                 DataGridViewRow dataGridViewRow = datatableView1.CurrentRow;
                 SqliteHelper sqliteHelper = new SqliteHelper();
-                MessageListHelper helper = new MessageListHelper(sqliteHelper);
+                LogListHelper helper = new LogListHelper(sqliteHelper);
                 int id = 0;
                 if (dataGridViewRow.Cells["id"].Value != DBNull.Value)
                 {
@@ -127,7 +152,7 @@ namespace POSN3.Views
                 }
                 else
                 {
-                    bool r = await helper.updateAsync(id, message, invoice_id);
+                    bool r = await helper.update(id, message, invoice_id);
                     if (r)
                     {
                         initalizeData();
@@ -145,11 +170,11 @@ namespace POSN3.Views
                 if (MessageBox.Show("Are Sure You Want Delete The User?", "DataGridView", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     SqliteHelper sqliteHelper = new SqliteHelper();
-                    MessageListHelper helper = new MessageListHelper(sqliteHelper);
+                    LogListHelper helper = new LogListHelper(sqliteHelper);
 
 
                     var id = (int)datatableView1.CurrentRow.Cells["id"].Value;
-                    bool r = await helper.deleteAsync(id);
+                    bool r = await helper.delete(id);
                     //if (r)
                     //{
                     //    initalizeData();

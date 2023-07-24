@@ -13,12 +13,13 @@ using System.Xml.Linq;
 
 namespace POSN3.Views
 {
-    public partial class MessageListView : UserControl
+    public partial class PaymentListView : UserControl
     {
-        public MessageListView()
+        public PaymentListView()
         {
             InitializeComponent();
-            this.Paint += view_Paint;
+            //this.Paint += view_Paint;
+            initalizeData();
 
         }
 
@@ -33,7 +34,7 @@ namespace POSN3.Views
             try
             {
                 SqliteHelper sqliteHelper = new SqliteHelper();
-                MessageListHelper helper = new MessageListHelper(sqliteHelper);
+                RoleHelper helper = new RoleHelper(sqliteHelper);
 
                 DataTable dt = await helper.all();
 
@@ -83,59 +84,47 @@ namespace POSN3.Views
             }
         }
 
-        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private async void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             if (datatableView1.CurrentRow != null)
             {
-
-            }
-        }
-
-        private async void dataGridView1_CellEndEditAsync(object sender, DataGridViewCellEventArgs e)
-        {
-
-            // Perform your desired operation here
-            if (datatableView1.CurrentRow != null)
-            {
-
-
                 DataGridViewRow dataGridViewRow = datatableView1.CurrentRow;
                 SqliteHelper sqliteHelper = new SqliteHelper();
-                MessageListHelper helper = new MessageListHelper(sqliteHelper);
+                RoleHelper helper = new RoleHelper(sqliteHelper);
                 int id = 0;
                 if (dataGridViewRow.Cells["id"].Value != DBNull.Value)
                 {
                     id = Int32.Parse(dataGridViewRow.Cells["id"].Value.ToString());
                 }
+                string name = dataGridViewRow.Cells["name"].Value.ToString();
 
-                string message = dataGridViewRow.Cells["message"].Value.ToString();
-
-                int? invoice_id = null;
-                if (dataGridViewRow.Cells["InvoiceId"].Value != DBNull.Value)
+                // Perform validation
+                if (string.IsNullOrEmpty(name))
                 {
-                    invoice_id = Int32.Parse(dataGridViewRow.Cells["InvoiceId"].Value.ToString());
+                    // MessageBox.Show("Name is required.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    datatableView1.CancelEdit(); // Cancel the cell edit to keep the user in edit mode
+                    return;
                 }
-
 
                 if (id == 0)
                 {
-                    bool r = await helper.insert(message, invoice_id);
+                    bool r = await helper.insertAsync(name);
                     if (r)
                     {
-                        initalizeData();
+                        datatableView1.BeginInvoke(new Action(() => initalizeData()));
                     }
                 }
                 else
                 {
-                    bool r = await helper.updateAsync(id, message, invoice_id);
+                    bool r = await helper.updateAsync(id, name);
                     if (r)
                     {
-                        initalizeData();
+                        datatableView1.BeginInvoke(new Action(() => initalizeData()));
                     }
                 }
-
             }
         }
+
 
         private async void dataGridView1_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
@@ -145,28 +134,14 @@ namespace POSN3.Views
                 if (MessageBox.Show("Are Sure You Want Delete The User?", "DataGridView", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     SqliteHelper sqliteHelper = new SqliteHelper();
-                    MessageListHelper helper = new MessageListHelper(sqliteHelper);
+                    RoleHelper helper = new RoleHelper(sqliteHelper);
 
 
                     var id = (int)datatableView1.CurrentRow.Cells["id"].Value;
-                    bool r = await helper.deleteAsync(id);
-                    //if (r)
-                    //{
-                    //    initalizeData();
-                    //}
+                    bool r = await helper.deleteAsync(id);                    
 
                 }
 
-            }
-        }
-
-        private async void dataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
-        {
-            if (datatableView1.Columns[e.ColumnIndex] is DataGridViewComboBoxColumn)
-            {
-                //dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = null; // Clear the invalid value
-                //e.ThrowException = false; // Prevent the exception from being thrown
-                // MessageBox.Show("Please select a valid value.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

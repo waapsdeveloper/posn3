@@ -51,6 +51,8 @@ namespace POSN3
             EmployeeListViewInPanel.Visible = false;
             MessageListViewInPanel.Visible = false;
             UserControlViewInPanel.Visible = false;
+            LogListViewInPanel.Visible = false;
+            PaymentListViewInPanel.Visible = false;
         }
 
         public void loginSuccessful()
@@ -106,7 +108,13 @@ namespace POSN3
                 case "clogin":
                     UserControlViewInPanel.Visible = true;
                     break;
-
+                case "logs":
+                    LogListViewInPanel.Visible = true;
+                    break;
+                case "payments":
+                    PaymentListViewInPanel.Visible = true;
+                    break;
+                    
 
 
 
@@ -206,6 +214,18 @@ namespace POSN3
         private void UserViewInPanel_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void sidebarlogs_Click(object sender, EventArgs e)
+        {
+            UtilityHelper.consoleLog("point14");
+            showPanelBaseOnStep("logs");
+        }
+
+        private void sidebarpayments_Click(object sender, EventArgs e)
+        {
+            UtilityHelper.consoleLog("point15");
+            showPanelBaseOnStep("payments");
         }
     }
 }

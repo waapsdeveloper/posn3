@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             sidebar = new Panel();
+            sidebarlogs = new Button();
             Login = new Button();
             sidebarmessages = new Button();
             sidebaremployeelist = new Button();
@@ -64,6 +65,8 @@
             EmployeeListViewInPanel = new Views.EmployeeListView();
             MessageListViewInPanel = new Views.MessageListView();
             UserControlViewInPanel = new Views.UserControl1();
+            LogListViewInPanel = new Views.LogListView();
+            sidebarpayments = new Button();
             sidebar.SuspendLayout();
             header.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -74,6 +77,8 @@
             // sidebar
             // 
             sidebar.BackColor = Color.FromArgb(2, 48, 71);
+            sidebar.Controls.Add(sidebarpayments);
+            sidebar.Controls.Add(sidebarlogs);
             sidebar.Controls.Add(Login);
             sidebar.Controls.Add(sidebarmessages);
             sidebar.Controls.Add(sidebaremployeelist);
@@ -91,9 +96,23 @@
             sidebar.Dock = DockStyle.Left;
             sidebar.Location = new Point(0, 0);
             sidebar.Name = "sidebar";
-            sidebar.Size = new Size(172, 576);
+            sidebar.Size = new Size(172, 658);
             sidebar.TabIndex = 0;
             sidebar.Paint += panel1_Paint;
+            // 
+            // sidebarlogs
+            // 
+            sidebarlogs.Dock = DockStyle.Top;
+            sidebarlogs.FlatStyle = FlatStyle.Flat;
+            sidebarlogs.ForeColor = Color.FromArgb(251, 133, 0);
+            sidebarlogs.Location = new Point(0, 504);
+            sidebarlogs.Margin = new Padding(0);
+            sidebarlogs.Name = "sidebarlogs";
+            sidebarlogs.Size = new Size(172, 36);
+            sidebarlogs.TabIndex = 15;
+            sidebarlogs.Text = "Logs";
+            sidebarlogs.UseVisualStyleBackColor = true;
+            sidebarlogs.Click += sidebarlogs_Click;
             // 
             // Login
             // 
@@ -358,7 +377,7 @@
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(172, 36);
             panel1.Name = "panel1";
-            panel1.Size = new Size(628, 540);
+            panel1.Size = new Size(628, 622);
             panel1.TabIndex = 2;
             // 
             // panel2
@@ -376,10 +395,11 @@
             panel2.Controls.Add(EmployeeListViewInPanel);
             panel2.Controls.Add(MessageListViewInPanel);
             panel2.Controls.Add(UserControlViewInPanel);
+            panel2.Controls.Add(LogListViewInPanel);
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(628, 540);
+            panel2.Size = new Size(628, 622);
             panel2.TabIndex = 2;
             // 
             // UserViewInPanel
@@ -389,7 +409,7 @@
             UserViewInPanel.Dock = DockStyle.Fill;
             UserViewInPanel.Location = new Point(0, 0);
             UserViewInPanel.Name = "UserViewInPanel";
-            UserViewInPanel.Size = new Size(628, 540);
+            UserViewInPanel.Size = new Size(628, 622);
             UserViewInPanel.TabIndex = 0;
             UserViewInPanel.Load += UserViewInPanel_Load;
             // 
@@ -399,7 +419,7 @@
             RoleViewInPanel.Dock = DockStyle.Fill;
             RoleViewInPanel.Location = new Point(0, 0);
             RoleViewInPanel.Name = "RoleViewInPanel";
-            RoleViewInPanel.Size = new Size(628, 540);
+            RoleViewInPanel.Size = new Size(628, 622);
             RoleViewInPanel.TabIndex = 1;
             // 
             // TaxListViewInPanel
@@ -408,7 +428,7 @@
             TaxListViewInPanel.Dock = DockStyle.Fill;
             TaxListViewInPanel.Location = new Point(0, 0);
             TaxListViewInPanel.Name = "TaxListViewInPanel";
-            TaxListViewInPanel.Size = new Size(628, 540);
+            TaxListViewInPanel.Size = new Size(628, 622);
             TaxListViewInPanel.TabIndex = 1;
             // 
             // AccountListViewInPanel
@@ -417,7 +437,7 @@
             AccountListViewInPanel.Dock = DockStyle.Fill;
             AccountListViewInPanel.Location = new Point(0, 0);
             AccountListViewInPanel.Name = "AccountListViewInPanel";
-            AccountListViewInPanel.Size = new Size(628, 540);
+            AccountListViewInPanel.Size = new Size(628, 622);
             AccountListViewInPanel.TabIndex = 1;
             // 
             // AccountingViewInPanel
@@ -426,7 +446,7 @@
             AccountingViewInPanel.Dock = DockStyle.Fill;
             AccountingViewInPanel.Location = new Point(0, 0);
             AccountingViewInPanel.Name = "AccountingViewInPanel";
-            AccountingViewInPanel.Size = new Size(628, 540);
+            AccountingViewInPanel.Size = new Size(628, 622);
             AccountingViewInPanel.TabIndex = 1;
             // 
             // PartnerListViewInPanel
@@ -435,7 +455,7 @@
             PartnerListViewInPanel.Dock = DockStyle.Fill;
             PartnerListViewInPanel.Location = new Point(0, 0);
             PartnerListViewInPanel.Name = "PartnerListViewInPanel";
-            PartnerListViewInPanel.Size = new Size(628, 540);
+            PartnerListViewInPanel.Size = new Size(628, 622);
             PartnerListViewInPanel.TabIndex = 1;
             // 
             // GroupsViewInPanel
@@ -444,7 +464,7 @@
             GroupsViewInPanel.Dock = DockStyle.Fill;
             GroupsViewInPanel.Location = new Point(0, 0);
             GroupsViewInPanel.Name = "GroupsViewInPanel";
-            GroupsViewInPanel.Size = new Size(628, 540);
+            GroupsViewInPanel.Size = new Size(628, 622);
             GroupsViewInPanel.TabIndex = 1;
             // 
             // ProductsViewInPanel
@@ -453,7 +473,7 @@
             ProductsViewInPanel.Dock = DockStyle.Fill;
             ProductsViewInPanel.Location = new Point(0, 0);
             ProductsViewInPanel.Name = "ProductsViewInPanel";
-            ProductsViewInPanel.Size = new Size(628, 540);
+            ProductsViewInPanel.Size = new Size(628, 622);
             ProductsViewInPanel.TabIndex = 1;
             // 
             // WarehouseListViewInPanel
@@ -462,7 +482,7 @@
             WarehouseListViewInPanel.Dock = DockStyle.Fill;
             WarehouseListViewInPanel.Location = new Point(0, 0);
             WarehouseListViewInPanel.Name = "WarehouseListViewInPanel";
-            WarehouseListViewInPanel.Size = new Size(628, 540);
+            WarehouseListViewInPanel.Size = new Size(628, 622);
             WarehouseListViewInPanel.TabIndex = 1;
             // 
             // InvoiceListViewInPanel
@@ -471,7 +491,7 @@
             InvoiceListViewInPanel.Dock = DockStyle.Fill;
             InvoiceListViewInPanel.Location = new Point(0, 0);
             InvoiceListViewInPanel.Name = "InvoiceListViewInPanel";
-            InvoiceListViewInPanel.Size = new Size(628, 540);
+            InvoiceListViewInPanel.Size = new Size(628, 622);
             InvoiceListViewInPanel.TabIndex = 1;
             // 
             // EmployeeListViewInPanel
@@ -480,7 +500,7 @@
             EmployeeListViewInPanel.Dock = DockStyle.Fill;
             EmployeeListViewInPanel.Location = new Point(0, 0);
             EmployeeListViewInPanel.Name = "EmployeeListViewInPanel";
-            EmployeeListViewInPanel.Size = new Size(628, 540);
+            EmployeeListViewInPanel.Size = new Size(628, 622);
             EmployeeListViewInPanel.TabIndex = 1;
             // 
             // MessageListViewInPanel
@@ -489,7 +509,7 @@
             MessageListViewInPanel.Dock = DockStyle.Fill;
             MessageListViewInPanel.Location = new Point(0, 0);
             MessageListViewInPanel.Name = "MessageListViewInPanel";
-            MessageListViewInPanel.Size = new Size(628, 540);
+            MessageListViewInPanel.Size = new Size(628, 622);
             MessageListViewInPanel.TabIndex = 1;
             // 
             // UserControlViewInPanel
@@ -498,15 +518,38 @@
             UserControlViewInPanel.Dock = DockStyle.Fill;
             UserControlViewInPanel.Location = new Point(0, 0);
             UserControlViewInPanel.Name = "UserControlViewInPanel";
-            UserControlViewInPanel.Size = new Size(628, 540);
+            UserControlViewInPanel.Size = new Size(628, 622);
             UserControlViewInPanel.TabIndex = 1;
+            // 
+            // LogListViewInPanel
+            // 
+            LogListViewInPanel.BackColor = Color.FromArgb(254, 250, 224);
+            LogListViewInPanel.Dock = DockStyle.Fill;
+            LogListViewInPanel.Location = new Point(0, 0);
+            LogListViewInPanel.Name = "LogListViewInPanel";
+            LogListViewInPanel.Size = new Size(628, 622);
+            LogListViewInPanel.TabIndex = 1;
+            // 
+            // sidebarpayments
+            // 
+            sidebarpayments.Dock = DockStyle.Top;
+            sidebarpayments.FlatStyle = FlatStyle.Flat;
+            sidebarpayments.ForeColor = Color.FromArgb(251, 133, 0);
+            sidebarpayments.Location = new Point(0, 540);
+            sidebarpayments.Margin = new Padding(0);
+            sidebarpayments.Name = "sidebarpayments";
+            sidebarpayments.Size = new Size(172, 36);
+            sidebarpayments.TabIndex = 16;
+            sidebarpayments.Text = "Payments";
+            sidebarpayments.UseVisualStyleBackColor = true;
+            sidebarpayments.Click += sidebarpayments_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Blue;
-            ClientSize = new Size(800, 576);
+            ClientSize = new Size(800, 658);
             Controls.Add(panel1);
             Controls.Add(header);
             Controls.Add(sidebar);
@@ -567,6 +610,7 @@
         private Views.EmployeeListView EmployeeListViewInPanel;
         private Views.MessageListView MessageListViewInPanel;
         private Views.UserControl1 UserControlViewInPanel;
+        private Views.LogListView LogListViewInPanel;
         private Panel panel2;
         private Button sidebartaxlist;
         private Button sidebaracountlist;
@@ -581,5 +625,7 @@
         private Button Login;
         private PictureBox pictureBox1;
         private Label label1;
+        private Button sidebarlogs;
+        private Button sidebarpayments;
     }
 }

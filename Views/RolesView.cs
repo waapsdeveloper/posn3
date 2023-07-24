@@ -18,7 +18,8 @@ namespace POSN3.Views
         public RolesView()
         {
             InitializeComponent();
-            this.Paint += view_Paint;
+            //this.Paint += view_Paint;
+            initalizeData();
 
         }
 
@@ -100,7 +101,8 @@ namespace POSN3.Views
                 // Perform validation
                 if (string.IsNullOrEmpty(name))
                 {
-                    MessageBox.Show("Name is required.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // MessageBox.Show("Name is required.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    datatableView1.CancelEdit(); // Cancel the cell edit to keep the user in edit mode
                     return;
                 }
 
@@ -109,7 +111,7 @@ namespace POSN3.Views
                     bool r = await helper.insertAsync(name);
                     if (r)
                     {
-                        initalizeData();
+                        datatableView1.BeginInvoke(new Action(() => initalizeData()));
                     }
                 }
                 else
@@ -117,7 +119,7 @@ namespace POSN3.Views
                     bool r = await helper.updateAsync(id, name);
                     if (r)
                     {
-                        initalizeData();
+                        datatableView1.BeginInvoke(new Action(() => initalizeData()));
                     }
                 }
             }

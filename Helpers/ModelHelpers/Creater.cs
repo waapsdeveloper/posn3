@@ -37,6 +37,8 @@ namespace POSN3.Helpers.ModelHelpers
             initializeInvoiceTableAsync();
             InitializeEmployeeListTable();
             InitializeMessagesTableAsync();
+            InitializeLogTableAsync();
+            InitializePaymentListTableAsync();
 
             return true;
         }
@@ -485,12 +487,14 @@ namespace POSN3.Helpers.ModelHelpers
         {
             string sql = "CREATE TABLE logs ";
             sql += "(";
-            sql += "ID INTEGER PRIMARY KEY IDENTITY, ";
-            sql += "ProgramName VARCHAR(25), ";
-            sql += "UserID INTEGER, ";
-            sql += "MenuName VARCHAR(50), ";
-            sql += "BeginDate DATETIME, ";
-            sql += "EndDate DATETIME";
+            sql += "id INTEGER PRIMARY KEY IDENTITY, ";
+            sql += "program_name VARCHAR(25), ";
+            sql += "user_id INTEGER, ";
+            sql += "menu_name VARCHAR(50), ";
+            sql += "begin_date DATETIME, ";
+            sql += "end_date DATETIME, ";
+            sql += "created_at DATETIME DEFAULT CURRENT_TIMESTAMP, ";
+            sql += "updated_at DATETIME DEFAULT CURRENT_TIMESTAMP";
             sql += ")";
 
             object[] values = { };
@@ -510,15 +514,16 @@ namespace POSN3.Helpers.ModelHelpers
         }
 
 
+
         public async Task<bool> InitializePaymentListTableAsync()
         {
             string sql = "CREATE TABLE payment_list ";
             sql += "(";
-            sql += "ID INTEGER PRIMARY KEY IDENTITY, ";
-            sql += "Code VARCHAR(7), ";
-            sql += "Fiscal VARCHAR(3), ";
-            sql += "Name VARCHAR(75), ";
-            sql += "DiscountPayment DECIMAL(7,2)";
+            sql += "id INTEGER PRIMARY KEY IDENTITY, ";
+            sql += "code VARCHAR(7), ";
+            sql += "fiscal VARCHAR(3), ";
+            sql += "name VARCHAR(75), ";
+            sql += "discount_payment DECIMAL(7,2)";
             sql += ")";
 
             object[] values = { };
@@ -536,6 +541,7 @@ namespace POSN3.Helpers.ModelHelpers
                 return false;
             }
         }
+
 
         public async Task<bool> InitializeProductListTableAsync()
         {

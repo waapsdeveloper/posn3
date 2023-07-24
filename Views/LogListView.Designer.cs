@@ -2,7 +2,7 @@
 
 namespace POSN3.Views
 {
-    partial class MessageListView
+    partial class LogListView
     {
         /// <summary> 
         /// Required designer variable.
@@ -32,7 +32,7 @@ namespace POSN3.Views
         {
             datatableView1 = new DataGridView();
             id = new DataGridViewTextBoxColumn();
-            InvoiceId = new DataGridViewComboBoxColumn();
+            UserId = new DataGridViewComboBoxColumn();
             ((System.ComponentModel.ISupportInitialize)datatableView1).BeginInit();
             SuspendLayout();
             // 
@@ -41,7 +41,7 @@ namespace POSN3.Views
             datatableView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             datatableView1.BackgroundColor = Color.FromArgb(254, 250, 224);
             datatableView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            datatableView1.Columns.AddRange(new DataGridViewColumn[] { id, InvoiceId });
+            datatableView1.Columns.AddRange(new DataGridViewColumn[] { id, UserId });
             datatableView1.GridColor = Color.FromArgb(254, 250, 224);
             datatableView1.Location = new Point(0, 0);
             datatableView1.Name = "datatableView1";
@@ -61,19 +61,19 @@ namespace POSN3.Views
             id.Name = "id";
             id.ReadOnly = true;
             // 
-            // InvoiceId
+            // UserId
             // 
-            InvoiceId.DataPropertyName = "invoice_id";
-            InvoiceId.HeaderText = "invoice_id";
-            InvoiceId.Name = "InvoiceId";
+            UserId.DataPropertyName = "user_id";
+            UserId.HeaderText = "user_id";
+            UserId.Name = "UserId";
             // 
-            // MessageListView
+            // LogListView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(254, 250, 224);
             Controls.Add(datatableView1);
-            Name = "MessageListView";
+            Name = "LogListView";
             Size = new Size(719, 409);
             ((System.ComponentModel.ISupportInitialize)datatableView1).EndInit();
             ResumeLayout(false);
@@ -82,7 +82,7 @@ namespace POSN3.Views
         #endregion
 
         private DataGridView datatableView1;
-        private DataGridViewComboBoxColumn InvoiceId;
         private DataGridViewTextBoxColumn id;
+        private DataGridViewComboBoxColumn UserId;
     }
 }
