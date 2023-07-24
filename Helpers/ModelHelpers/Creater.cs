@@ -611,10 +611,10 @@ namespace POSN3.Helpers.ModelHelpers
             string sql = "CREATE TABLE uom_list ";
             sql += "(";
             sql += "ID INTEGER PRIMARY KEY IDENTITY, ";
-            sql += "Code VARCHAR(7), ";
-            sql += "Name VARCHAR(150), ";
-            sql += "BaseUnit INTEGER, ";
-            sql += "Ratio DECIMAL(16,7)";
+            sql += "code VARCHAR(7), ";
+            sql += "name VARCHAR(150), ";
+            sql += "base_unit INTEGER, ";
+            sql += "ratio DECIMAL(16,7)";
             sql += ")";
 
             object[] values = { };
@@ -632,6 +632,7 @@ namespace POSN3.Helpers.ModelHelpers
                 return false;
             }
         }
+
 
         public async Task<bool> InitializePERSONListTableAsync()
         {
