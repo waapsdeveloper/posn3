@@ -39,6 +39,9 @@
     <Compile Update="Views\InvoiceListView.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Views\ProductsListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Views\ProductsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -49,6 +52,12 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Views\GroupsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\PaymentListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\CityListView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Views\WarehouseListView.cs">

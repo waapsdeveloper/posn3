@@ -8,15 +8,15 @@ using System.Xml.Linq;
 
 namespace POSN3.Helpers.ModelHelpers
 {
-    internal class PaymentListTableHelper
+    internal class PaymentListHelper
     {
         SqliteHelper sqliteHelper;
-        public PaymentListTableHelper(SqliteHelper sqliteHelper)
+        public PaymentListHelper(SqliteHelper sqliteHelper)
         {
             this.sqliteHelper = sqliteHelper;
         }
 
-        public async Task<DataTable> All()
+        public async Task<DataTable> all()
         {
             string sql = "SELECT * FROM payment_list";
 

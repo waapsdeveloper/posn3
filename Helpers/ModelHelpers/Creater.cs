@@ -39,6 +39,7 @@ namespace POSN3.Helpers.ModelHelpers
             InitializeMessagesTableAsync();
             InitializeLogTableAsync();
             InitializePaymentListTableAsync();
+            InitializeProductListTableAsync();
 
             return true;
         }
@@ -523,7 +524,9 @@ namespace POSN3.Helpers.ModelHelpers
             sql += "code VARCHAR(7), ";
             sql += "fiscal VARCHAR(3), ";
             sql += "name VARCHAR(75), ";
-            sql += "discount_payment DECIMAL(7,2)";
+            sql += "discount_payment DECIMAL(7,2), ";
+            sql += "created_at DATETIME DEFAULT CURRENT_TIMESTAMP, ";
+            sql += "updated_at DATETIME DEFAULT CURRENT_TIMESTAMP";
             sql += ")";
 
             object[] values = { };
@@ -547,40 +550,42 @@ namespace POSN3.Helpers.ModelHelpers
         {
             string sql = "CREATE TABLE product_list ";
             sql += "(";
-            sql += "ID INTEGER PRIMARY KEY IDENTITY, ";
-            sql += "Code VARCHAR(13), ";
-            sql += "Barcode VARCHAR(50), ";
-            sql += "Group INTEGER, ";
-            sql += "Name VARCHAR(70), ";
-            sql += "LongName VARCHAR(120), ";
-            sql += "UnitOfMeasureID INTEGER, ";
-            sql += "PartnerID INTEGER, ";
-            sql += "VendorPrice DECIMAL(16,2), ";
-            sql += "WholesalePrice DECIMAL(16,2), ";
-            sql += "TaxPrice DECIMAL(16,2), ";
-            sql += "RetailPrice DECIMAL(16,2), ";
-            sql += "Recompense DECIMAL(6,2), ";
-            sql += "Discount DECIMAL(10,2), ";
-            sql += "TaxID INTEGER, ";
-            sql += "MinStock DECIMAL(16,4), ";
-            sql += "MaxStock DECIMAL(16,4), ";
-            sql += "Stock DECIMAL(16,4), ";
-            sql += "BOM VARCHAR(3), ";
-            sql += "SerialNumber VARCHAR(150), ";
-            sql += "ProductMaterial VARCHAR(3), ";
-            sql += "AccountSales INTEGER, ";
-            sql += "AccountPurchase INTEGER, ";
-            sql += "AccountIn INTEGER, ";
-            sql += "AccountOut INTEGER, ";
-            sql += "AccountAsset INTEGER, ";
-            sql += "Garantie INTEGER, ";
-            sql += "Picture IMAGE, ";
-            sql += "Services VARCHAR(3), ";
-            sql += "Thickness DECIMAL(16,2), ";
-            sql += "Length DECIMAL(16,2), ";
-            sql += "Width DECIMAL(16,2), ";
-            sql += "Weight DECIMAL(16,2), ";
-            sql += "Active VARCHAR(3)";
+            sql += "id INTEGER PRIMARY KEY IDENTITY, ";
+            sql += "code VARCHAR(13), ";
+            sql += "barcode VARCHAR(50), ";
+            sql += "group INTEGER, ";
+            sql += "name VARCHAR(70), ";
+            sql += "long_name VARCHAR(120), ";
+            sql += "unit_of_measure_id INTEGER, ";
+            sql += "partner_id INTEGER, ";
+            sql += "vendor_price DECIMAL(16,2), ";
+            sql += "wholesale_price DECIMAL(16,2), ";
+            sql += "tax_price DECIMAL(16,2), ";
+            sql += "retail_price DECIMAL(16,2), ";
+            sql += "recompense DECIMAL(6,2), ";
+            sql += "discount DECIMAL(10,2), ";
+            sql += "tax_id INTEGER, ";
+            sql += "min_stock DECIMAL(16,4), ";
+            sql += "max_stock DECIMAL(16,4), ";
+            sql += "stock DECIMAL(16,4), ";
+            sql += "bom VARCHAR(3), ";
+            sql += "serial_number VARCHAR(150), ";
+            sql += "product_material VARCHAR(3), ";
+            sql += "account_sales INTEGER, ";
+            sql += "account_purchase INTEGER, ";
+            sql += "account_in INTEGER, ";
+            sql += "account_out INTEGER, ";
+            sql += "account_asset INTEGER, ";
+            sql += "garantie INTEGER, ";
+            sql += "picture IMAGE, ";
+            sql += "services VARCHAR(3), ";
+            sql += "thickness DECIMAL(16,2), ";
+            sql += "length DECIMAL(16,2), ";
+            sql += "width DECIMAL(16,2), ";
+            sql += "weight DECIMAL(16,2), ";
+            sql += "active VARCHAR(3), ";
+            sql += "created_at DATETIME DEFAULT CURRENT_TIMESTAMP, ";
+            sql += "updated_at DATETIME DEFAULT CURRENT_TIMESTAMP";
             sql += ")";
 
             object[] values = { };
@@ -598,6 +603,7 @@ namespace POSN3.Helpers.ModelHelpers
                 return false;
             }
         }
+
 
 
         public async Task<bool> InitializeUOMListTableAsync()

@@ -17,7 +17,7 @@ namespace POSN3
 
             sidebar.Visible = false;
             UserControlViewInPanel.Visible = true;
-            loginSuccessful();
+            //loginSuccessful();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -53,6 +53,8 @@ namespace POSN3
             UserControlViewInPanel.Visible = false;
             LogListViewInPanel.Visible = false;
             PaymentListViewInPanel.Visible = false;
+            ProductsListViewInPanel.Visible = false;
+            CityListViewInPanel.Visible = false;
         }
 
         public void loginSuccessful()
@@ -114,7 +116,13 @@ namespace POSN3
                 case "payments":
                     PaymentListViewInPanel.Visible = true;
                     break;
-                    
+                case "products_list":
+                    ProductsListViewInPanel.Visible = true;
+                    break;
+                case "city_list":
+                    CityListViewInPanel.Visible = true;
+                    break;
+
 
 
 
@@ -226,6 +234,23 @@ namespace POSN3
         {
             UtilityHelper.consoleLog("point15");
             showPanelBaseOnStep("payments");
+        }
+
+        private void sidebarproductlist_Click(object sender, EventArgs e)
+        {
+            UtilityHelper.consoleLog("point16");
+            showPanelBaseOnStep("products_list");
+        }
+
+        private void sidebarcitylist_Click(object sender, EventArgs e)
+        {
+            UtilityHelper.consoleLog("point17");
+            showPanelBaseOnStep("city_list");
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

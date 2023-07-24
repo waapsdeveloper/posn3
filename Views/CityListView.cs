@@ -13,9 +13,9 @@ using System.Xml.Linq;
 
 namespace POSN3.Views
 {
-    public partial class PaymentListView : UserControl
+    public partial class CityListView : UserControl
     {
-        public PaymentListView()
+        public CityListView()
         {
             InitializeComponent();
             //this.Paint += view_Paint;
@@ -34,7 +34,7 @@ namespace POSN3.Views
             try
             {
                 SqliteHelper sqliteHelper = new SqliteHelper();
-                PaymentListHelper helper = new PaymentListHelper(sqliteHelper);
+                CityHelper helper = new CityHelper(sqliteHelper);
 
                 DataTable dt = await helper.all();
 
@@ -90,32 +90,25 @@ namespace POSN3.Views
             {
                 DataGridViewRow dataGridViewRow = datatableView1.CurrentRow;
                 SqliteHelper sqliteHelper = new SqliteHelper();
-                PaymentListHelper helper = new PaymentListHelper(sqliteHelper);
+                CityHelper helper = new CityHelper(sqliteHelper);
                 int id = 0;
                 if (dataGridViewRow.Cells["id"].Value != DBNull.Value)
                 {
                     id = Int32.Parse(dataGridViewRow.Cells["id"].Value.ToString());
                 }
-                string code = dataGridViewRow.Cells["code"].Value?.ToString(); // Updated: Read the "code" column value.
-                string fiscal = dataGridViewRow.Cells["fiscal"].Value?.ToString(); // Updated: Read the "fiscal" column value.
-                string name = dataGridViewRow.Cells["name"].Value?.ToString(); // Updated: Read the "name" column value.
-                decimal discountPayment = 0;
-                if (dataGridViewRow.Cells["discount_payment"].Value != DBNull.Value)
-                {
-                    discountPayment = Decimal.Parse(dataGridViewRow.Cells["discount_payment"].Value.ToString()); // Updated: Read the "discount_payment" column value.
-                }
+                string name = dataGridViewRow.Cells["name"].Value.ToString();
 
-                // Perform null checks and validation
-                if (string.IsNullOrEmpty(code) || string.IsNullOrEmpty(fiscal) || string.IsNullOrEmpty(name) || discountPayment == null)
+                // Perform validation
+                if (string.IsNullOrEmpty(name))
                 {
-                    // MessageBox.Show("All fields are required.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //datatableView1.CancelEdit(); // Cancel the cell edit to keep the user in edit mode
+                    // MessageBox.Show("Name is required.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    datatableView1.CancelEdit(); // Cancel the cell edit to keep the user in edit mode
                     return;
                 }
 
                 if (id == 0)
                 {
-                    bool r = await helper.InsertAsync(code, fiscal, name, discountPayment); // Updated: Pass the new column values to the insertAsync method.
+                    bool r = await helper.insertAsync(name);
                     if (r)
                     {
                         datatableView1.BeginInvoke(new Action(() => initalizeData()));
@@ -123,7 +116,7 @@ namespace POSN3.Views
                 }
                 else
                 {
-                    bool r = await helper.UpdateAsync(id, code, fiscal, name, discountPayment); // Updated: Pass the new column values to the updateAsync method.
+                    bool r = await helper.updateAsync(id, name);
                     if (r)
                     {
                         datatableView1.BeginInvoke(new Action(() => initalizeData()));
@@ -131,7 +124,6 @@ namespace POSN3.Views
                 }
             }
         }
-
 
 
         private async void dataGridView1_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
@@ -142,11 +134,11 @@ namespace POSN3.Views
                 if (MessageBox.Show("Are Sure You Want Delete The User?", "DataGridView", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     SqliteHelper sqliteHelper = new SqliteHelper();
-                    PaymentListHelper helper = new PaymentListHelper(sqliteHelper);
+                    CityHelper helper = new CityHelper(sqliteHelper);
 
 
                     var id = (int)datatableView1.CurrentRow.Cells["id"].Value;
-                    bool r = await helper.DeleteAsync(id);                    
+                    bool r = await helper.deleteAsync(id);                    
 
                 }
 
