@@ -40,6 +40,10 @@ namespace POSN3.Helpers.ModelHelpers
             InitializeLogTableAsync();
             InitializePaymentListTableAsync();
             InitializeProductListTableAsync();
+            InitializeUOMListTableAsync();
+            InitializeCalculationItemTableAsync();
+            InitializeCalculationHeaderTableAsync();
+
 
             return true;
         }
@@ -610,11 +614,13 @@ namespace POSN3.Helpers.ModelHelpers
         {
             string sql = "CREATE TABLE uom_list ";
             sql += "(";
-            sql += "ID INTEGER PRIMARY KEY IDENTITY, ";
+            sql += "id INTEGER PRIMARY KEY IDENTITY, ";
             sql += "code VARCHAR(7), ";
             sql += "name VARCHAR(150), ";
             sql += "base_unit INTEGER, ";
-            sql += "ratio DECIMAL(16,7)";
+            sql += "ratio DECIMAL(16,7), ";
+            sql += "created_at DATETIME DEFAULT CURRENT_TIMESTAMP, ";
+            sql += "updated_at DATETIME DEFAULT CURRENT_TIMESTAMP";
             sql += ")";
 
             object[] values = { };
@@ -638,7 +644,7 @@ namespace POSN3.Helpers.ModelHelpers
         {
             string sql = "CREATE TABLE person_list ";
             sql += "(";
-            sql += "ID INTEGER PRIMARY KEY IDENTITY, ";
+            sql += "id INTEGER PRIMARY KEY IDENTITY, ";
             sql += "Sifra VARCHAR(25), ";
             sql += "Lozinka VARCHAR(75), ";
             sql += "Naziv VARCHAR(75), ";
@@ -668,42 +674,29 @@ namespace POSN3.Helpers.ModelHelpers
         {
             string sql = "CREATE TABLE calculation_item ";
             sql += "(";
-            sql += "ID INTEGER, ";
-            sql += "CaclulacionID VARCHAR(20), ";
-            sql += "PartnerCodeID INTEGER, ";
-            sql += "PartnerName VARCHAR(30), ";
-            sql += "OIB VARCHAR(11), ";
-            sql += "CaclulacionDate DATE, ";
-            sql += "Invoice VARCHAR(50), ";
-            sql += "InvoiceModel VARCHAR(50), ";
-            sql += "PaymentMark VARCHAR(4), ";
-            sql += "InvoiceDate DATE, ";
-            sql += "DeliverDate DATE, ";
-            sql += "DueDate DATE, ";
-            sql += "InvoiceAmount DECIMAL(12,2), ";
-            sql += "Decimal1 DECIMAL(12,2), ";
-            sql += "Decimal2 DECIMAL(12,2), ";
-            sql += "Decimal3 DECIMAL(12,2), ";
-            sql += "Decimal4 DECIMAL(12,2), ";
-            sql += "Decimal5 DECIMAL(12,2), ";
-            sql += "Decimal6 DECIMAL(12,2), ";
-            sql += "Decimal7 DECIMAL(12,2), ";
-            sql += "Decimal8 DECIMAL(12,2), ";
-            sql += "Decimal9 DECIMAL(13,2), ";
-            sql += "Decimal10 DECIMAL(12,2), ";
-            sql += "Decimal11 DECIMAL(13,2), ";
-            sql += "Decimal12 DECIMAL(13,2), ";
-            sql += "Decimal13 DECIMAL(13,2), ";
-            sql += "Decimal14 DECIMAL(13,2), ";
-            sql += "Decimal15 DECIMAL(13,2), ";
-            sql += "PayedAmount DECIMAL(13,2), ";
-            sql += "Status VARCHAR(1), ";
-            sql += "Picture VARCHAR(20), ";
-            sql += "AccountingShop VARCHAR(3), ";
-            sql += "PostingScheme VARCHAR(5), ";
-            sql += "CodeBook VARCHAR(8), ";
-            sql += "WarehousID VARCHAR(3), ";
-            sql += "PaymentCode VARCHAR(3)";
+            sql += "id INTEGER PRIMARY KEY IDENTITY, ";
+            sql += "caclulacion_id VARCHAR(20), ";
+            sql += "partner_code_id INTEGER, ";
+            sql += "partner_name VARCHAR(30), ";
+            sql += "oib VARCHAR(11), ";
+            sql += "caclulacion_date DATE, ";
+            sql += "invoice VARCHAR(50), ";
+            sql += "invoice_model VARCHAR(50), ";
+            sql += "payment_mark VARCHAR(4), ";
+            sql += "invoice_date DATE, ";
+            sql += "deliver_date DATE, ";
+            sql += "due_date DATE, ";
+            sql += "invoice_amount DECIMAL(12,2), ";            
+            sql += "payed_amount DECIMAL(13,2), ";
+            sql += "status VARCHAR(1), ";
+            sql += "picture VARCHAR(20), ";
+            sql += "accounting_shop VARCHAR(3), ";
+            sql += "posting_scheme VARCHAR(5), ";
+            sql += "code_book VARCHAR(8), ";
+            sql += "warehous_id VARCHAR(3), ";
+            sql += "payment_code VARCHAR(3), ";
+            sql += "created_at DATETIME DEFAULT CURRENT_TIMESTAMP, ";
+            sql += "updated_at DATETIME DEFAULT CURRENT_TIMESTAMP";
             sql += ")";
 
             object[] values = { };
@@ -723,44 +716,42 @@ namespace POSN3.Helpers.ModelHelpers
         }
 
 
+
         public async Task<bool> InitializeCalculationHeaderTableAsync()
         {
             string sql = "CREATE TABLE calculation_header ";
             sql += "(";
-            sql += "ID INTEGER, ";
-            sql += "CaclulacionID VARCHAR(20), ";
-            sql += "Code VARCHAR(13), ";
-            sql += "Name VARCHAR(70), ";
-            sql += "UnitOfMeasureID INTEGER, ";
-            sql += "Quantity DECIMAL(15,3), ";
-            sql += "Decimal1 DECIMAL(13,4), ";
-            sql += "Thickness DECIMAL(12,2), ";
-            sql += "Length DECIMAL(12,2), ";
-            sql += "Width DECIMAL(12,2), ";
-            sql += "Weight DECIMAL(12,2), ";
-            sql += "VendorPrice DECIMAL(13,4), ";
-            sql += "Discount1 DECIMAL(7,2), ";
-            sql += "Decimal2 DECIMAL(12,2), ";
-            sql += "Discount2 DECIMAL(7,2), ";
-            sql += "Decimal3 DECIMAL(12,2), ";
-            sql += "VendorTax DECIMAL(12,2), ";
-            sql += "DependentCost DECIMAL(12,2), ";
-            sql += "WholeSaleTotal DECIMAL(12,2), ";
-            sql += "Margin DECIMAL(12,2), ";
-            sql += "Decimal4 DECIMAL(12,2), ";
-            sql += "AmountWithoutTax DECIMAL(12,2), ";
-            sql += "PriceWithoutTax DECIMAL(12,2), ";
-            sql += "Recompense DECIMAL(12,2), ";
-            sql += "Decimal5 VARCHAR(4), ";
-            sql += "TaxID INTEGER, ";
-            sql += "Tax1Total DECIMAL(12,2), ";
-            sql += "Tax2 DECIMAL(6,2), ";
-            sql += "Tax2Total DECIMAL(12,2), ";
-            sql += "RetailValue DECIMAL(12,2), ";
-            sql += "RetailPriceManual INTEGER, ";
-            sql += "RetailPrice INTEGER, ";
-            sql += "AccountRetail VARCHAR(8), ";
-            sql += "AccountAnalitic VARCHAR(8)";
+            sql += "id INTEGER, ";
+            sql += "caclulacion_id VARCHAR(20), ";
+            sql += "code VARCHAR(13), ";
+            sql += "name VARCHAR(70), ";
+            sql += "unit_of_measure_id INTEGER, ";
+            sql += "quantity DECIMAL(15,3), ";
+            sql += "thickness DECIMAL(12,2), ";
+            sql += "length DECIMAL(12,2), ";
+            sql += "width DECIMAL(12,2), ";
+            sql += "weight DECIMAL(12,2), ";
+            sql += "vendor_price DECIMAL(13,4), ";
+            sql += "discount1 DECIMAL(7,2), ";
+            sql += "discount2 DECIMAL(7,2), ";
+            sql += "vendor_tax DECIMAL(12,2), ";
+            sql += "dependent_cost DECIMAL(12,2), ";
+            sql += "wholesale_total DECIMAL(12,2), ";
+            sql += "margin DECIMAL(12,2), ";
+            sql += "amount_without_tax DECIMAL(12,2), ";
+            sql += "price_without_tax DECIMAL(12,2), ";
+            sql += "recompense DECIMAL(12,2), ";
+            sql += "tax_id INTEGER, ";
+            sql += "tax1_total DECIMAL(12,2), ";
+            sql += "tax2 DECIMAL(6,2), ";
+            sql += "tax2_total DECIMAL(12,2), ";
+            sql += "retail_value DECIMAL(12,2), ";
+            sql += "retail_price_manual INTEGER, ";
+            sql += "retail_price INTEGER, ";
+            sql += "account_retail VARCHAR(8), ";
+            sql += "account_analytic VARCHAR(8), ";
+            sql += "created_at DATETIME DEFAULT CURRENT_TIMESTAMP, ";
+            sql += "updated_at DATETIME DEFAULT CURRENT_TIMESTAMP";
             sql += ")";
 
             object[] values = { };
@@ -778,6 +769,7 @@ namespace POSN3.Helpers.ModelHelpers
                 return false;
             }
         }
+
 
 
 

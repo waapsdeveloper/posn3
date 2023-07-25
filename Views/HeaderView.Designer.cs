@@ -2,7 +2,7 @@
 
 namespace POSN3.Views
 {
-    partial class UomListView
+    partial class HeaderView
     {
         /// <summary> 
         /// Required designer variable.
@@ -81,13 +81,13 @@ namespace POSN3.Views
             id.Name = "id";
             id.ReadOnly = true;
             // 
-            // UomListView
+            // HeaderView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(254, 250, 224);
             Controls.Add(datatableView1);
-            Name = "UomListView";
+            Name = "HeaderView";
             Size = new Size(719, 409);
             ((System.ComponentModel.ISupportInitialize)datatableView1).EndInit();
             ResumeLayout(false);
@@ -98,5 +98,6 @@ namespace POSN3.Views
         private components.SearchBarView searchBarView2;
         private DataGridView datatableView1;
         private DataGridViewTextBoxColumn id;
+        private DataGridViewTextBoxColumn name;
     }
 }

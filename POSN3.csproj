@@ -60,6 +60,15 @@
     <Compile Update="Views\CityListView.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Views\ItemListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\HeaderView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\UomListView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Views\WarehouseListView.cs">
       <SubType>UserControl</SubType>
     </Compile>

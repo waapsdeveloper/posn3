@@ -13,9 +13,9 @@ using System.Xml.Linq;
 
 namespace POSN3.Views
 {
-    public partial class UomListView : UserControl
+    public partial class HeaderView : UserControl
     {
-        public UomListView()
+        public HeaderView()
         {
             InitializeComponent();
             //this.Paint += view_Paint;
@@ -34,7 +34,7 @@ namespace POSN3.Views
             try
             {
                 SqliteHelper sqliteHelper = new SqliteHelper();
-                UomListHelper helper = new UomListHelper(sqliteHelper);
+                HeaderHelper helper = new HeaderHelper(sqliteHelper);
 
                 DataTable dt = await helper.all();
 
@@ -90,38 +90,25 @@ namespace POSN3.Views
             {
                 DataGridViewRow dataGridViewRow = datatableView1.CurrentRow;
                 SqliteHelper sqliteHelper = new SqliteHelper();
-                UomListHelper helper = new UomListHelper(sqliteHelper);
+                HeaderHelper helper = new HeaderHelper(sqliteHelper);
                 int id = 0;
                 if (dataGridViewRow.Cells["id"].Value != DBNull.Value)
                 {
-                    id = Convert.ToInt32(dataGridViewRow.Cells["id"].Value);
+                    id = Int32.Parse(dataGridViewRow.Cells["id"].Value.ToString());
                 }
+                string name = dataGridViewRow.Cells["name"].Value.ToString();
 
-                string code = dataGridViewRow.Cells["code"].Value?.ToString();
-                string name = dataGridViewRow.Cells["name"].Value?.ToString();
-                int? baseUnit = null;
-                if (dataGridViewRow.Cells["base_unit"].Value != DBNull.Value)
+                // Perform validation
+                if (string.IsNullOrEmpty(name))
                 {
-                    baseUnit = Convert.ToInt32(dataGridViewRow.Cells["base_unit"].Value);
-                }
-
-                decimal? ratio = null;
-                if (dataGridViewRow.Cells["ratio"].Value != DBNull.Value)
-                {
-                    ratio = Convert.ToDecimal(dataGridViewRow.Cells["ratio"].Value);
-                }
-
-                // Perform validation for each column
-                if (string.IsNullOrEmpty(code) || string.IsNullOrEmpty(name) || baseUnit == null || ratio == null)
-                {
-                    MessageBox.Show("All columns must have values.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // MessageBox.Show("Name is required.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     datatableView1.CancelEdit(); // Cancel the cell edit to keep the user in edit mode
                     return;
                 }
 
                 if (id == 0)
                 {
-                    bool r = await helper.insertAsync(code, name, baseUnit.Value, ratio.Value);
+                    bool r = await helper.insertAsync(name);
                     if (r)
                     {
                         datatableView1.BeginInvoke(new Action(() => initalizeData()));
@@ -129,7 +116,7 @@ namespace POSN3.Views
                 }
                 else
                 {
-                    bool r = await helper.updateAsync(id, code, name, baseUnit.Value, ratio.Value);
+                    bool r = await helper.updateAsync(id, name);
                     if (r)
                     {
                         datatableView1.BeginInvoke(new Action(() => initalizeData()));
@@ -137,7 +124,6 @@ namespace POSN3.Views
                 }
             }
         }
-
 
 
         private async void dataGridView1_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
@@ -148,7 +134,7 @@ namespace POSN3.Views
                 if (MessageBox.Show("Are Sure You Want Delete The User?", "DataGridView", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     SqliteHelper sqliteHelper = new SqliteHelper();
-                    UomListHelper helper = new UomListHelper(sqliteHelper);
+                    HeaderHelper helper = new HeaderHelper(sqliteHelper);
 
 
                     var id = (int)datatableView1.CurrentRow.Cells["id"].Value;

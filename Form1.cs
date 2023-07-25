@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using POSN3.Helpers;
 using POSN3.Views;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using static MaterialSkin.Controls.MaterialCheckedListBox;
 
 namespace POSN3
 {
@@ -17,7 +18,7 @@ namespace POSN3
 
             sidebar.Visible = false;
             UserControlViewInPanel.Visible = true;
-            loginSuccessful();
+            //loginSuccessful();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -55,6 +56,9 @@ namespace POSN3
             PaymentListViewInPanel.Visible = false;
             ProductsListViewInPanel.Visible = false;
             CityListViewInPanel.Visible = false;
+            UomListViewInPanel.Visible = false;
+            ItemListViewInPanel.Visible = false;
+            HeaderListViewInPanel.Visible = false;
         }
 
         public void loginSuccessful()
@@ -122,6 +126,16 @@ namespace POSN3
                 case "city_list":
                     CityListViewInPanel.Visible = true;
                     break;
+                case "uom_list":
+                    UomListViewInPanel.Visible = true;
+                    break;
+                case "item_list":
+                    ItemListViewInPanel.Visible = true;
+                    break;
+                case "header_list":
+                    HeaderListViewInPanel.Visible = true;
+                    break;
+                
 
 
 
@@ -251,6 +265,24 @@ namespace POSN3
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void sidebarupmlist_Click(object sender, EventArgs e)
+        {
+            UtilityHelper.consoleLog("point18");
+            showPanelBaseOnStep("uom_list");
+        }
+
+        private void sidebaritemlist_Click(object sender, EventArgs e)
+        {
+            UtilityHelper.consoleLog("point18");
+            showPanelBaseOnStep("item_list");
+        }
+
+        private void sidebarheader_Click(object sender, EventArgs e)
+        {
+            UtilityHelper.consoleLog("point18");
+            showPanelBaseOnStep("header_list");
         }
     }
 }
