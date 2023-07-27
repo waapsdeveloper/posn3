@@ -34,6 +34,7 @@ namespace POSN3.Views
             searchBarView2 = new components.SearchBarView();
             datatableView1 = new DataGridView();
             id = new DataGridViewTextBoxColumn();
+            CaclulacionId = new DataGridViewComboBoxColumn();
             ((System.ComponentModel.ISupportInitialize)datatableView1).BeginInit();
             SuspendLayout();
             // 
@@ -62,7 +63,7 @@ namespace POSN3.Views
             datatableView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             datatableView1.BackgroundColor = Color.FromArgb(254, 250, 224);
             datatableView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            datatableView1.Columns.AddRange(new DataGridViewColumn[] { id });
+            datatableView1.Columns.AddRange(new DataGridViewColumn[] { id, CaclulacionId });
             datatableView1.GridColor = Color.FromArgb(254, 250, 224);
             datatableView1.Location = new Point(0, 0);
             datatableView1.Name = "datatableView1";
@@ -81,6 +82,12 @@ namespace POSN3.Views
             id.Name = "id";
             id.ReadOnly = true;
             // 
+            // CaclulacionId
+            // 
+            CaclulacionId.DataPropertyName = "caclulacion_id";
+            CaclulacionId.HeaderText = "caclulacion_id";
+            CaclulacionId.Name = "CaclulacionId";
+            // 
             // HeaderView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -97,7 +104,8 @@ namespace POSN3.Views
         private components.SearchBarView searchBarView1;
         private components.SearchBarView searchBarView2;
         private DataGridView datatableView1;
-        private DataGridViewTextBoxColumn id;
         private DataGridViewTextBoxColumn name;
+        private DataGridViewTextBoxColumn id;
+        private DataGridViewComboBoxColumn CaclulacionId;
     }
 }

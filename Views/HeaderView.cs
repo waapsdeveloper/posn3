@@ -19,6 +19,7 @@ namespace POSN3.Views
         {
             InitializeComponent();
             //this.Paint += view_Paint;
+            populateAccountComboBox();
             initalizeData();
 
         }
@@ -59,6 +60,27 @@ namespace POSN3.Views
 
 
 
+        }
+
+        async void populateAccountComboBox()
+        {
+
+            try
+            {
+                SqliteHelper sqliteHelper = new SqliteHelper();
+                ItemListHelper itemhelper = new ItemListHelper(sqliteHelper);
+                DataTable dt = await itemhelper.all();
+
+                CaclulacionId.ValueMember = "id";
+                CaclulacionId.DisplayMember = "id";
+                CaclulacionId.DataSource = dt;
+
+
+            }
+            catch (Exception e)
+            {
+                UtilityHelper.consoleLog(e.Message);
+            }
         }
 
         private async void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
